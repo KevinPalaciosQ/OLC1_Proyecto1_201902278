@@ -1,0 +1,90 @@
+// ------------  Paquete e importaciones ------------
+package DataForge_;
+
+import java_cup.runtime.*;
+
+
+//------> Codigo para el parser
+//------> Declaracion de variables, funciones y funciones de error
+
+parser code 
+{:
+    public static String resultado = ""; 
+
+    public void syntax_error(Symbol s)
+    {
+            System.err.println("Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Recuperado" );
+    }
+
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
+    {
+            System.err.println("Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Sin recuperacion." );
+    }
+
+:}
+
+
+//------> Codigo para las acciones gramaticales (no tocar)
+action code
+{:  :}
+
+
+//------> Declaración de terminales
+terminal String PARENTESIS_A, PARENTESIS_C, PUNTOYCOMA;
+terminal String POR, MAS,MENOS;
+terminal String R_MOSTRAR;
+terminal String ENTERO;
+terminal String DECIMAL;
+terminal String PROGRAM;
+terminal String END;
+terminal String DOSPUNTOS;
+terminal String VAR;
+terminal String MENORQUE;
+terminal String ARROBA;
+terminal String CORCHETE_ABRE;
+terminal String CORCHETE_CIERRA;
+terminal String R_DOUBLE;
+terminal String R_CHAR;
+terminal String ARR;
+//------> Declaración de no terminales
+non terminal inicio;
+non terminal instruccion, mostrar;
+non terminal lista_instr;
+non terminal expresion;
+non terminal tipodedato;
+non terminal declaracion;
+//------> PRECEDENCIA
+precedence left MAS;
+precedence left MENOS;
+precedence left POR;
+
+
+//------> Definir Simbolo Inicial
+start with inicio; 
+
+
+// ------------>  Producciones  <------------
+
+inicio ::= lista_instr
+;
+
+lista_instr ::= lista_instr instruccion
+    | instruccion
+;
+
+instruccion ::= mostrar
+;
+
+mostrar ::= R_MOSTRAR PARENTESIS_A expresion:val PARENTESIS_C PUNTOYCOMA   {::}
+;
+
+expresion ::= expresion:a MAS expresion:b       {: :}
+    | expresion:a POR expresion:b               {::}
+    | ENTERO:val                                {: :}
+;
+
+declaracion ::= VAR tipodedato DOSPUNTOS DOSPUNTOS MENORQUE MENOS {::}
+;
+
+tipodedato ::= {::}
+;
