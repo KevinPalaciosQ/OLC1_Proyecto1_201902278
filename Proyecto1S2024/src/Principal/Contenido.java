@@ -9,6 +9,13 @@ import GUI.Window;
  * @author kevin
  */
 public class Contenido {
+        public static void main(String[] args) {  
+    //analizadores("src/statPy/", "Lexer.jflex", "Parser.cup");
+        Window pantallita = new Window ();
+        pantallita.setVisible(true);
+        //pantallita.setLocation(null);
+    }
+}
 /*
     /**
      * @param args the command line arguments
@@ -36,6 +43,7 @@ public class Contenido {
         analizar(entrada); System.out.println(statpy.Parser.resultado);
     }
     */
+    /*
     public static void main(String[] args) {
        analizadores("src/DataForge_/", "Lexer.jflex", "Parser.cup"); 
         
@@ -54,7 +62,7 @@ public class Contenido {
         }
     }
 }
-
+*/
 /*
     // Realizar Analisis
     /*public static void analizar (String entrada){
