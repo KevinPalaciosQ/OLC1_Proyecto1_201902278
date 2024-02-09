@@ -4,49 +4,18 @@
  */
 package Principal;
 import GUI.Window;
+import java.io.StringReader;
 /**
  *
  * @author kevin
  */
+
 public class Contenido {
+  
         public static void main(String[] args) {  
-    //analizadores("src/statPy/", "Lexer.jflex", "Parser.cup");
+        analizadores("src/DataForge_/", "Lexer.jflex", "Parser.cup"); 
         Window pantallita = new Window ();
         pantallita.setVisible(true);
-        //pantallita.setLocation(null);
-    }
-}
-/*
-    /**
-     * @param args the command line arguments
-     */
-    /*
-    public static void main(String[] args) {
-        // TODO code application logic here
-        Window swindow = new Window ();
-        swindow.setVisible(true);
-    }
-   
-}
-*/
-/*
-        public static void main(String[] args) {
-        analizadores("src/DataForge_/", "Lexer.jflex", "Parser.cup");
-        
-        String entrada = """
-                         MOSTRAR ( 2*7+3 );
-                         MOSTRAR ( 5*5+100*3 );
-                         """;
-        
-        
-        
-        analizar(entrada); System.out.println(statpy.Parser.resultado);
-    }
-    */
-    /*
-    public static void main(String[] args) {
-       analizadores("src/DataForge_/", "Lexer.jflex", "Parser.cup"); 
-        
     }
         public static void analizadores(String ruta, String jflexFile, String cupFile){
         try {
@@ -60,18 +29,49 @@ public class Contenido {
             System.out.println("No se ha podido generar los analizadores");
             System.out.println(e);
         }
+    }       
+
+
+        
+        //pantallita.setLocation(null);
     }
+
+
+    /*
+    public static void main(String[] args) {
+        // TODO code application logic here
+        Window swindow = new Window ();
+        swindow.setVisible(true);
+    }
+   
 }
 */
 /*
+        public static void main(String[] args) {
+        //analizadores("src/DataForge_/", "Lexer.jflex", "Parser.cup");
+        
+        String entrada = """
+                         var : DOUBLE :: < - 2.5 END;
+                         var : CHAR[] :: < - "HOLA" END;
+                         """;
+        
+        
+        
+        analizar(entrada); System.out.println(DataForge_.Parser.resultado);
+    }
+    
+ 
     // Realizar Analisis
-    /*public static void analizar (String entrada){
+    public static void analizar (String entrada){
         try {
-            DataForge_.Lexer lexer = new json.Lexer(new StringReader(entrada)); 
-            DataForge_.Parser parser = new json.Parser(lexer);
+            DataForge_.Lexer lexer = new DataForge_.Lexer(new StringReader(entrada)); 
+            DataForge_.Parser parser = new DataForge_.Parser(lexer);
             parser.parse();
         } catch (Exception e) {
             System.out.println("Error fatal en compilación de entrada.");
             System.out.println(e);
-        } 
-}*/
+        }
+ 
+} 
+}
+*/

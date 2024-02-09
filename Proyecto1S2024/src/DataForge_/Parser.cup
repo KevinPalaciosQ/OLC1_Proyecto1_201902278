@@ -30,16 +30,17 @@ action code
 
 
 //------> Declaración de terminales
-terminal String PARENTESIS_A, PARENTESIS_C, PUNTOYCOMA;
+terminal String PARENTESIS_A, PARENTESIS_C, PUNTOYCOMA,COMA ;
+terminal String SUM, RES,MUL,DIV, MOD;
 terminal String POR, MAS,MENOS;
 terminal String R_MOSTRAR;
 terminal String ENTERO;
-terminal String DECIMAL;
+terminal String DECIMAL,CADENA;
 terminal String PROGRAM;
 terminal String END;
 terminal String DOSPUNTOS;
 terminal String VAR;
-terminal String MENORQUE;
+terminal String MENORQUE,MAYORQUE;
 terminal String ARROBA;
 terminal String CORCHETE_ABRE;
 terminal String CORCHETE_CIERRA;
@@ -60,19 +61,25 @@ terminal String VALUES;
 terminal String LABEL;
 terminal String EJEX;
 terminal String EJEY;
-terminal String titulox;
-terminal String tituloy;
 terminal String GRAPHPIE;
 terminal String GRAPHBAR;
 terminal String GRAPHLINE;
 terminal String HISTOGRAM;
+terminal String CONSOLE;
+terminal String TITULOX,TITULOY;
+terminal String IDENTIFICADOR;
+terminal String GUION;
 //------> Declaración de no terminales
 non terminal inicio;
-non terminal instruccion, mostrar;
-non terminal lista_instr;
 non terminal expresion;
 non terminal tipodedato;
 non terminal declaracion;
+non terminal tipodegrafica;
+non terminal chargraficas;
+non terminal tipodato;
+non terminal recorrido;
+non terminal instrucciones;
+non terminal arreglos;
 //------> PRECEDENCIA
 precedence left MAS;
 precedence left MENOS;
@@ -85,26 +92,30 @@ start with inicio;
 
 // ------------>  Producciones  <------------
 
-inicio ::= lista_instr
+inicio ::= PROGRAM recorrido END PROGRAM {::}
 ;
 
-lista_instr ::= lista_instr instruccion
-    | instruccion
+recorrido ::= instrucciones
+        |recorrido instrucciones
 ;
 
-instruccion ::= mostrar
+instrucciones ::= declaracion
+    |arreglos
+    |chargraficas
 ;
 
-mostrar ::= R_MOSTRAR PARENTESIS_A expresion:val PARENTESIS_C PUNTOYCOMA   {::}
+declaracion ::= VAR DOSPUNTOS tipodedato DOSPUNTOS DOSPUNTOS IDENTIFICADOR MENORQUE GUION  tipodato END PUNTOYCOMA {: :}
+;
+tipodedato ::= R_DOUBLE {::}
+        |R_CHAR CORCHETE_ABRE CORCHETE_CIERRA {::}
 ;
 
-expresion ::= expresion:a MAS expresion:b       {: :}
-    | expresion:a POR expresion:b               {::}
-    | ENTERO:val                                {: :}
+tipodato ::= DECIMAL {::}
+        |CADENA {::}
 ;
 
-declaracion ::= VAR tipodedato DOSPUNTOS DOSPUNTOS MENORQUE MENOS {::}
+chargraficas ::= R_CHAR CORCHETE_ABRE CORCHETE_CIERRA {::}
 ;
 
-tipodedato ::= {::}
+arreglos ::= ARR DOSPUNTOS tipodedato DOSPUNTOS DOSPUNTOS ARROBA IDENTIFICADOR MENORQUE GUION END PUNTOYCOMA{::}
 ;

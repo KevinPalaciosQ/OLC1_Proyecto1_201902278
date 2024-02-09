@@ -5,6 +5,15 @@
 package GUI;
 
 import java.awt.Font;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.StringReader;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rtextarea.RTextScrollPane;
@@ -36,7 +45,7 @@ RSyntaxTextArea textArea;
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jTextArea2 = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -69,10 +78,10 @@ RSyntaxTextArea textArea;
         jLabel2.setForeground(new java.awt.Color(153, 102, 255));
         jLabel2.setText("Salida");
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        jTextArea2.setEditable(false);
+        jTextArea2.setColumns(20);
+        jTextArea2.setRows(5);
+        jScrollPane1.setViewportView(jTextArea2);
 
         jButton1.setText("Anterior");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -115,8 +124,8 @@ RSyntaxTextArea textArea;
                                 .addComponent(jButton2))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 716, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(62, 62, 62)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(37, Short.MAX_VALUE))))
         );
@@ -127,7 +136,7 @@ RSyntaxTextArea textArea;
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addComponent(jLabel3)
-                        .addGap(53, 53, 53)
+                        .addGap(51, 51, 51)
                         .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -176,6 +185,11 @@ RSyntaxTextArea textArea;
         GuardarComo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         GuardarComo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/guardar-como.png"))); // NOI18N
         GuardarComo.setText("Guardar Como");
+        GuardarComo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarComoActionPerformed(evt);
+            }
+        });
         jMenu1.add(GuardarComo);
 
         jMenuBar1.add(jMenu1);
@@ -194,8 +208,14 @@ RSyntaxTextArea textArea;
 
         jMenu2.setText("Ejecutar");
 
+        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/compilar.png"))); // NOI18N
         jMenuItem3.setText("Iniciar depuración");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem3);
 
         jMenuBar1.add(jMenu2);
@@ -251,14 +271,114 @@ RSyntaxTextArea textArea;
     }//GEN-LAST:event_jMenu1ActionPerformed
 
     private void AbrirArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AbrirArchivoActionPerformed
-        // TODO add your handling code here:
-        jTextArea1.append("hola");
-        System.out.println("hola");
+// Abrir Archivo
+           //se crea el Objeto JFileChooser
+        JFileChooser fc =  new JFileChooser();
+        
+        //Se crea el filtro de extensiones de documento
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivo DF (*.df)", "df");
+        //Se indica el uso del filtro
+        fc.setFileFilter(filtro);
+        //Se abre ventana y se cargan 
+        int seleccion = fc.showOpenDialog(this);
+        //Si el usuario presiona aceptar
+        if (seleccion ==JFileChooser.APPROVE_OPTION){
+        File fichero = fc.getSelectedFile();
+        archivoAbierto = fichero;
+
+        // Obtenemos el nombre del archivo seleccionado
+        String nombrearchivo = fichero.getName();
+
+            archivoAbierto = fichero;
+            //Analizador3.setText(nombrearchivo);
+            //Escribe la ruta del fichero seleccionado en el campo de texto
+
+            try(FileReader fr = new FileReader(fichero)){
+                String cadena ="";
+                int valor = fr.read();
+                while (valor!=-1){
+                    cadena = cadena +(char)valor;
+                    valor =fr.read();
+                }
+                this.textArea.setText(cadena);
+                
+            }catch(IOException el){
+            el.printStackTrace();
+            }
+        } 
+      
     }//GEN-LAST:event_AbrirArchivoActionPerformed
 
+        public static void analizar (String entrada){
+        try {
+            DataForge_.Lexer lexer = new DataForge_.Lexer(new StringReader(entrada)); 
+            DataForge_.Parser parser = new DataForge_.Parser(lexer);
+            
+            parser.parse();
+        } catch (Exception e) {
+            System.out.println("Error fatal en compilación de entrada.");
+            System.out.println(e);
+        } 
+    } 
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
-        // TODO add your handling code here:
+    // Guardar Archivo
+       if (archivoAbierto != null) {
+        try (FileWriter fw = new FileWriter(archivoAbierto)) {
+            String contenido = textArea.getText(); // Obtener contenido del JTextArea
+            fw.write(contenido);
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al guardar el archivo.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "No hay un archivo abierto para guardar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+    }
+       
     }//GEN-LAST:event_GuardarActionPerformed
+private File archivoAbierto = null;
+    private void GuardarComoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarComoActionPerformed
+JFileChooser guardarArchivo = new JFileChooser();
+guardarArchivo.setDialogTitle("Guardar Como");
+
+// Agrega los filtros para las extensiones
+FileNameExtensionFilter filtroSP = new FileNameExtensionFilter("Archivo DF (*.df)", "df");
+guardarArchivo.addChoosableFileFilter(filtroSP);
+
+int opcion = guardarArchivo.showSaveDialog(this);
+File archivo;
+
+if (opcion == JFileChooser.APPROVE_OPTION) {
+    String nombre = guardarArchivo.getSelectedFile().getName();
+    String ruta = guardarArchivo.getSelectedFile().getAbsolutePath();
+    
+    FileNameExtensionFilter filtroSeleccionado = (FileNameExtensionFilter) guardarArchivo.getFileFilter();
+    String extension = filtroSeleccionado.getExtensions()[0];
+    
+    archivo = new File(ruta + "." + extension);
+
+    try {
+        if (!archivo.exists()) {
+            archivo.createNewFile();
+            FileWriter fw = new FileWriter(archivo);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(textArea.getText());
+            bw.close();
+        }
+        JOptionPane.showMessageDialog(this, "Se guardó el archivo correctamente");
+    } catch (IOException ex) {
+        // Manejo de excepciones
+    }
+}
+
+        
+    }//GEN-LAST:event_GuardarComoActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your hansdling code here:
+        System.out.println("Analizando");
+        analizar(textArea.getText());
+
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -319,6 +439,6 @@ RSyntaxTextArea textArea;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextArea2;
     // End of variables declaration//GEN-END:variables
 }

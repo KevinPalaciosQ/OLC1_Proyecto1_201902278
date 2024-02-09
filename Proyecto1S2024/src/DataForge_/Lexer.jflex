@@ -3,6 +3,7 @@ package DataForge_;
 
 import java_cup.runtime.*;
 
+
 %%	
 //-------> Directivas (No tocar)
 
@@ -10,20 +11,28 @@ import java_cup.runtime.*;
 %class Lexer
 %cup
 %char
-%column
 %line
+%column
 %unicode
 %ignorecase
 
-%{ 
-%} 
+
+%init{ 
+    yyline = 1;
+    yycolumn =1;
+%init} 
+
 
 // ------> Expresiones Regulares 
 
 entero = [0-9]+
+cadena = [\"][^\"\n]*[\"]
+identificador = [a-zA-Z][a-zA-Z0-9_]*
 decimal = \d+\.\d+
+
 multilinea = [<][!][^!]*[!]+([^>*][^!]*[*]+)*[>]
-comentariosimple = 
+
+
 %%
 // ------------  Reglas Lexicas -------------------
 "("               {return new Symbol(sym.PARENTESIS_A, yycolumn, yyline, yytext());}
@@ -33,7 +42,7 @@ comentariosimple =
 ":"               {return new Symbol(sym.DOSPUNTOS, yycolumn, yyline, yytext());}
 ";"               {return new Symbol(sym.PUNTOYCOMA, yycolumn, yyline, yytext());}
 ","               {return new Symbol(sym.COMA, yycolumn, yyline, yytext());}
-
+"-"               {return new Symbol(sym.GUION, yycolumn, yyline, yytext());}
 "program"         {return new Symbol(sym.PROGRAM, yycolumn, yyline, yytext());}
 "end"             {return new Symbol(sym.END, yycolumn, yyline, yytext());}
 "var"             {return new Symbol(sym.VAR, yycolumn, yyline, yytext());}
@@ -44,7 +53,7 @@ comentariosimple =
 
 //------------------------------------------OPERACIONES----------------------------------------------------------
 "sum"             {return new Symbol(sym.SUM, yycolumn, yyline, yytext());}
-"res"             {return new Symbol(sym.RES, yycolumn, yyline, yytext());}
+"res"               {return new Symbol(sym.RES, yycolumn, yyline, yytext());}
 "mul"             {return new Symbol(sym.MUL, yycolumn, yyline, yytext());}
 "div"             {return new Symbol(sym.DIV, yycolumn, yyline, yytext());}
 "mod"             {return new Symbol(sym.MOD, yycolumn, yyline, yytext());}
@@ -98,11 +107,13 @@ comentariosimple =
 "mostrar"   {return new Symbol(sym.R_MOSTRAR, yycolumn, yyline, yytext());}
 
 {entero}            { return new Symbol(sym.ENTERO, yycolumn, yyline, yytext()); }
+{cadena}            { return new Symbol(sym.CADENA, yycolumn, yyline, yytext()); }
 {decimal}           { return new Symbol(sym.DECIMAL, yycolumn, yyline, yytext()); }
-multilinea          {}
-comentariosimple    {}
+{identificador}     { return new Symbol(sym.IDENTIFICADOR, yycolumn, yyline, yytext()); }
+
+{multilinea}          {}
+
 //------> Ignorados 
 [ \t\r\n\f]     {/* Espacios en blanco se ignoran */}
-
 //------> Errores Léxicos 
 .           	{ System.out.println("Error Lexico: " + yytext() + " | Fila:" + yyline + " | Columna: " + yycolumn); }

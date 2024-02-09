@@ -8,51 +8,113 @@ package DataForge_;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int MENOS = 7;
+  public static final int DOSPUNTOS = 20;
+  public static final int POR = 11;
   public static final int PUNTOYCOMA = 4;
-  public static final int ARR = 21;
-  public static final int DOSPUNTOS = 13;
-  public static final int CORCHETE_CIERRA = 18;
-  public static final int DECIMAL = 10;
-  public static final int CORCHETE_ABRE = 17;
-  public static final int END = 12;
-  public static final int POR = 5;
-  public static final int PROGRAM = 11;
+  public static final int RES = 7;
+  public static final int ENTERO = 15;
+  public static final int GRAPHPIE = 44;
+  public static final int GRAPHBAR = 45;
+  public static final int TITULOY = 50;
+  public static final int TITULOX = 49;
+  public static final int IDENTIFICADOR = 51;
+  public static final int EJEY = 43;
+  public static final int EJEX = 42;
+  public static final int MAYORQUE = 23;
+  public static final int COLUMN = 37;
+  public static final int CORCHETE_CIERRA = 26;
+  public static final int ARROBA = 24;
+  public static final int TITULO = 39;
+  public static final int DIV = 9;
+  public static final int GUION = 52;
+  public static final int R_CHAR = 28;
+  public static final int MIN = 35;
+  public static final int MEDIANA = 31;
   public static final int EOF = 0;
-  public static final int MENORQUE = 15;
-  public static final int R_CHAR = 20;
-  public static final int PARENTESIS_C = 3;
+  public static final int DECIMAL = 16;
+  public static final int R_MOSTRAR = 14;
   public static final int error = 1;
+  public static final int PROGRAM = 18;
+  public static final int MUL = 8;
+  public static final int COMA = 5;
+  public static final int CADENA = 17;
+  public static final int VALUES = 40;
+  public static final int MENOS = 13;
+  public static final int MODA = 32;
+  public static final int MOD = 10;
+  public static final int MENORQUE = 22;
+  public static final int CORCHETE_ABRE = 25;
+  public static final int PARENTESIS_C = 3;
   public static final int PARENTESIS_A = 2;
-  public static final int R_DOUBLE = 19;
-  public static final int ENTERO = 9;
-  public static final int ARROBA = 16;
-  public static final int R_MOSTRAR = 8;
-  public static final int MAS = 6;
-  public static final int VAR = 14;
+  public static final int VARIANZA = 33;
+  public static final int R_DOUBLE = 27;
+  public static final int END = 19;
+  public static final int SUM = 6;
+  public static final int ARR = 29;
+  public static final int MEDIA = 30;
+  public static final int EXEC = 38;
+  public static final int LABEL = 41;
+  public static final int MAX = 34;
+  public static final int HISTOGRAM = 47;
+  public static final int GRAPHLINE = 46;
+  public static final int VAR = 21;
+  public static final int CONSOLE = 48;
+  public static final int PRINT = 36;
+  public static final int MAS = 12;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
   "PARENTESIS_A",
   "PARENTESIS_C",
   "PUNTOYCOMA",
+  "COMA",
+  "SUM",
+  "RES",
+  "MUL",
+  "DIV",
+  "MOD",
   "POR",
   "MAS",
   "MENOS",
   "R_MOSTRAR",
   "ENTERO",
   "DECIMAL",
+  "CADENA",
   "PROGRAM",
   "END",
   "DOSPUNTOS",
   "VAR",
   "MENORQUE",
+  "MAYORQUE",
   "ARROBA",
   "CORCHETE_ABRE",
   "CORCHETE_CIERRA",
   "R_DOUBLE",
   "R_CHAR",
-  "ARR"
+  "ARR",
+  "MEDIA",
+  "MEDIANA",
+  "MODA",
+  "VARIANZA",
+  "MAX",
+  "MIN",
+  "PRINT",
+  "COLUMN",
+  "EXEC",
+  "TITULO",
+  "VALUES",
+  "LABEL",
+  "EJEX",
+  "EJEY",
+  "GRAPHPIE",
+  "GRAPHBAR",
+  "GRAPHLINE",
+  "HISTOGRAM",
+  "CONSOLE",
+  "TITULOX",
+  "TITULOY",
+  "IDENTIFICADOR",
+  "GUION"
   };
 }
 
