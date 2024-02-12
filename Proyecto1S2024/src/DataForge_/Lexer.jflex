@@ -29,7 +29,7 @@ entero = [0-9]+
 cadena = [\"][^\"\n]*[\"]
 identificador = [a-zA-Z][a-zA-Z0-9_]*
 decimal = \d+\.\d+
-
+comentariosimple = \![^\n]*
 multilinea = [<][!][^!]*[!]+([^>*][^!]*[*]+)*[>]
 
 
@@ -110,7 +110,7 @@ multilinea = [<][!][^!]*[!]+([^>*][^!]*[*]+)*[>]
 {cadena}            { return new Symbol(sym.CADENA, yycolumn, yyline, yytext()); }
 {decimal}           { return new Symbol(sym.DECIMAL, yycolumn, yyline, yytext()); }
 {identificador}     { return new Symbol(sym.IDENTIFICADOR, yycolumn, yyline, yytext()); }
-
+{comentariosimple}          {}
 {multilinea}          {}
 
 //------> Ignorados 

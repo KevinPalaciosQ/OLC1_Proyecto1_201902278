@@ -80,6 +80,10 @@ non terminal tipodato;
 non terminal recorrido;
 non terminal instrucciones;
 non terminal arreglos;
+non terminal operaciones;
+non terminal operacion;
+non terminal elementos;
+non terminal valor;
 //------> PRECEDENCIA
 precedence left MAS;
 precedence left MENOS;
@@ -105,6 +109,7 @@ instrucciones ::= declaracion
 ;
 
 declaracion ::= VAR DOSPUNTOS tipodedato DOSPUNTOS DOSPUNTOS IDENTIFICADOR MENORQUE GUION  tipodato END PUNTOYCOMA {: :}
+            |VAR DOSPUNTOS tipodedato DOSPUNTOS DOSPUNTOS IDENTIFICADOR MENORQUE GUION  IDENTIFICADOR END PUNTOYCOMA {: :}
 ;
 tipodedato ::= R_DOUBLE {::}
         |R_CHAR CORCHETE_ABRE CORCHETE_CIERRA {::}
@@ -116,6 +121,29 @@ tipodato ::= DECIMAL {::}
 
 chargraficas ::= R_CHAR CORCHETE_ABRE CORCHETE_CIERRA {::}
 ;
+//-------------------------------------ARREGLOS----------------------------------------------------------------
 
-arreglos ::= ARR DOSPUNTOS tipodedato DOSPUNTOS DOSPUNTOS ARROBA IDENTIFICADOR MENORQUE GUION END PUNTOYCOMA{::}
+arreglos ::= ARR DOSPUNTOS tipodedato DOSPUNTOS DOSPUNTOS ARROBA IDENTIFICADOR MENORQUE GUION CORCHETE_ABRE elementos CORCHETE_CIERRA END PUNTOYCOMA{::}
+;
+//--------------------------OPERACIONES
+operaciones ::= VAR DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS IDENTIFICADOR MENORQUE GUION   PARENTESIS_A  PARENTESIS_C END PUNTOYCOMA {::}
+
+;
+
+
+elementos ::= valor
+        |elementos COMA valor
+;
+
+valor ::= DECIMAL
+        |CADENA
+        |IDENTIFICADOR
+        |ENTERO
+;
+
+operacion ::= SUM
+        |RES
+        |MUL
+        |DIV
+        |MOD
 ;
