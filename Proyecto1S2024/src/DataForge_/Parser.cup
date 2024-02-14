@@ -75,7 +75,10 @@ non terminal expresion;
 non terminal tipodedato;
 non terminal declaracion;
 non terminal tipodegrafica;
-non terminal chargraficas;
+non terminal declaracionhistograma;
+non terminal declaracionbarras;
+non terminal declaracionpie;
+non terminal declaracionlinea;
 non terminal tipodato;
 non terminal recorrido;
 non terminal instrucciones;
@@ -105,7 +108,10 @@ recorrido ::= instrucciones
 
 instrucciones ::= declaracion
     |arreglos
-    |chargraficas
+    |declaracionhistograma
+    |declaracionbarras
+    |declaracionpie
+    |declaracionlinea
 ;
 
 declaracion ::= VAR DOSPUNTOS tipodedato DOSPUNTOS DOSPUNTOS IDENTIFICADOR MENORQUE GUION  tipodato END PUNTOYCOMA {: :}
@@ -119,7 +125,15 @@ tipodato ::= DECIMAL {::}
         |CADENA {::}
 ;
 
-chargraficas ::= R_CHAR CORCHETE_ABRE CORCHETE_CIERRA {::}
+declaracionhistograma ::= HISTOGRAM PARENTESIS_A PARENTESIS_C END PUNTOYCOMA {::}
+;
+
+declaracionlinea ::= GRAPHLINE PARENTESIS_A PARENTESIS_C END PUNTOYCOMA   {::}
+;
+
+declaracionpie::= GRAPHPIE PARENTESIS_A PARENTESIS_C END PUNTOYCOMA   {::}
+;
+declaracionbarras::= GRAPHBAR PARENTESIS_A PARENTESIS_C END PUNTOYCOMA   {::}
 ;
 //-------------------------------------ARREGLOS----------------------------------------------------------------
 
