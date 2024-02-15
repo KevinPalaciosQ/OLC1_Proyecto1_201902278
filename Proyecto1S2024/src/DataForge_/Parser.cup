@@ -30,7 +30,7 @@ action code
 
 
 //------> Declaración de terminales
-terminal String PARENTESIS_A, PARENTESIS_C, PUNTOYCOMA,COMA ;
+terminal String PARENTESIS_A, PARENTESIS_C, PUNTOYCOMA,COMA;
 terminal String SUM, RES,MUL,DIV, MOD;
 terminal String POR, MAS,MENOS;
 terminal String R_MOSTRAR;
@@ -61,6 +61,7 @@ terminal String VALUES;
 terminal String LABEL;
 terminal String EJEX;
 terminal String EJEY;
+terminal String GRAPPIE;
 terminal String GRAPHPIE;
 terminal String GRAPHBAR;
 terminal String GRAPHLINE;
@@ -69,6 +70,9 @@ terminal String CONSOLE;
 terminal String TITULOX,TITULOY;
 terminal String IDENTIFICADOR;
 terminal String GUION;
+terminal String IGUAL;
+terminal String GRAPBAR;
+terminal String GRAPLINE;
 //------> Declaración de no terminales
 non terminal inicio;
 non terminal expresion;
@@ -78,6 +82,7 @@ non terminal tipodegrafica;
 non terminal declaracionhistograma;
 non terminal declaracionbarras;
 non terminal declaracionpie;
+non terminal contenidopie;
 non terminal declaracionlinea;
 non terminal tipodato;
 non terminal recorrido;
@@ -86,7 +91,31 @@ non terminal arreglos;
 non terminal operaciones;
 non terminal operacion;
 non terminal elementos;
+non terminal elementospie;
 non terminal valor;
+non terminal valorpie;
+non terminal datoslabel;
+non terminal elementoslabel;
+non terminal instrucciongrafica;
+non terminal buclegrafica;
+non terminal funcionesgrafica;
+non terminal instruccionhistograma;
+non terminal contenidohistograma;
+non terminal elementoshistograma;
+non terminal valorhistograma;
+non terminal instruccionbarras; 
+non terminal contenidobarras;
+non terminal elementosejey;
+non terminal valory;
+non terminal elementosejex;
+non terminal datox;
+non terminal instruccionlinea;
+non terminal contenidolinea;
+non terminal elementoslinea;
+non terminal valorlinea;
+non terminal elementoslineac;
+non terminal datoslineac;
+
 //------> PRECEDENCIA
 precedence left MAS;
 precedence left MENOS;
@@ -108,7 +137,11 @@ recorrido ::= instrucciones
 
 instrucciones ::= declaracion
     |arreglos
-    |declaracionhistograma
+    |funcionesgrafica
+
+;
+
+funcionesgrafica ::= declaracionhistograma
     |declaracionbarras
     |declaracionpie
     |declaracionlinea
@@ -125,16 +158,125 @@ tipodato ::= DECIMAL {::}
         |CADENA {::}
 ;
 
-declaracionhistograma ::= HISTOGRAM PARENTESIS_A PARENTESIS_C END PUNTOYCOMA {::}
+
+declaracionlinea ::= GRAPHLINE PARENTESIS_A  instruccionlinea PARENTESIS_C END PUNTOYCOMA {::}   
 ;
+
+
+declaracionbarras ::= GRAPHBAR PARENTESIS_A  instruccionbarras PARENTESIS_C END PUNTOYCOMA {::}   
+;
+
+instruccionbarras ::= instruccionbarras contenidobarras {::}
+        |contenidobarras {::}
+;
+contenidobarras ::= TITULOX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL CADENA END PUNTOYCOMA {::}
+        |TITULOY DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL CADENA END PUNTOYCOMA 
+        |TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL CADENA END PUNTOYCOMA 
+        |EJEX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL  CORCHETE_ABRE elementosejex CORCHETE_CIERRA END PUNTOYCOMA 
+        |EJEY DOSPUNTOS DOSPUNTOS R_DOUBLE IGUAL CORCHETE_ABRE elementosejey CORCHETE_CIERRA END PUNTOYCOMA 
+        |EXEC GRAPBAR END PUNTOYCOMA
+;
+
+elementosejey::= valory {::}
+        |elementosejey COMA valory {::}
+;
+
+valory ::= ENTERO
+        |DECIMAL
+;
+elementosejex::= datox {::}
+        |elementosejex COMA datox {::}
+;
+
+datox ::= CADENA
+        
+;
+
+
+declaracionhistograma ::= HISTOGRAM PARENTESIS_A  instruccionhistograma PARENTESIS_C END PUNTOYCOMA {::}       
+;
+
+instruccionhistograma ::= instruccionhistograma contenidohistograma {::}
+        |contenidohistograma {::}
+;
+
+contenidohistograma ::= TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL CADENA END PUNTOYCOMA {::}
+        |VALUES DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL CORCHETE_ABRE  elementoshistograma CORCHETE_CIERRA END PUNTOYCOMA {::}
+        |EXEC HISTOGRAM END PUNTOYCOMA {::}
+;
+
+elementoshistograma::= valorhistograma {::}
+        |elementoshistograma COMA valorhistograma {::}
+;
+
+valorhistograma ::= ENTERO
+        |DECIMAL
+;
+
+
+
 
 declaracionlinea ::= GRAPHLINE PARENTESIS_A PARENTESIS_C END PUNTOYCOMA   {::}
 ;
 
-declaracionpie::= GRAPHPIE PARENTESIS_A PARENTESIS_C END PUNTOYCOMA   {::}
+instruccionlinea ::= instruccionlinea contenidolinea {::}
+        |contenidolinea {::}
 ;
-declaracionbarras::= GRAPHBAR PARENTESIS_A PARENTESIS_C END PUNTOYCOMA   {::}
+contenidolinea ::= TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL CADENA  END PUNTOYCOMA {::} 
+        |EJEX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL  CORCHETE_ABRE elementoslineac CORCHETE_CIERRA END PUNTOYCOMA {::}
+        |EJEY DOSPUNTOS DOSPUNTOS  R_DOUBLE IGUAL CORCHETE_ABRE  elementoslinea CORCHETE_CIERRA END PUNTOYCOMA {::}
+        |TITULOX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL CADENA END PUNTOYCOMA{::}
+        |TITULOY DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE  CORCHETE_CIERRA IGUAL CADENA END PUNTOYCOMA{::}
+
+        |EXEC GRAPLINE END PUNTOYCOMA {::}
 ;
+elementoslinea::= valorlinea {::}
+        |elementoslinea COMA valorlinea {::}
+;
+
+valorlinea ::= ENTERO
+        |DECIMAL
+;
+
+elementoslineac::= datoslineac {::}
+        |elementoslineac COMA datoslineac {::}
+;
+
+datoslineac ::= CADENA
+        
+;
+
+
+
+
+
+declaracionpie::= GRAPHPIE PARENTESIS_A instrucciongrafica PARENTESIS_C END PUNTOYCOMA   {::}
+;
+
+
+instrucciongrafica ::= instrucciongrafica contenidopie {::}
+        |contenidopie {::}
+;
+
+contenidopie ::= TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL CADENA  END PUNTOYCOMA {::} 
+        |VALUES DOSPUNTOS DOSPUNTOS R_DOUBLE IGUAL CORCHETE_ABRE elementospie CORCHETE_CIERRA  END PUNTOYCOMA{::} 
+        |LABEL DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL CORCHETE_ABRE elementoslabel CORCHETE_CIERRA END PUNTOYCOMA{::}
+        |EXEC GRAPPIE END PUNTOYCOMA{::}
+;
+elementospie::= valorpie {::}
+        |elementospie COMA valorpie {::}
+;
+
+valorpie ::= ENTERO
+        |DECIMAL
+;
+
+elementoslabel::= datoslabel{::}
+        |elementoslabel COMA datoslabel
+;
+datoslabel ::= CADENA {::}
+;
+
 //-------------------------------------ARREGLOS----------------------------------------------------------------
 
 arreglos ::= ARR DOSPUNTOS tipodedato DOSPUNTOS DOSPUNTOS ARROBA IDENTIFICADOR MENORQUE GUION CORCHETE_ABRE elementos CORCHETE_CIERRA END PUNTOYCOMA{::}
@@ -145,19 +287,19 @@ operaciones ::= VAR DOSPUNTOS R_DOUBLE DOSPUNTOS DOSPUNTOS IDENTIFICADOR MENORQU
 ;
 
 
-elementos ::= valor
-        |elementos COMA valor
+elementos ::= valor {::}
+        |elementos COMA valor {::}
 ;
 
-valor ::= DECIMAL
-        |CADENA
-        |IDENTIFICADOR
-        |ENTERO
+valor ::= DECIMAL {::}
+        |CADENA {::}
+        |IDENTIFICADOR {::}
+        |ENTERO {::}
 ;
 
-operacion ::= SUM
-        |RES
-        |MUL
-        |DIV
-        |MOD
+operacion ::= SUM {::}
+        |RES {::}
+        |MUL {::}
+        |DIV {::}
+        |MOD {::}
 ;

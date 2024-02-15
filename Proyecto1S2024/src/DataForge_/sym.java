@@ -13,12 +13,13 @@ public class sym {
   public static final int PUNTOYCOMA = 4;
   public static final int RES = 7;
   public static final int ENTERO = 15;
-  public static final int GRAPHPIE = 44;
-  public static final int GRAPHBAR = 45;
-  public static final int TITULOY = 50;
-  public static final int TITULOX = 49;
-  public static final int IDENTIFICADOR = 51;
+  public static final int GRAPHPIE = 45;
+  public static final int GRAPHBAR = 46;
+  public static final int TITULOY = 51;
+  public static final int TITULOX = 50;
+  public static final int IDENTIFICADOR = 52;
   public static final int EJEY = 43;
+  public static final int IGUAL = 54;
   public static final int EJEX = 42;
   public static final int MAYORQUE = 23;
   public static final int COLUMN = 37;
@@ -26,7 +27,7 @@ public class sym {
   public static final int ARROBA = 24;
   public static final int TITULO = 39;
   public static final int DIV = 9;
-  public static final int GUION = 52;
+  public static final int GUION = 53;
   public static final int R_CHAR = 28;
   public static final int MIN = 35;
   public static final int MEDIANA = 31;
@@ -44,9 +45,11 @@ public class sym {
   public static final int MOD = 10;
   public static final int MENORQUE = 22;
   public static final int CORCHETE_ABRE = 25;
+  public static final int GRAPPIE = 44;
   public static final int PARENTESIS_C = 3;
   public static final int PARENTESIS_A = 2;
   public static final int VARIANZA = 33;
+  public static final int GRAPBAR = 55;
   public static final int R_DOUBLE = 27;
   public static final int END = 19;
   public static final int SUM = 6;
@@ -55,10 +58,11 @@ public class sym {
   public static final int EXEC = 38;
   public static final int LABEL = 41;
   public static final int MAX = 34;
-  public static final int HISTOGRAM = 47;
-  public static final int GRAPHLINE = 46;
+  public static final int HISTOGRAM = 48;
+  public static final int GRAPHLINE = 47;
   public static final int VAR = 21;
-  public static final int CONSOLE = 48;
+  public static final int GRAPLINE = 56;
+  public static final int CONSOLE = 49;
   public static final int PRINT = 36;
   public static final int MAS = 12;
   public static final String[] terminalNames = new String[] {
@@ -106,6 +110,7 @@ public class sym {
   "LABEL",
   "EJEX",
   "EJEY",
+  "GRAPPIE",
   "GRAPHPIE",
   "GRAPHBAR",
   "GRAPHLINE",
@@ -114,7 +119,10 @@ public class sym {
   "TITULOX",
   "TITULOY",
   "IDENTIFICADOR",
-  "GUION"
+  "GUION",
+  "IGUAL",
+  "GRAPBAR",
+  "GRAPLINE"
   };
 }
 

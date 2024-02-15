@@ -36,6 +36,7 @@ multilinea = [<][!][^!]*[!]+([^>*][^!]*[*]+)*[>]
 %%
 // ------------  Reglas Lexicas -------------------
 "("               {return new Symbol(sym.PARENTESIS_A, yycolumn, yyline, yytext());}
+"="               {return new Symbol(sym.IGUAL, yycolumn, yyline, yytext());}
 ")"               {return new Symbol(sym.PARENTESIS_C, yycolumn, yyline, yytext());}
 "["               {return new Symbol(sym.CORCHETE_ABRE, yycolumn, yyline, yytext());}
 "]"               {return new Symbol(sym.CORCHETE_CIERRA, yycolumn, yyline, yytext());}
@@ -50,7 +51,6 @@ multilinea = [<][!][^!]*[!]+([^>*][^!]*[*]+)*[>]
 "char"            {return new Symbol(sym.R_CHAR, yycolumn, yyline, yytext());}
 "arr"             {return new Symbol(sym.ARR, yycolumn, yyline, yytext());}
 "@"               {return new Symbol(sym.ARROBA, yycolumn, yyline, yytext());}
-
 //------------------------------------------OPERACIONES----------------------------------------------------------
 "sum"             {return new Symbol(sym.SUM, yycolumn, yyline, yytext());}
 "res"               {return new Symbol(sym.RES, yycolumn, yyline, yytext());}
@@ -85,13 +85,16 @@ multilinea = [<][!][^!]*[!]+([^>*][^!]*[*]+)*[>]
 //-------------------------------------------TIPOS-DE-GRAFICA----------------------------------------------------
 //GRAFICAPIE-GRAFICABARRAS-GRAPHFICALINE
 //----------------------------GRAPHPIE----------------------------------
+"grappie"        {return new Symbol(sym.GRAPPIE, yycolumn, yyline, yytext());}
 "graphpie"        {return new Symbol(sym.GRAPHPIE, yycolumn, yyline, yytext());}
 //titulo-values-label-exec
 //---------------------------GRAPHBAR-------------------------------------
 "graphbar"        {return new Symbol(sym.GRAPHBAR, yycolumn, yyline, yytext());}
+"grapbar"        {return new Symbol(sym.GRAPBAR, yycolumn, yyline, yytext());}
 //titulo-ejex-eyey-titulox-tituloy-exec
 //---------------------------GRAPHLINE---------------------------------------
 "graphline"       {return new Symbol(sym.GRAPHLINE, yycolumn, yyline, yytext());}
+"grapline"       {return new Symbol(sym.GRAPLINE, yycolumn, yyline, yytext());}
 //titulo-ejex-eyey-titulox-tituloy-exec
 //----------------------------HISTOGRAMA-------------------------------------
 "histogram"       {return new Symbol(sym.HISTOGRAM, yycolumn, yyline, yytext());}
