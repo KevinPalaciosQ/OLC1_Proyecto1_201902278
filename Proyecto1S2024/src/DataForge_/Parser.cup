@@ -138,6 +138,7 @@ recorrido ::= instrucciones
 instrucciones ::= declaracion
     |arreglos
     |funcionesgrafica
+    |error PUNTOYCOMA
 
 ;
 
