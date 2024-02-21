@@ -928,272 +928,272 @@ public class Lexer implements java_cup.runtime.Scanner {
           // fall through
           case 60: break;
           case 4:
-            { return new Symbol(sym.PARENTESIS_A, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "PARENTESIS_A", yyline, yycolumn); return new Symbol(sym.PARENTESIS_A, yycolumn, yyline, yytext());
             }
           // fall through
           case 61: break;
           case 5:
-            { return new Symbol(sym.PARENTESIS_C, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "PARENTESIS_C", yyline, yycolumn); return new Symbol(sym.PARENTESIS_C, yycolumn, yyline, yytext());
             }
           // fall through
           case 62: break;
           case 6:
-            { return new Symbol(sym.POR, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "POR", yyline, yycolumn); return new Symbol(sym.POR, yycolumn, yyline, yytext());
             }
           // fall through
           case 63: break;
           case 7:
-            { return new Symbol(sym.MAS, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "MAS", yyline, yycolumn); return new Symbol(sym.MAS, yycolumn, yyline, yytext());
             }
           // fall through
           case 64: break;
           case 8:
-            { return new Symbol(sym.COMA, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "COMA", yyline, yycolumn); return new Symbol(sym.COMA, yycolumn, yyline, yytext());
             }
           // fall through
           case 65: break;
           case 9:
-            { return new Symbol(sym.GUION, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "GUION", yyline, yycolumn); return new Symbol(sym.GUION, yycolumn, yyline, yytext());
             }
           // fall through
           case 66: break;
           case 10:
-            { return new Symbol(sym.ENTERO, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "ENTERO", yyline, yycolumn); return new Symbol(sym.ENTERO, yycolumn, yyline, yytext());
             }
           // fall through
           case 67: break;
           case 11:
-            { return new Symbol(sym.DOSPUNTOS, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "DOSPUNTOS", yyline, yycolumn); return new Symbol(sym.DOSPUNTOS, yycolumn, yyline, yytext());
             }
           // fall through
           case 68: break;
           case 12:
-            { return new Symbol(sym.PUNTOYCOMA, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "PUNTOYCOMA", yyline, yycolumn); return new Symbol(sym.PUNTOYCOMA, yycolumn, yyline, yytext());
             }
           // fall through
           case 69: break;
           case 13:
-            { return new Symbol(sym.MENORQUE, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "MENORQUE", yyline, yycolumn); return new Symbol(sym.MENORQUE, yycolumn, yyline, yytext());
             }
           // fall through
           case 70: break;
           case 14:
-            { return new Symbol(sym.IGUAL, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "IGUAL", yyline, yycolumn); return new Symbol(sym.IGUAL, yycolumn, yyline, yytext());
             }
           // fall through
           case 71: break;
           case 15:
-            { return new Symbol(sym.MAYORQUE, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "MAYORQUE", yyline, yycolumn); return new Symbol(sym.MAYORQUE, yycolumn, yyline, yytext());
             }
           // fall through
           case 72: break;
           case 16:
-            { return new Symbol(sym.ARROBA, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "ARROBA", yyline, yycolumn);  return new Symbol(sym.ARROBA, yycolumn, yyline, yytext());
             }
           // fall through
           case 73: break;
           case 17:
-            { return new Symbol(sym.IDENTIFICADOR, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "IDENTIFICADOR", yyline, yycolumn); return new Symbol(sym.IDENTIFICADOR, yycolumn, yyline, yytext());
             }
           // fall through
           case 74: break;
           case 18:
-            { return new Symbol(sym.CORCHETE_ABRE, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "CORCHETE_ABRE", yyline, yycolumn); return new Symbol(sym.CORCHETE_ABRE, yycolumn, yyline, yytext());
             }
           // fall through
           case 75: break;
           case 19:
-            { return new Symbol(sym.CORCHETE_CIERRA, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "CORCHETE_CIERRA", yyline, yycolumn); return new Symbol(sym.CORCHETE_CIERRA, yycolumn, yyline, yytext());
             }
           // fall through
           case 76: break;
           case 20:
-            { return new Symbol(sym.CADENA, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "CADENA", yyline, yycolumn); return new Symbol(sym.CADENA, yycolumn, yyline, yytext());
             }
           // fall through
           case 77: break;
           case 21:
-            { return new Symbol(sym.DECIMAL, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "DECIMAL", yyline, yycolumn); return new Symbol(sym.DECIMAL, yycolumn, yyline, yytext());
             }
           // fall through
           case 78: break;
           case 22:
-            { return new Symbol(sym.ARR, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "ARR", yyline, yycolumn); return new Symbol(sym.ARR, yycolumn, yyline, yytext());
             }
           // fall through
           case 79: break;
           case 23:
-            { return new Symbol(sym.DIV, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "DIV", yyline, yycolumn); return new Symbol(sym.DIV, yycolumn, yyline, yytext());
             }
           // fall through
           case 80: break;
           case 24:
-            { return new Symbol(sym.END, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "END", yyline, yycolumn); return new Symbol(sym.END, yycolumn, yyline, yytext());
             }
           // fall through
           case 81: break;
           case 25:
-            { return new Symbol(sym.MAX, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "MAX", yyline, yycolumn); return new Symbol(sym.MAX, yycolumn, yyline, yytext());
             }
           // fall through
           case 82: break;
           case 26:
-            { return new Symbol(sym.MIN, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "MIN", yyline, yycolumn);  return new Symbol(sym.MIN, yycolumn, yyline, yytext());
             }
           // fall through
           case 83: break;
           case 27:
-            { return new Symbol(sym.MOD, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "MOD", yyline, yycolumn); return new Symbol(sym.MOD, yycolumn, yyline, yytext());
             }
           // fall through
           case 84: break;
           case 28:
-            { return new Symbol(sym.MUL, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "MUL", yyline, yycolumn); return new Symbol(sym.MUL, yycolumn, yyline, yytext());
             }
           // fall through
           case 85: break;
           case 29:
-            { return new Symbol(sym.RES, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "RES", yyline, yycolumn); return new Symbol(sym.RES, yycolumn, yyline, yytext());
             }
           // fall through
           case 86: break;
           case 30:
-            { return new Symbol(sym.SUM, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "SUM", yyline, yycolumn); return new Symbol(sym.SUM, yycolumn, yyline, yytext());
             }
           // fall through
           case 87: break;
           case 31:
-            { return new Symbol(sym.VAR, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "VAR", yyline, yycolumn); return new Symbol(sym.VAR, yycolumn, yyline, yytext());
             }
           // fall through
           case 88: break;
           case 32:
-            { return new Symbol(sym.R_CHAR, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "R_CHAR", yyline, yycolumn); return new Symbol(sym.R_CHAR, yycolumn, yyline, yytext());
             }
           // fall through
           case 89: break;
           case 33:
-            { return new Symbol(sym.EJEX, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "EJEX", yyline, yycolumn); return new Symbol(sym.EJEX, yycolumn, yyline, yytext());
             }
           // fall through
           case 90: break;
           case 34:
-            { return new Symbol(sym.EJEY, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "EJEY", yyline, yycolumn); return new Symbol(sym.EJEY, yycolumn, yyline, yytext());
             }
           // fall through
           case 91: break;
           case 35:
-            { return new Symbol(sym.EXEC, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "EXEC", yyline, yycolumn); return new Symbol(sym.EXEC, yycolumn, yyline, yytext());
             }
           // fall through
           case 92: break;
           case 36:
-            { return new Symbol(sym.MODA, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "MODA", yyline, yycolumn); return new Symbol(sym.MODA, yycolumn, yyline, yytext());
             }
           // fall through
           case 93: break;
           case 37:
-            { return new Symbol(sym.LABEL, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "LABEL", yyline, yycolumn); return new Symbol(sym.LABEL, yycolumn, yyline, yytext());
             }
           // fall through
           case 94: break;
           case 38:
-            { return new Symbol(sym.MEDIA, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "MEDIA", yyline, yycolumn); return new Symbol(sym.MEDIA, yycolumn, yyline, yytext());
             }
           // fall through
           case 95: break;
           case 39:
-            { return new Symbol(sym.PRINT, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "PRINT", yyline, yycolumn); return new Symbol(sym.PRINT, yycolumn, yyline, yytext());
             }
           // fall through
           case 96: break;
           case 40:
-            { return new Symbol(sym.COLUMN, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "COLUMN", yyline, yycolumn); return new Symbol(sym.COLUMN, yycolumn, yyline, yytext());
             }
           // fall through
           case 97: break;
           case 41:
-            { return new Symbol(sym.R_DOUBLE, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "R_DOUBLE", yyline, yycolumn); return new Symbol(sym.R_DOUBLE, yycolumn, yyline, yytext());
             }
           // fall through
           case 98: break;
           case 42:
-            { return new Symbol(sym.TITULO, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "TITULO", yyline, yycolumn); return new Symbol(sym.TITULO, yycolumn, yyline, yytext());
             }
           // fall through
           case 99: break;
           case 43:
-            { return new Symbol(sym.VALUES, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "VALUES", yyline, yycolumn); return new Symbol(sym.VALUES, yycolumn, yyline, yytext());
             }
           // fall through
           case 100: break;
           case 44:
-            { return new Symbol(sym.CONSOLE, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "CONSOLE", yyline, yycolumn); return new Symbol(sym.CONSOLE, yycolumn, yyline, yytext());
             }
           // fall through
           case 101: break;
           case 45:
-            { return new Symbol(sym.GRAPBAR, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "GRAPBAR", yyline, yycolumn); return new Symbol(sym.GRAPBAR, yycolumn, yyline, yytext());
             }
           // fall through
           case 102: break;
           case 46:
-            { return new Symbol(sym.GRAPPIE, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "GRAPPIE", yyline, yycolumn); return new Symbol(sym.GRAPPIE, yycolumn, yyline, yytext());
             }
           // fall through
           case 103: break;
           case 47:
-            { return new Symbol(sym.MEDIANA, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "MEDIANA", yyline, yycolumn); return new Symbol(sym.MEDIANA, yycolumn, yyline, yytext());
             }
           // fall through
           case 104: break;
           case 48:
-            { return new Symbol(sym.R_MOSTRAR, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "R_MOSTRAR", yyline, yycolumn); return new Symbol(sym.R_MOSTRAR, yycolumn, yyline, yytext());
             }
           // fall through
           case 105: break;
           case 49:
-            { return new Symbol(sym.PROGRAM, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "PROGRAM", yyline, yycolumn); return new Symbol(sym.PROGRAM, yycolumn, yyline, yytext());
             }
           // fall through
           case 106: break;
           case 50:
-            { return new Symbol(sym.TITULOX, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "TITULOX", yyline, yycolumn); return new Symbol(sym.TITULOX, yycolumn, yyline, yytext());
             }
           // fall through
           case 107: break;
           case 51:
-            { return new Symbol(sym.TITULOY, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "TITULOY", yyline, yycolumn); return new Symbol(sym.TITULOY, yycolumn, yyline, yytext());
             }
           // fall through
           case 108: break;
           case 52:
-            { return new Symbol(sym.GRAPHBAR, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "GRAPHBAR", yyline, yycolumn); return new Symbol(sym.GRAPHBAR, yycolumn, yyline, yytext());
             }
           // fall through
           case 109: break;
           case 53:
-            { return new Symbol(sym.GRAPHPIE, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "GRAPHPIE", yyline, yycolumn); return new Symbol(sym.GRAPHPIE, yycolumn, yyline, yytext());
             }
           // fall through
           case 110: break;
           case 54:
-            { return new Symbol(sym.GRAPLINE, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "GRAPLINE", yyline, yycolumn); return new Symbol(sym.GRAPLINE, yycolumn, yyline, yytext());
             }
           // fall through
           case 111: break;
           case 55:
-            { return new Symbol(sym.VARIANZA, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "VARIANZA", yyline, yycolumn); return new Symbol(sym.VARIANZA, yycolumn, yyline, yytext());
             }
           // fall through
           case 112: break;
           case 56:
-            { return new Symbol(sym.GRAPHLINE, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "GRAPHLINE", yyline, yycolumn); return new Symbol(sym.GRAPHLINE, yycolumn, yyline, yytext());
             }
           // fall through
           case 113: break;
           case 57:
-            { return new Symbol(sym.HISTOGRAM, yycolumn, yyline, yytext());
+            { funciones.reportes.TablaTokensDF(yytext(), "HISTOGRAM", yyline, yycolumn); return new Symbol(sym.HISTOGRAM, yycolumn, yyline, yytext());
             }
           // fall through
           case 114: break;
