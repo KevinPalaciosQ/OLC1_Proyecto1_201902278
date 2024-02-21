@@ -49,8 +49,9 @@ RSyntaxTextArea textArea;
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
+        Pestana = new javax.swing.JTabbedPane();
+        jPanel3 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         AbrirArchivo = new javax.swing.JMenuItem();
@@ -62,9 +63,9 @@ RSyntaxTextArea textArea;
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        ReportedeTokens = new javax.swing.JMenuItem();
+        ReporteLexicos = new javax.swing.JMenuItem();
+        ReporteSimbolos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -97,10 +98,11 @@ RSyntaxTextArea textArea;
         jLabel3.setForeground(new java.awt.Color(153, 102, 255));
         jLabel3.setText("Ver gráficas");
 
+        jTabbedPane1.setForeground(new java.awt.Color(51, 153, 255));
+
         jPanel3.setBackground(new java.awt.Color(153, 255, 255));
         jPanel3.setLayout(new java.awt.CardLayout());
-
-        jTabbedPane1.setForeground(new java.awt.Color(51, 153, 255));
+        Pestana.addTab("tab1", jPanel3);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -118,11 +120,11 @@ RSyntaxTextArea textArea;
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton2))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 944, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(18, Short.MAX_VALUE))
+                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Pestana, javax.swing.GroupLayout.PREFERRED_SIZE, 687, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -140,14 +142,13 @@ RSyntaxTextArea textArea;
                         .addGap(31, 31, 31)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(40, 40, 40)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)))
-                .addGap(12, 12, 12)
+                        .addGap(30, 30, 30)
+                        .addComponent(Pestana, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -198,6 +199,11 @@ RSyntaxTextArea textArea;
         jMenuBar1.add(jMenu1);
 
         jMenu4.setText("Pestañas");
+        jMenu4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu4ActionPerformed(evt);
+            }
+        });
 
         jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/plus.png"))); // NOI18N
         jMenuItem6.setText("Nueva Pestaña (+)");
@@ -225,17 +231,27 @@ RSyntaxTextArea textArea;
 
         jMenu3.setText("Reporte");
 
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/reporte.png"))); // NOI18N
-        jMenuItem1.setText("Reporte de Tokens");
-        jMenu3.add(jMenuItem1);
+        ReportedeTokens.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/reporte.png"))); // NOI18N
+        ReportedeTokens.setText("Reporte de Tokens");
+        ReportedeTokens.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReportedeTokensActionPerformed(evt);
+            }
+        });
+        jMenu3.add(ReportedeTokens);
 
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/reporte-de-negocios.png"))); // NOI18N
-        jMenuItem2.setText("Reporte de Errores Léxicos");
-        jMenu3.add(jMenuItem2);
+        ReporteLexicos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/reporte-de-negocios.png"))); // NOI18N
+        ReporteLexicos.setText("Reporte de Errores Léxicos");
+        ReporteLexicos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReporteLexicosActionPerformed(evt);
+            }
+        });
+        jMenu3.add(ReporteLexicos);
 
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/table.png"))); // NOI18N
-        jMenuItem4.setText("Tabla de Simbolos");
-        jMenu3.add(jMenuItem4);
+        ReporteSimbolos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/table.png"))); // NOI18N
+        ReporteSimbolos.setText("Tabla de Simbolos");
+        jMenu3.add(ReporteSimbolos);
 
         jMenuBar1.add(jMenu3);
 
@@ -245,7 +261,10 @@ RSyntaxTextArea textArea;
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -378,8 +397,28 @@ if (opcion == JFileChooser.APPROVE_OPTION) {
         // TODO add your hansdling code here:
         System.out.println("Analizando");
         analizar(textArea.getText());
-
+        funciones.reportes.tokens_DF();
+        funciones.reportes.errores_DF();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jMenu4ActionPerformed
+
+    private void ReportedeTokensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportedeTokensActionPerformed
+        // TODO add your handling code here:
+        funciones.reportes.abrirArchivoHTML("C:\\Users\\kevin\\OneDrive\\Documentos\\OLC1_Proyecto1_201902278\\Proyecto1S2024\\ReporteTokens_DataForge.html"
+);
+        
+        
+    }//GEN-LAST:event_ReportedeTokensActionPerformed
+
+    private void ReporteLexicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteLexicosActionPerformed
+        // TODO add your handling code here:
+        funciones.reportes.abrirArchivoHTML("C:\\Users\\kevin\\OneDrive\\Documentos\\OLC1_Proyecto1_201902278\\Proyecto1S2024\\ReporteErrores_DataForge.html");
+
+    }//GEN-LAST:event_ReporteLexicosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -420,6 +459,10 @@ if (opcion == JFileChooser.APPROVE_OPTION) {
     private javax.swing.JMenuItem AbrirArchivo;
     private javax.swing.JMenuItem Guardar;
     private javax.swing.JMenuItem GuardarComo;
+    private javax.swing.JTabbedPane Pestana;
+    private javax.swing.JMenuItem ReporteLexicos;
+    private javax.swing.JMenuItem ReporteSimbolos;
+    private javax.swing.JMenuItem ReportedeTokens;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -430,10 +473,7 @@ if (opcion == JFileChooser.APPROVE_OPTION) {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;

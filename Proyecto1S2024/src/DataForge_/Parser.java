@@ -412,11 +412,13 @@ public class Parser extends java_cup.runtime.lr_parser {
 
     public void syntax_error(Symbol s)
     {
+            funciones.reportes.TablaErroresDF((String)s.value, "Error Sintáctico", s.right, s.left);
             System.err.println("Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Recuperado" );
     }
 
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
     {
+            funciones.reportes.TablaErroresDF((String)s.value, "Error Sintáctico", s.right, s.left);
             System.err.println("Error Sintactico: "+ s.value + " - Fila: " + s.right + " - Columna: " + s.left + ". Sin recuperacion." );
     }
 

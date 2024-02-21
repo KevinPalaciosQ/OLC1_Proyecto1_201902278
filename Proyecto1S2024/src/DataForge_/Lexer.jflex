@@ -35,6 +35,7 @@ multilinea = [<][!][^!]*[!]+([^>*][^!]*[*]+)*[>]
 
 %%
 // ------------  Reglas Lexicas -------------------
+
 "("               {return new Symbol(sym.PARENTESIS_A, yycolumn, yyline, yytext());}
 "="               {return new Symbol(sym.IGUAL, yycolumn, yyline, yytext());}
 ")"               {return new Symbol(sym.PARENTESIS_C, yycolumn, yyline, yytext());}
@@ -119,4 +120,6 @@ multilinea = [<][!][^!]*[!]+([^>*][^!]*[*]+)*[>]
 //------> Ignorados 
 [ \t\r\n\f]     {/* Espacios en blanco se ignoran */}
 //------> Errores Léxicos 
-.           	{ System.out.println("Error Lexico: " + yytext() + " | Fila:" + yyline + " | Columna: " + yycolumn); }
+.           	{
+                funciones.reportes.TablaErroresDF(yytext(), "Error Léxico", yyline, yycolumn);
+                 System.out.println("Error Lexico: " + yytext() + " | Fila:" + yyline + " | Columna: " + yycolumn); }
