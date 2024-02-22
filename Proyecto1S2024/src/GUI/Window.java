@@ -17,12 +17,17 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rtextarea.RTextScrollPane;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
 /**
  *
  * @author kevin
  */
 public class Window extends javax.swing.JFrame {
+    private JTabbedPane tabbedPane;
+    private int tabCounter = 1;
 RSyntaxTextArea textArea;
     /**
      * Creates new form Window
@@ -49,7 +54,6 @@ RSyntaxTextArea textArea;
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
         Pestana = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -57,9 +61,9 @@ RSyntaxTextArea textArea;
         AbrirArchivo = new javax.swing.JMenuItem();
         Guardar = new javax.swing.JMenuItem();
         GuardarComo = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        EliminarPestana = new javax.swing.JMenu();
+        NuevaPestana = new javax.swing.JMenuItem();
+        NuevaPestanaa = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
@@ -98,11 +102,9 @@ RSyntaxTextArea textArea;
         jLabel3.setForeground(new java.awt.Color(153, 102, 255));
         jLabel3.setText("Ver gráficas");
 
-        jTabbedPane1.setForeground(new java.awt.Color(51, 153, 255));
-
         jPanel3.setBackground(new java.awt.Color(153, 255, 255));
         jPanel3.setLayout(new java.awt.CardLayout());
-        Pestana.addTab("tab1", jPanel3);
+        Pestana.addTab("Pestaña", jPanel3);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -120,19 +122,14 @@ RSyntaxTextArea textArea;
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton2))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 944, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Pestana, javax.swing.GroupLayout.PREFERRED_SIZE, 687, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(58, 58, 58))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(201, 201, 201))))))
+                            .addComponent(Pestana, javax.swing.GroupLayout.PREFERRED_SIZE, 755, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(58, 58, 58))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,14 +137,12 @@ RSyntaxTextArea textArea;
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(31, 31, 31)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel3))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(40, 40, 40)
-                        .addComponent(jLabel1)
-                        .addGap(30, 30, 30)
-                        .addComponent(Pestana, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)))
+                        .addComponent(jLabel1)))
+                .addGap(30, 30, 30)
+                .addComponent(Pestana, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
@@ -198,22 +193,34 @@ RSyntaxTextArea textArea;
 
         jMenuBar1.add(jMenu1);
 
-        jMenu4.setText("Pestañas");
-        jMenu4.addActionListener(new java.awt.event.ActionListener() {
+        EliminarPestana.setText("Pestañas");
+        EliminarPestana.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu4ActionPerformed(evt);
+                EliminarPestanaActionPerformed(evt);
             }
         });
 
-        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/plus.png"))); // NOI18N
-        jMenuItem6.setText("Nueva Pestaña (+)");
-        jMenu4.add(jMenuItem6);
+        NuevaPestana.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        NuevaPestana.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/plus.png"))); // NOI18N
+        NuevaPestana.setText("Nueva Pestaña (+)");
+        NuevaPestana.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NuevaPestanaActionPerformed(evt);
+            }
+        });
+        EliminarPestana.add(NuevaPestana);
 
-        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/minus.png"))); // NOI18N
-        jMenuItem5.setText("Eliminar Pestaña (-)");
-        jMenu4.add(jMenuItem5);
+        NuevaPestanaa.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_0, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        NuevaPestanaa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/minus.png"))); // NOI18N
+        NuevaPestanaa.setText("Eliminar Pestaña (-)");
+        NuevaPestanaa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NuevaPestanaaActionPerformed(evt);
+            }
+        });
+        EliminarPestana.add(NuevaPestanaa);
 
-        jMenuBar1.add(jMenu4);
+        jMenuBar1.add(EliminarPestana);
 
         jMenu2.setText("Ejecutar");
 
@@ -231,6 +238,7 @@ RSyntaxTextArea textArea;
 
         jMenu3.setText("Reporte");
 
+        ReportedeTokens.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         ReportedeTokens.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/reporte.png"))); // NOI18N
         ReportedeTokens.setText("Reporte de Tokens");
         ReportedeTokens.addActionListener(new java.awt.event.ActionListener() {
@@ -240,6 +248,7 @@ RSyntaxTextArea textArea;
         });
         jMenu3.add(ReportedeTokens);
 
+        ReporteLexicos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         ReporteLexicos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/reporte-de-negocios.png"))); // NOI18N
         ReporteLexicos.setText("Reporte de Errores Léxicos");
         ReporteLexicos.addActionListener(new java.awt.event.ActionListener() {
@@ -249,8 +258,14 @@ RSyntaxTextArea textArea;
         });
         jMenu3.add(ReporteLexicos);
 
+        ReporteSimbolos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         ReporteSimbolos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/table.png"))); // NOI18N
         ReporteSimbolos.setText("Tabla de Simbolos");
+        ReporteSimbolos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReporteSimbolosActionPerformed(evt);
+            }
+        });
         jMenu3.add(ReporteSimbolos);
 
         jMenuBar1.add(jMenu3);
@@ -326,7 +341,8 @@ RSyntaxTextArea textArea;
             el.printStackTrace();
             }
         } 
-      
+    
+ 
     }//GEN-LAST:event_AbrirArchivoActionPerformed
 
         public static void analizar (String entrada){
@@ -399,12 +415,13 @@ if (opcion == JFileChooser.APPROVE_OPTION) {
         analizar(textArea.getText());
         funciones.reportes.tokens_DF();
         funciones.reportes.errores_DF();
+        funciones.reportes.tabla_simbolos();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
-    private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
+    private void EliminarPestanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarPestanaActionPerformed
         // TODO add your handling code here:
         
-    }//GEN-LAST:event_jMenu4ActionPerformed
+    }//GEN-LAST:event_EliminarPestanaActionPerformed
 
     private void ReportedeTokensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportedeTokensActionPerformed
         // TODO add your handling code here:
@@ -419,6 +436,70 @@ if (opcion == JFileChooser.APPROVE_OPTION) {
         funciones.reportes.abrirArchivoHTML("C:\\Users\\kevin\\OneDrive\\Documentos\\OLC1_Proyecto1_201902278\\Proyecto1S2024\\ReporteErrores_DataForge.html");
 
     }//GEN-LAST:event_ReporteLexicosActionPerformed
+
+    private void NuevaPestanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevaPestanaActionPerformed
+        // TODO add your handling code here:
+        
+        
+        addNewTab();
+        System.out.println("Pestaña Agregada");
+    }//GEN-LAST:event_NuevaPestanaActionPerformed
+
+    private void ReporteSimbolosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporteSimbolosActionPerformed
+        // TODO add your handling code here:
+        funciones.reportes.abrirArchivoHTML("C:\\Users\\kevin\\OneDrive\\Documentos\\OLC1_Proyecto1_201902278\\Proyecto1S2024\\ReporteSimbolos_DataForge.html");
+        System.out.println("Tabla de Símbolos");
+    }//GEN-LAST:event_ReporteSimbolosActionPerformed
+
+    private void NuevaPestanaaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevaPestanaaActionPerformed
+        // TODO add your handling code here:
+        EliminarPestana();
+        System.out.println("Pestaña Eliminada");
+    }//GEN-LAST:event_NuevaPestanaaActionPerformed
+
+
+
+private void ContadorPestana(){
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(400, 300);
+
+        Pestana = new JTabbedPane();
+        add(Pestana, BorderLayout.CENTER);
+
+        JButton addButton = new JButton("Agregar Pestaña");
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addNewTab();
+            }
+        });
+        add(addButton, BorderLayout.SOUTH);
+    }
+
+private void addNewTab() {
+    JPanel panel = new JPanel(new BorderLayout()); // Creamos un panel con un layout BorderLayout
+    panel.setBackground(Color.WHITE);
+
+    RSyntaxTextArea textArea = new RSyntaxTextArea(); // Creamos el RSyntaxTextArea
+    RTextScrollPane sp = new RTextScrollPane(textArea); // Envolvemos el RSyntaxTextArea en un RTextScrollPane
+
+    textArea.setFont(new Font("Monospaced", Font.PLAIN, 18));
+    textArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_PYTHON); // Establecemos el estilo de sintaxis
+
+    panel.add(sp, BorderLayout.CENTER); // Agregamos el RTextScrollPane al centro del panel
+
+    Pestana.addTab("Pestaña " + tabCounter, panel); // Agregamos el panel a la pestaña
+    Pestana.setSelectedIndex(tabCounter - 1); // Establecemos la nueva pestaña como la pestaña actual
+    tabCounter++;
+}
+private void EliminarPestana() {
+    int selectedIndex = Pestana.getSelectedIndex();
+    if (selectedIndex != -1) { // Verifica si hay una pestaña seleccionada
+        Pestana.remove(selectedIndex); // Elimina la pestaña seleccionada
+    }
+}
+
 
     /**
      * @param args the command line arguments
@@ -457,8 +538,11 @@ if (opcion == JFileChooser.APPROVE_OPTION) {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AbrirArchivo;
+    private javax.swing.JMenu EliminarPestana;
     private javax.swing.JMenuItem Guardar;
     private javax.swing.JMenuItem GuardarComo;
+    private javax.swing.JMenuItem NuevaPestana;
+    private javax.swing.JMenuItem NuevaPestanaa;
     private javax.swing.JTabbedPane Pestana;
     private javax.swing.JMenuItem ReporteLexicos;
     private javax.swing.JMenuItem ReporteSimbolos;
@@ -471,15 +555,11 @@ if (opcion == JFileChooser.APPROVE_OPTION) {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea2;
     // End of variables declaration//GEN-END:variables
 }
