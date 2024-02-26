@@ -119,11 +119,14 @@ non terminal elementoslineac;
 non terminal datoslineac;
 non terminal valorexpresion;
 non terminal operacionesnest;
+non terminal contenido;
+non terminal tipe;
+non terminal declaraciong;
 //------> PRECEDENCIA
 precedence left MAS;
 precedence left MENOS;
 precedence left POR;
-
+precedence left IDENTIFICADOR, VAR;
 
 //------> Definir Simbolo Inicial
 start with inicio; 
@@ -139,6 +142,7 @@ recorrido ::= instrucciones
 ;
 
 instrucciones ::= declaracion
+    |declaraciong
     |arreglos
     |funcionesgrafica
     |error PUNTOYCOMA
@@ -153,14 +157,19 @@ funcionesgrafica ::= declaracionhistograma
 
 declaracion ::= VAR DOSPUNTOS tipodedato DOSPUNTOS DOSPUNTOS IDENTIFICADOR MENORQUE GUION  tipodato END PUNTOYCOMA {: :}
             |VAR DOSPUNTOS tipodedato DOSPUNTOS DOSPUNTOS IDENTIFICADOR MENORQUE GUION  IDENTIFICADOR END PUNTOYCOMA {: :}
-            |VAR DOSPUNTOS tipodedato DOSPUNTOS DOSPUNTOS IDENTIFICADOR MENORQUE GUION  expresion END PUNTOYCOMA {: :}
+            
 ;
+
+declaraciong ::= VAR DOSPUNTOS tipodedato DOSPUNTOS DOSPUNTOS IDENTIFICADOR MENORQUE GUION  expresion END PUNTOYCOMA {: :}
+;
+
 tipodedato ::= R_DOUBLE {::}
         |R_CHAR CORCHETE_ABRE CORCHETE_CIERRA {::}
 ;
 
 tipodato ::= DECIMAL {::}
         |CADENA {::}
+       
 ;
 
 
@@ -298,34 +307,24 @@ valor ::= DECIMAL {::}
 ;
 
 //--------------------------OPERACIONES
-
-
-
-
-operacion ::= SUM {::}
-        |RES {::}
-        |MUL {::}
-        |DIV {::}
-        |MOD {::}
-;
-
-
-expresion ::= SUM PARENTESIS_A valorexpresion COMA valorexpresion PARENTESIS_C {::}
-            | RES PARENTESIS_A valorexpresion COMA valorexpresion PARENTESIS_C {::}
-            | MUL PARENTESIS_A valorexpresion COMA valorexpresion PARENTESIS_C {::}
-            | DIV PARENTESIS_A valorexpresion COMA IDENTIFICADOR PARENTESIS_C {::}
-            | MOD PARENTESIS_A valorexpresion COMA valorexpresion PARENTESIS_C {::}
-           
-
-;
-
-valorexpresion ::= ENTERO {::}
-        | IDENTIFICADOR {::}
-        | expresion {::}
+expresion ::= SUM PARENTESIS_A expresion COMA expresion PARENTESIS_C {::}
+            | RES PARENTESIS_A expresion COMA expresion PARENTESIS_C {::}
+            | MUL PARENTESIS_A expresion COMA expresion PARENTESIS_C {::}
+            | DIV PARENTESIS_A expresion COMA expresion PARENTESIS_C {::}
+            | MOD PARENTESIS_A expresion COMA expresion PARENTESIS_C {::}
+            | MEDIA PARENTESIS_A expresion COMA expresion PARENTESIS_C {::}   
+            | MEDIANA PARENTESIS_A expresion COMA expresion PARENTESIS_C {::}
+            | MODA PARENTESIS_A expresion COMA expresion PARENTESIS_C {::}
+            | VARIANZA PARENTESIS_A expresion COMA expresion PARENTESIS_C {::}
+            | MAX PARENTESIS_A expresion COMA expresion PARENTESIS_C {::}
+            | MIN  PARENTESIS_A expresion COMA expresion PARENTESIS_C {::}
+            | COMA
+            | ENTERO            
+            | IDENTIFICADOR
+            | CORCHETE_ABRE
+            | CORCHETE_CIERRA
+            
 ;
 
 
 
-operacionesnest ::= PARENTESIS_A expresion COMA expresion PARENTESIS_C
-        |CORCHETE_ABRE expresion COMA expresion CORCHETE_CIERRA
-;
