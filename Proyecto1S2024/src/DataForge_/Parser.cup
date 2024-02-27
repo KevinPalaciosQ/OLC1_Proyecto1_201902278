@@ -119,14 +119,14 @@ non terminal elementoslineac;
 non terminal datoslineac;
 non terminal valorexpresion;
 non terminal operacionesnest;
-non terminal contenido;
-non terminal tipe;
-non terminal declaraciong;
+non terminal arregloexpresiones;
+non terminal printarreglos;
+non terminal printexpresiones;
 //------> PRECEDENCIA
 precedence left MAS;
 precedence left MENOS;
 precedence left POR;
-precedence left IDENTIFICADOR, VAR;
+
 
 //------> Definir Simbolo Inicial
 start with inicio; 
@@ -142,10 +142,11 @@ recorrido ::= instrucciones
 ;
 
 instrucciones ::= declaracion
-    |declaraciong
-    |arreglos
-    |funcionesgrafica
-    |error PUNTOYCOMA
+    | arreglos
+    | funcionesgrafica
+    | printarreglos
+    | printexpresiones
+    | error PUNTOYCOMA
 
 ;
 
@@ -156,22 +157,26 @@ funcionesgrafica ::= declaracionhistograma
 ;
 
 declaracion ::= VAR DOSPUNTOS tipodedato DOSPUNTOS DOSPUNTOS IDENTIFICADOR MENORQUE GUION  tipodato END PUNTOYCOMA {: :}
-            |VAR DOSPUNTOS tipodedato DOSPUNTOS DOSPUNTOS IDENTIFICADOR MENORQUE GUION  IDENTIFICADOR END PUNTOYCOMA {: :}
-            
+            |VAR DOSPUNTOS tipodedato DOSPUNTOS DOSPUNTOS IDENTIFICADOR MENORQUE GUION  expresion END PUNTOYCOMA {: :}
 ;
-
-declaraciong ::= VAR DOSPUNTOS tipodedato DOSPUNTOS DOSPUNTOS IDENTIFICADOR MENORQUE GUION  expresion END PUNTOYCOMA {: :}
-;
-
 tipodedato ::= R_DOUBLE {::}
         |R_CHAR CORCHETE_ABRE CORCHETE_CIERRA {::}
 ;
 
 tipodato ::= DECIMAL {::}
         |CADENA {::}
-       
+        |ENTERO {::}
+        |IDENTIFICADOR{::}
+        
+;
+//----------------------------------------IMPRESIONES
+
+printarreglos ::= CONSOLE DOSPUNTOS DOSPUNTOS COLUMN IGUAL END PUNTOYCOMA{::}
 ;
 
+printexpresiones ::= CONSOLE 
+;
+//----------------------------------------GRAFICAS
 
 declaracionlinea ::= GRAPHLINE PARENTESIS_A  instruccionlinea PARENTESIS_C END PUNTOYCOMA {::}   
 ;
@@ -188,7 +193,7 @@ contenidobarras ::= TITULOX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CI
         |TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL CADENA END PUNTOYCOMA 
         |EJEX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL  CORCHETE_ABRE elementosejex CORCHETE_CIERRA END PUNTOYCOMA 
         |EJEY DOSPUNTOS DOSPUNTOS R_DOUBLE IGUAL CORCHETE_ABRE elementosejey CORCHETE_CIERRA END PUNTOYCOMA 
-        |EXEC GRAPBAR END PUNTOYCOMA
+        |EXEC GRAPHBAR END PUNTOYCOMA
 ;
 
 elementosejey::= valory {::}
@@ -242,7 +247,7 @@ contenidolinea ::= TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIER
         |TITULOX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL CADENA END PUNTOYCOMA{::}
         |TITULOY DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE  CORCHETE_CIERRA IGUAL CADENA END PUNTOYCOMA{::}
 
-        |EXEC GRAPLINE END PUNTOYCOMA {::}
+        |EXEC GRAPHLINE END PUNTOYCOMA {::}
 ;
 elementoslinea::= valorlinea {::}
         |elementoslinea COMA valorlinea {::}
@@ -275,7 +280,7 @@ instrucciongrafica ::= instrucciongrafica contenidopie {::}
 contenidopie ::= TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL CADENA  END PUNTOYCOMA {::} 
         |VALUES DOSPUNTOS DOSPUNTOS R_DOUBLE IGUAL CORCHETE_ABRE elementospie CORCHETE_CIERRA  END PUNTOYCOMA{::} 
         |LABEL DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL CORCHETE_ABRE elementoslabel CORCHETE_CIERRA END PUNTOYCOMA{::}
-        |EXEC GRAPPIE END PUNTOYCOMA{::}
+        |EXEC GRAPHPIE END PUNTOYCOMA{::}
 ;
 elementospie::= valorpie {::}
         |elementospie COMA valorpie {::}
@@ -296,8 +301,9 @@ datoslabel ::= CADENA {::}
 arreglos ::= ARR DOSPUNTOS tipodedato DOSPUNTOS DOSPUNTOS ARROBA IDENTIFICADOR MENORQUE GUION CORCHETE_ABRE elementos CORCHETE_CIERRA END PUNTOYCOMA{::}
 ;
 
-elementos ::= valor {::}
+elementos ::= valorexpresion {::}
         |elementos COMA valor {::}
+        //|valorexpresion COMA elementos
 ;
 
 valor ::= DECIMAL {::}
@@ -306,25 +312,32 @@ valor ::= DECIMAL {::}
         |ENTERO {::}
 ;
 
-//--------------------------OPERACIONES
-expresion ::= SUM PARENTESIS_A expresion COMA expresion PARENTESIS_C {::}
-            | RES PARENTESIS_A expresion COMA expresion PARENTESIS_C {::}
-            | MUL PARENTESIS_A expresion COMA expresion PARENTESIS_C {::}
-            | DIV PARENTESIS_A expresion COMA expresion PARENTESIS_C {::}
-            | MOD PARENTESIS_A expresion COMA expresion PARENTESIS_C {::}
-            | MEDIA PARENTESIS_A expresion COMA expresion PARENTESIS_C {::}   
-            | MEDIANA PARENTESIS_A expresion COMA expresion PARENTESIS_C {::}
-            | MODA PARENTESIS_A expresion COMA expresion PARENTESIS_C {::}
-            | VARIANZA PARENTESIS_A expresion COMA expresion PARENTESIS_C {::}
-            | MAX PARENTESIS_A expresion COMA expresion PARENTESIS_C {::}
-            | MIN  PARENTESIS_A expresion COMA expresion PARENTESIS_C {::}
+//--------------------------OPERACIONES--------------------------------------
+
+
+expresion ::= SUM PARENTESIS_A valorexpresion COMA valorexpresion PARENTESIS_C {::}
+            | RES PARENTESIS_A valorexpresion COMA valorexpresion PARENTESIS_C {::}
+            | MUL PARENTESIS_A valorexpresion COMA valorexpresion PARENTESIS_C {::}
+            | DIV PARENTESIS_A valorexpresion COMA valorexpresion PARENTESIS_C {::}
+            | MOD PARENTESIS_A valorexpresion COMA valorexpresion PARENTESIS_C {::}  
             | COMA
-            | ENTERO            
-            | IDENTIFICADOR
-            | CORCHETE_ABRE
-            | CORCHETE_CIERRA
-            
 ;
 
+valorexpresion ::=  expresion {::}
+        | DECIMAL {::}
+        | IDENTIFICADOR {::}
+        | ENTERO {::}
+        | CADENA {::}
+        
+;
 
+operacionesnest ::= MEDIA PARENTESIS_A arregloexpresiones PARENTESIS_C
+        |MEDIANA  PARENTESIS_A arregloexpresiones PARENTESIS_C
+        |MODA     PARENTESIS_A  arregloexpresiones PARENTESIS_C
+        |VARIANZA PARENTESIS_A arregloexpresiones PARENTESIS_C
+        |MAX      PARENTESIS_A arregloexpresiones PARENTESIS_C
+        |MIN      PARENTESIS_A arregloexpresiones PARENTESIS_C
+;
 
+arregloexpresiones ::= ARROBA IDENTIFICADOR
+;
