@@ -2,7 +2,7 @@
 package DataForge_;
 
 import java_cup.runtime.*;
-
+import java.util.LinkedList;
 
 //------> Codigo para el parser
 //------> Declaracion de variables, funciones y funciones de error
@@ -136,6 +136,7 @@ inicio ::= PROGRAM recorrido END PROGRAM {::}
 
 recorrido ::= instrucciones
         |recorrido instrucciones
+
 ;
 
 instrucciones ::= declaracion
@@ -187,7 +188,7 @@ elementosejey::= valory {::}
 ;
 
 valory ::= ENTERO
-        |DECIMAL
+        |DECIMAL {::}
 ;
 elementosejex::= datox {::}
         |elementosejex COMA datox {::}

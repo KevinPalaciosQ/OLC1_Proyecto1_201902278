@@ -17,7 +17,12 @@ public class reportes {
     public static LinkedList<Object> ListaErroresDF = new LinkedList<Object>();
     public static LinkedList<Object> ListaSimbolos = new LinkedList<Object>();
 
-    
+    public static void TablaDatos(String dato, String id, Object valor,int linea, int columna){
+        funciones.simbolos sim = new funciones.simbolos();
+        sim.recibir_datos(dato, id, valor, linea, columna);
+        ListaSimbolos.add(sim);
+        
+    }
     public static void TablaTokensDF(String lexema, String token, int linea, int columna) {
         funciones.tokensdataforge tokensS = new funciones.tokensdataforge();
         tokensS.recibir_token(lexema, token, linea, columna);
@@ -86,56 +91,59 @@ public class reportes {
         ListaTokensDF.clear();
 
     }
+
+
+
     public static void tabla_simbolos() {
         // Generar el código HTML
-        StringBuilder constructort = new StringBuilder();
-        constructort.append("<html lang=\"en\">");
-        constructort.append("<head>");
-        constructort.append("<meta charset=\"utf-8\">");
-        constructort.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
-        constructort.append("<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3\" crossorigin=\"anonymous\">");
-        constructort.append("<link rel=\"shortcut icon\" href=\"Icono.ico\">");
-        constructort.append("<title>Reporte de Tokens DataForge</title>");
-        constructort.append("</head>");
-        constructort.append("<body>");
-        constructort.append("<div class=\"p-3 mb-2 text-white\" style=\"background-color:#63e526\">");
-        constructort.append("<h1><center>Reporte de Simbolos DataForge</center></h1>");
-        constructort.append("</div>");
-        constructort.append("<table class=\"table table-dark table-hover table-bordered\">");
-        constructort.append("<thead>");
-        constructort.append("<tr>");
-        constructort.append("<th scope=\"col\">#</th>");
-        constructort.append("<th scope=\"col\">Lexema</th>");
-        constructort.append("<th scope=\"col\">Token</th>");
-        constructort.append("<th scope=\"col\">Línea</th>");
-        constructort.append("<th scope=\"col\">Columna</th>");
-        constructort.append("</tr>");
-        constructort.append("</thead>");
-        constructort.append("<tbody>");
-        int contadort = 1;
-        for (Object tokensS : ListaTokensDF) {
-            funciones.tokensdataforge dato = (funciones.tokensdataforge) tokensS;
-            constructort.append("<tr class=\"table-primary\">");
-            constructort.append("<td>").append(contadort).append("</td>");
-            constructort.append("<td>").append(dato.getLexema()).append("</td>");
-            constructort.append("<td>").append(dato.getToken()).append("</td>");
-            constructort.append("<td>").append(dato.getLinea()).append("</td>");
-            constructort.append("<td>").append(dato.getColumna()).append("</td>");
-            constructort.append("</tr>");
-            contadort++;
+        StringBuilder constructors = new StringBuilder();
+        constructors.append("<html lang=\"en\">");
+        constructors.append("<head>");
+        constructors.append("<meta charset=\"utf-8\">");
+        constructors.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
+        constructors.append("<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3\" crossorigin=\"anonymous\">");
+        constructors.append("<link rel=\"shortcut icon\" href=\"Icono.ico\">");
+        constructors.append("<title>Reporte de Tokens DataForge</title>");
+        constructors.append("</head>");
+        constructors.append("<body>");
+        constructors.append("<div class=\"p-3 mb-2 text-white\" style=\"background-color:#63e526\">");
+        constructors.append("<h1><center>Reporte de Simbolos DataForge</center></h1>");
+        constructors.append("</div>");
+        constructors.append("<table class=\"table table-dark table-hover table-bordered\">");
+        constructors.append("<thead>");
+        constructors.append("<tr>");
+        constructors.append("<th scope=\"col\">#</th>");
+        constructors.append("<th scope=\"col\">Dato</th>");
+        constructors.append("<th scope=\"col\">Id</th>");
+        constructors.append("<th scope=\"col\">Valor</th>");
+        constructors.append("<th scope=\"col\">Línea</th>");
+        constructors.append("<th scope=\"col\">Columna</th>");
+        constructors.append("</tr>");
+        constructors.append("</thead>");
+        constructors.append("<tbody>");
+        int contadors = 1;
+        for (Object tokensS : ListaSimbolos) {
+            funciones.simbolos datot = (funciones.simbolos) tokensS;
+            constructors.append("<tr class=\"table-primary\">");
+            constructors.append("<td>").append(contadors).append("</td>");
+            constructors.append("<td>").append(datot.getDato()).append("</td>");
+            constructors.append("<td>").append(datot.getId()).append("</td>");
+            constructors.append("<td>").append(datot.getValor()).append("</td>");
+            constructors.append("<td>").append(datot.getLinea()).append("</td>");
+            constructors.append("<td>").append(datot.getColumna()).append("</td>");
+            constructors.append("</tr>");
+            contadors++;
         }
-
-        constructort.append("</tbody>");
-        constructort.append("</table>");
-        constructort.append("</body>");
-        constructort.append("</html>");
+        constructors.append("</tbody>");
+        constructors.append("</table>");
+        constructors.append("</body>");
+        constructors.append("</html>");
 
         // Escribir el código HTML en un archivo
         try {
-            FileWriter tokensS = new FileWriter("ReporteSimbolos_DataForge.html");
-            tokensS.write(constructort.toString());
-            tokensS.close();
-        } catch (IOException e) {
+            FileWriter sim = new FileWriter("ReporteSimbolos_DataForge.html");
+            sim.write(constructors.toString());
+            sim.close();        } catch (IOException e) {
             e.printStackTrace();
 
         }
