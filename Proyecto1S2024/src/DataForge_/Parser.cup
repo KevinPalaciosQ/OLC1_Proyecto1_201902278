@@ -122,6 +122,10 @@ non terminal operacionesnest;
 non terminal arregloexpresiones;
 non terminal printarreglos;
 non terminal printexpresiones;
+non terminal nt;
+non terminal ntexp;
+non terminal ciclo;
+non terminal datosgraficas;
 //------> PRECEDENCIA
 precedence left MAS;
 precedence left MENOS;
@@ -156,26 +160,44 @@ funcionesgrafica ::= declaracionhistograma
     |declaracionlinea
 ;
 
-declaracion ::= VAR DOSPUNTOS tipodedato DOSPUNTOS DOSPUNTOS IDENTIFICADOR MENORQUE GUION  tipodato END PUNTOYCOMA {: :}
-            |VAR DOSPUNTOS tipodedato DOSPUNTOS DOSPUNTOS IDENTIFICADOR MENORQUE GUION  expresion END PUNTOYCOMA {: :}
+declaracion ::= VAR:var DOSPUNTOS tipodedato:td DOSPUNTOS DOSPUNTOS IDENTIFICADOR:id MENORQUE GUION  tipodato:tdd END PUNTOYCOMA {:funciones.reportes.TablaDatos(td.toString(),id.toString(),tdd,varright,varleft);:}
+            |VAR:var DOSPUNTOS tipodedato:tp DOSPUNTOS DOSPUNTOS IDENTIFICADOR:id MENORQUE GUION  expresion:ex END PUNTOYCOMA    {:funciones.reportes.TablaDatos(tp.toString(),id.toString(),ex,varright,varleft);:}
 ;
-tipodedato ::= R_DOUBLE {::}
-        |R_CHAR CORCHETE_ABRE CORCHETE_CIERRA {::}
+tipodedato ::= R_DOUBLE:d {:RESULT=d;:}
+        |R_CHAR:c CORCHETE_ABRE CORCHETE_CIERRA {:RESULT=c;:}
 ;
 
-tipodato ::= DECIMAL {::}
-        |CADENA {::}
-        |ENTERO {::}
-        |IDENTIFICADOR{::}
+tipodato ::= DECIMAL:dec {:RESULT=dec;:}
+        |CADENA:c {:RESULT=c;:}
+        |ENTERO:e {:RESULT=e;:}
+        |IDENTIFICADOR:id{:RESULT=funciones.reportes.busqueda(id);:}
         
 ;
 //----------------------------------------IMPRESIONES
 
-printarreglos ::= CONSOLE DOSPUNTOS DOSPUNTOS COLUMN IGUAL END PUNTOYCOMA{::}
+printarreglos ::= CONSOLE DOSPUNTOS DOSPUNTOS COLUMN IGUAL IDENTIFICADOR GUION MAYORQUE nt END PUNTOYCOMA{::}
+        |CONSOLE DOSPUNTOS DOSPUNTOS COLUMN IGUAL CADENA GUION MAYORQUE nt END PUNTOYCOMA{::}
+         
+;
+nt ::= ARROBA IDENTIFICADOR 
+        |CORCHETE_ABRE elementos CORCHETE_CIERRA
+;
+printexpresiones ::= CONSOLE DOSPUNTOS DOSPUNTOS PRINT IGUAL ciclo END PUNTOYCOMA
 ;
 
-printexpresiones ::= CONSOLE 
+ntexp ::= IDENTIFICADOR:ni {:RESULT=funciones.reportes.busqueda(ni);:}
+        |CADENA:c {:RESULT=c;:}
+        |ENTERO:e   {:RESULT=e;:}
+        |DECIMAL:d  {:RESULT=d;:}
+        |expresion:exp {:RESULT=exp;:}
+        
 ;
+
+ciclo ::= ntexp
+        |ntexp COMA ciclo
+;
+
+
 //----------------------------------------GRAFICAS
 
 declaracionlinea ::= GRAPHLINE PARENTESIS_A  instruccionlinea PARENTESIS_C END PUNTOYCOMA {::}   
@@ -220,8 +242,8 @@ instruccionhistograma ::= instruccionhistograma contenidohistograma {::}
         |contenidohistograma {::}
 ;
 
-contenidohistograma ::= TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL CADENA END PUNTOYCOMA {::}
-        |VALUES DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL CORCHETE_ABRE  elementoshistograma CORCHETE_CIERRA END PUNTOYCOMA {::}
+contenidohistograma ::= TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas END PUNTOYCOMA {::}
+        |VALUES DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas END PUNTOYCOMA {::}
         |EXEC HISTOGRAM END PUNTOYCOMA {::}
 ;
 
@@ -242,11 +264,11 @@ declaracionlinea ::= GRAPHLINE PARENTESIS_A PARENTESIS_C END PUNTOYCOMA   {::}
 instruccionlinea ::= instruccionlinea contenidolinea {::}
         |contenidolinea {::}
 ;
-contenidolinea ::= TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL CADENA  END PUNTOYCOMA {::} 
-        |EJEX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL  CORCHETE_ABRE elementoslineac CORCHETE_CIERRA END PUNTOYCOMA {::}
-        |EJEY DOSPUNTOS DOSPUNTOS  R_DOUBLE IGUAL CORCHETE_ABRE  elementoslinea CORCHETE_CIERRA END PUNTOYCOMA {::}
-        |TITULOX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL CADENA END PUNTOYCOMA{::}
-        |TITULOY DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE  CORCHETE_CIERRA IGUAL CADENA END PUNTOYCOMA{::}
+contenidolinea ::= TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas  END PUNTOYCOMA {::} 
+        |EJEX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL   datosgraficas  END PUNTOYCOMA {::}
+        |EJEY DOSPUNTOS DOSPUNTOS  R_DOUBLE IGUAL   datosgraficas  END PUNTOYCOMA {::}
+        |TITULOX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas END PUNTOYCOMA{::}
+        |TITULOY DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE  CORCHETE_CIERRA IGUAL datosgraficas END PUNTOYCOMA{::}
 
         |EXEC GRAPHLINE END PUNTOYCOMA {::}
 ;
@@ -260,6 +282,7 @@ valorlinea ::= ENTERO
 
 elementoslineac::= datoslineac {::}
         |elementoslineac COMA datoslineac {::}
+        |datosgraficas
 ;
 
 datoslineac ::= CADENA
@@ -303,8 +326,8 @@ arreglos ::= ARR DOSPUNTOS tipodedato DOSPUNTOS DOSPUNTOS ARROBA IDENTIFICADOR M
 ;
 
 elementos ::= valorexpresion {::}
-        |elementos COMA valor {::}
-        //|valorexpresion COMA elementos
+        //|elementos COMA valor {::}
+        |valorexpresion COMA elementos
 ;
 
 valor ::= DECIMAL {::}
@@ -316,29 +339,40 @@ valor ::= DECIMAL {::}
 //--------------------------OPERACIONES--------------------------------------
 
 
-expresion ::= SUM PARENTESIS_A valorexpresion COMA valorexpresion PARENTESIS_C {::}
-            | RES PARENTESIS_A valorexpresion COMA valorexpresion PARENTESIS_C {::}
-            | MUL PARENTESIS_A valorexpresion COMA valorexpresion PARENTESIS_C {::}
-            | DIV PARENTESIS_A valorexpresion COMA valorexpresion PARENTESIS_C {::}
-            | MOD PARENTESIS_A valorexpresion COMA valorexpresion PARENTESIS_C {::}  
-            | COMA
+expresion ::= SUM PARENTESIS_A valorexpresion:a COMA valorexpresion:b PARENTESIS_C {:RESULT=Double.parseDouble(a.toString())+Double.parseDouble(b.toString());:}
+            | RES PARENTESIS_A valorexpresion:a COMA valorexpresion:b PARENTESIS_C {:RESULT=Double.parseDouble(a.toString())-Double.parseDouble(b.toString());:}
+            | MUL PARENTESIS_A valorexpresion:a COMA valorexpresion:b PARENTESIS_C {:RESULT=Double.parseDouble(a.toString())*Double.parseDouble(b.toString());:}
+            | DIV PARENTESIS_A valorexpresion:a COMA valorexpresion:b PARENTESIS_C {:RESULT=Double.parseDouble(a.toString())/Double.parseDouble(b.toString());:}
+            | MOD PARENTESIS_A valorexpresion:a COMA valorexpresion:b PARENTESIS_C {:RESULT=Double.parseDouble(a.toString())%Double.parseDouble(b.toString());:}  
+            | operacionesnest
 ;
 
-valorexpresion ::=  expresion {::}
-        | DECIMAL {::}
+valorexpresion ::=  expresion:e {:RESULT=e;:}
+        | DECIMAL:d {:RESULT=d;:}
         | IDENTIFICADOR {::}
-        | ENTERO {::}
-        | CADENA {::}
+        | ENTERO:entero {:RESULT=entero;:}
+        | CADENA:charm   {:RESULT=charm;:}
+        
         
 ;
 
-operacionesnest ::= MEDIA PARENTESIS_A arregloexpresiones PARENTESIS_C
-        |MEDIANA  PARENTESIS_A arregloexpresiones PARENTESIS_C
-        |MODA     PARENTESIS_A  arregloexpresiones PARENTESIS_C
-        |VARIANZA PARENTESIS_A arregloexpresiones PARENTESIS_C
-        |MAX      PARENTESIS_A arregloexpresiones PARENTESIS_C
-        |MIN      PARENTESIS_A arregloexpresiones PARENTESIS_C
+operacionesnest ::= MEDIA PARENTESIS_A arregloexpresiones:arregloexp PARENTESIS_C {:RESULT=arregloexp;:}
+        |MEDIANA  PARENTESIS_A arregloexpresiones:arregloexp PARENTESIS_C                    {:RESULT=arregloexp;:}
+        |MODA     PARENTESIS_A  arregloexpresiones:arregloexp PARENTESIS_C                   {:RESULT=arregloexp;:}
+        |VARIANZA PARENTESIS_A arregloexpresiones:arregloexp PARENTESIS_C                    {:RESULT=arregloexp;:}
+        |MAX      PARENTESIS_A arregloexpresiones:arregloexp PARENTESIS_C                    {:RESULT=arregloexp;:}
+        |MIN      PARENTESIS_A arregloexpresiones:arregloexp PARENTESIS_C                    {:RESULT=arregloexp;:}
 ;
 
-arregloexpresiones ::= ARROBA IDENTIFICADOR
+arregloexpresiones ::= ARROBA:arroba IDENTIFICADOR:id{:RESULT=funciones.reportes.busqueda(arroba.toString()+id.toString());:}
+        | CORCHETE_ABRE elementos:el CORCHETE_CIERRA {:RESULT=el;:}
+;
+
+
+datosgraficas ::= ENTERO:entero
+        |DECIMAL:decimal
+        |CADENA:cadena
+        |arregloexpresiones:arregloexpresiones
+        |IDENTIFICADOR:identificador
+        
 ;

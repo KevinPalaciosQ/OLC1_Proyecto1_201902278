@@ -16,7 +16,20 @@ public class reportes {
     public static LinkedList<Object> ListaTokensDF = new LinkedList<Object>();
     public static LinkedList<Object> ListaErroresDF = new LinkedList<Object>();
     public static LinkedList<Object> ListaSimbolos = new LinkedList<Object>();
-
+    
+    public static Object busqueda(String id){
+        //funciones.simbolos ob =objeto
+        funciones.simbolos objeto = new funciones.simbolos();
+        
+        for (int i =0;i<ListaSimbolos.size();i++ ){
+        objeto =(simbolos) ListaSimbolos.get(i);
+        if(objeto.getId().equals(id)){
+            return objeto.getValor();
+        }
+        }return null;
+        
+    }
+    
     public static void TablaDatos(String dato, String id, Object valor,int linea, int columna){
         funciones.simbolos sim = new funciones.simbolos();
         sim.recibir_datos(dato, id, valor, linea, columna);
