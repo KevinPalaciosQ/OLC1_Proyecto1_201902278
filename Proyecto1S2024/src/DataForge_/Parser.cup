@@ -2,6 +2,7 @@
 package DataForge_;
 
 import java_cup.runtime.*;
+import java.util.LinkedList;
 
 
 //------> Codigo para el parser
@@ -182,7 +183,7 @@ printarreglos ::= CONSOLE DOSPUNTOS DOSPUNTOS COLUMN IGUAL IDENTIFICADOR GUION M
 nt ::= ARROBA IDENTIFICADOR 
         |CORCHETE_ABRE elementos CORCHETE_CIERRA
 ;
-printexpresiones ::= CONSOLE DOSPUNTOS DOSPUNTOS PRINT IGUAL ciclo END PUNTOYCOMA
+printexpresiones ::= CONSOLE DOSPUNTOS DOSPUNTOS PRINT IGUAL ciclo:im END PUNTOYCOMA {:LinkedList<String> im = new LinkedList<String>();im.add("Salida!: " ); RESULT = impresion; :} 
 ;
 
 ntexp ::= IDENTIFICADOR:ni {:RESULT=funciones.reportes.busqueda(ni);:}
