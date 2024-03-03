@@ -155,5 +155,74 @@ public class estadisticas {
 
         return minimo;
     }
+    public static void calcularFrecuencias(double[] valores) {
+        // Ordenamos los valores para facilitar el cálculo
+        Arrays.sort(valores);
+
+        // Creamos un array para almacenar los valores únicos y su frecuencia
+        double[] valoresUnicos = new double[valores.length];
+        int indiceUnico = 0;
+
+        // Calculamos las frecuencias para cada valor único
+        double valorActual = valores[0];
+        int frecuencia = 1;
+        for (int i = 1; i < valores.length; i++) {
+            if (valores[i] == valorActual) {
+                frecuencia++;
+            } else {
+                valoresUnicos[indiceUnico] = valorActual;
+                indiceUnico++;
+                valorActual = valores[i];
+                frecuencia = 1;
+            }
+        }
+        // Agregamos el último valor único
+        valoresUnicos[indiceUnico] = valorActual;
+
+        // Calculamos la cantidad total de valores únicos
+        int totalValoresUnicos = indiceUnico + 1;
+
+        // Creamos arrays para almacenar las frecuencias brutas y acumuladas
+        int[] fb = new int[totalValoresUnicos];
+        int[] fa = new int[totalValoresUnicos];
+        double[] fr = new double[totalValoresUnicos];
+
+        // Calculamos las frecuencias brutas y acumuladas, y las frecuencias relativas acumuladas
+        int frecuenciaAcumulada = 0;
+        double sumaFr = 0;
+        for (int i = 0; i < totalValoresUnicos; i++) {
+            fb[i] = contarRepeticiones(valores, valoresUnicos[i]);
+            frecuenciaAcumulada += fb[i];
+            fa[i] = frecuenciaAcumulada;
+            fr[i] = (double) Math.round(((double) fb[i] / valores.length) * 100);
+            sumaFr += fr[i];
+        }
+
+        // Imprimimos la cabecera de la tabla
+        System.out.println("_____________________________");
+        
+        System.out.println("Valor\tFb\tFa\tFr");
+        System.out.println("_____________________________");
+
+        // Imprimimos los datos
+        for (int i = 0; i < totalValoresUnicos; i++) {
+            System.out.println(valoresUnicos[i] + "\t" + fb[i] + "\t" + fa[i] + "\t" + fr[i]+"%");
+        }
+
+        // Imprimimos la línea divisoria inferior y los totales
+        System.out.println("_____________________________");
+        System.out.println("Totales: " + Arrays.stream(fb).sum() + "\t" + Arrays.stream(fa).sum() + "\t" + sumaFr + "%");
+        System.out.println("_____________________________");
+    }
+
+    public static int contarRepeticiones(double[] array, double valor) {
+        int contador = 0;
+        for (double elemento : array) {
+            if (elemento == valor) {
+                contador++;
+            }
+        }
+        return contador;
+    }
 
 }
