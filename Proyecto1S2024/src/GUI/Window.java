@@ -20,6 +20,13 @@ import org.fife.ui.rtextarea.RTextScrollPane;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.border.Border;
+import javax.swing.filechooser.FileFilter;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.statistics.HistogramDataset;
 
 /**
  *
@@ -28,13 +35,21 @@ import java.awt.event.*;
 public class Window extends javax.swing.JFrame {
     private JTabbedPane tabbedPane;
     private int tabCounter = 1;
-RSyntaxTextArea textArea;
+    RSyntaxTextArea textArea;
+    //public javax.swing.JPanel jPanel2;
+
     /**
      * Creates new form Window
      */
     public Window() {
         initComponents();
         RSyntax();
+        setTitle("DataForge");
+// Cargando la imagen desde la ruta especificada
+        ImageIcon icono = new ImageIcon("C:\\Users\\kevin\\OneDrive\\Documentos\\OLC1_Proyecto1_201902278\\Proyecto1S2024\\src\\Iconos\\data-collection.png");
+
+// Asignando el icono a la ventana principal
+        setIconImage(icono.getImage());
     }
 
     /**
@@ -51,13 +66,15 @@ RSyntaxTextArea textArea;
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        Anterior = new javax.swing.JButton();
+        Siguiente = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         Pestana = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        NuevoArchivo = new javax.swing.JMenuItem();
         AbrirArchivo = new javax.swing.JMenuItem();
         Guardar = new javax.swing.JMenuItem();
         GuardarComo = new javax.swing.JMenuItem();
@@ -75,11 +92,11 @@ RSyntaxTextArea textArea;
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Bauhaus 93", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 102, 255));
         jLabel1.setText("Entrada");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Bauhaus 93", 0, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(153, 102, 255));
         jLabel2.setText("Salida");
 
@@ -88,23 +105,45 @@ RSyntaxTextArea textArea;
         jTextArea2.setRows(5);
         jScrollPane1.setViewportView(jTextArea2);
 
-        jButton1.setText("Anterior");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Anterior.setBackground(new java.awt.Color(51, 153, 255));
+        Anterior.setFont(new java.awt.Font("Bauhaus 93", 0, 12)); // NOI18N
+        Anterior.setForeground(new java.awt.Color(51, 255, 102));
+        Anterior.setText("Anterior");
+        Anterior.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                AnteriorActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Siguiente");
+        Siguiente.setBackground(new java.awt.Color(51, 153, 255));
+        Siguiente.setFont(new java.awt.Font("Bauhaus 93", 0, 12)); // NOI18N
+        Siguiente.setForeground(new java.awt.Color(51, 255, 122));
+        Siguiente.setText("Siguiente");
+        Siguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SiguienteActionPerformed(evt);
+            }
+        });
 
         jLabel3.setBackground(new java.awt.Color(153, 102, 255));
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Bauhaus 93", 0, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(153, 102, 255));
         jLabel3.setText("Ver gráficas");
 
         jPanel3.setBackground(new java.awt.Color(153, 255, 255));
         jPanel3.setLayout(new java.awt.CardLayout());
         Pestana.addTab("Pestaña", jPanel3);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 505, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 291, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -113,45 +152,53 @@ RSyntaxTextArea textArea;
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(68, 68, 68)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(536, 536, 536)
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2)
-                        .addContainerGap(244, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Pestana, javax.swing.GroupLayout.PREFERRED_SIZE, 805, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(354, 354, 354))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Pestana, javax.swing.GroupLayout.PREFERRED_SIZE, 805, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(62, 62, 62)
+                                .addComponent(Anterior)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(58, 58, 58))))
+                                .addComponent(Siguiente)))
+                        .addGap(25, 25, 25))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addGap(50, 50, 50))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jLabel3))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(40, 40, 40)
-                        .addComponent(jLabel1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Pestana, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1)
-                        .addComponent(jButton2)))
-                .addGap(18, 18, 18)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Pestana, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(9, 9, 9)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Anterior)
+                    .addComponent(Siguiente))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(83, 83, 83))
+                .addGap(54, 54, 54))
         );
 
         jMenu1.setText("Archivo");
@@ -161,8 +208,18 @@ RSyntaxTextArea textArea;
             }
         });
 
+        NuevoArchivo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        NuevoArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/IconoAgregar.png"))); // NOI18N
+        NuevoArchivo.setText("Nuevo Archivo");
+        NuevoArchivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NuevoArchivoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(NuevoArchivo);
+
         AbrirArchivo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        AbrirArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/IconoAgregar.png"))); // NOI18N
+        AbrirArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/folder.png"))); // NOI18N
         AbrirArchivo.setText("Abrir Archivo");
         AbrirArchivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -296,9 +353,57 @@ RSyntaxTextArea textArea;
         jPanel3.add(sp);
 
     }
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    
+public static void histograma(String titulo, double valores[]) {
+    // Verificar si los valores son nulos o vacíos
+    if (valores == null || valores.length == 0) {
+        System.out.println("Error: El array de valores es nulo o está vacío.");
+        return; // Salir del método si los valores no son válidos
+    }
+    
+    // Crear conjunto de datos para el histograma
+    HistogramDataset dataset = new HistogramDataset();
+    dataset.addSeries("Histograma", valores, 15); // 15 es el número de bins (intervalos)
+
+    // Crear histograma
+    JFreeChart grafica = ChartFactory.createHistogram(
+        titulo,
+        null,
+        null,
+        dataset,
+        PlotOrientation.VERTICAL,
+        true,
+        true,
+        false
+    );
+
+    // Crear el panel de la gráfica
+    ChartPanel chartPanel = new ChartPanel(grafica);
+
+    // Limpiar cualquier componente anterior del JPanel
+    jPanel2.removeAll();
+
+    // Agregar el panel de la gráfica al JPanel
+    jPanel2.add(chartPanel);
+
+    // Ajustar el tamaño del panel de la gráfica para que se ajuste al JPanel
+    chartPanel.setPreferredSize(jPanel2.getSize());
+
+    // Revalidar el JPanel para mostrar la nueva gráfica
+    jPanel2.revalidate();
+    jPanel1.repaint();
+}
+
+    private void AnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnteriorActionPerformed
+        
+        double[] valores = { 2,1 };
+        String titulo = "Histograma";
+
+    // Llamar al método histograma() para mostrar el histograma en jPanel2
+        histograma(titulo, valores);
+
+        System.out.println("Anterior");
+    }//GEN-LAST:event_AnteriorActionPerformed
 
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
         // TODO add your handling code here:
@@ -306,42 +411,65 @@ RSyntaxTextArea textArea;
     }//GEN-LAST:event_jMenu1ActionPerformed
 
     private void AbrirArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AbrirArchivoActionPerformed
-// Abrir Archivo
-           //se crea el Objeto JFileChooser
-        JFileChooser fc =  new JFileChooser();
-        
-        //Se crea el filtro de extensiones de documento
-        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivo DF (*.df)", "df");
-        //Se indica el uso del filtro
-        fc.setFileFilter(filtro);
-        //Se abre ventana y se cargan 
-        int seleccion = fc.showOpenDialog(this);
-        //Si el usuario presiona aceptar
-        if (seleccion ==JFileChooser.APPROVE_OPTION){
+    JFileChooser fc = new JFileChooser();
+
+    // Se crea el filtro de extensiones de documento
+    FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivo DF (*.df)", "df");
+    // Se indica el uso del filtro
+    fc.setFileFilter(filtro);
+
+    // Verificar si hay contenido en la pestaña actual antes de abrir un nuevo archivo
+    if (Pestana.getSelectedIndex() != -1) {
+        JPanel panel = (JPanel) Pestana.getSelectedComponent();
+        RSyntaxTextArea textArea = (RSyntaxTextArea) ((RTextScrollPane) panel.getComponent(0)).getViewport().getView();
+        String contenidoActual = textArea.getText();
+
+        // Si hay contenido en la pestaña actual, preguntar al usuario si desea guardar antes de abrir otro archivo
+        if (!contenidoActual.isEmpty()) {
+            int opcion = JOptionPane.showConfirmDialog(this, "¿Desea guardar el archivo actual antes de abrir uno nuevo?", "Guardar archivo", JOptionPane.YES_NO_CANCEL_OPTION);
+            if (opcion == JOptionPane.YES_OPTION) {
+                // Llamar a la función para guardar el archivo actual
+                // (puedes utilizar la función GuardarActionPerformed que ya tienes implementada)
+                GuardarActionPerformed(null);
+            } else if (opcion == JOptionPane.CANCEL_OPTION) {
+                // Si el usuario elige cancelar, salir de la función sin abrir un nuevo archivo
+                return;
+            }
+        }
+    }
+
+    // Se abre ventana y se cargan 
+    int seleccion = fc.showOpenDialog(this);
+    // Si el usuario presiona aceptar
+    if (seleccion == JFileChooser.APPROVE_OPTION) {
         File fichero = fc.getSelectedFile();
-        archivoAbierto = fichero;
+        archivoAbierto = fichero; // Actualiza el archivo abierto
 
         // Obtenemos el nombre del archivo seleccionado
-        String nombrearchivo = fichero.getName();
+        String nombreArchivo = fichero.getName();
 
-            archivoAbierto = fichero;
-            //Analizador3.setText(nombrearchivo);
-            //Escribe la ruta del fichero seleccionado en el campo de texto
-
-            try(FileReader fr = new FileReader(fichero)){
-                String cadena ="";
-                int valor = fr.read();
-                while (valor!=-1){
-                    cadena = cadena +(char)valor;
-                    valor =fr.read();
-                }
-                this.textArea.setText(cadena);
-                
-            }catch(IOException el){
-            el.printStackTrace();
+        try (FileReader fr = new FileReader(fichero)) {
+            String cadena = "";
+            int valor = fr.read();
+            while (valor != -1) {
+                cadena = cadena + (char) valor;
+                valor = fr.read();
             }
-        } 
-    
+
+            // Obtener el panel de la pestaña seleccionada
+            JPanel panel = (JPanel) Pestana.getSelectedComponent();
+            // Obtener el RSyntaxTextArea del panel
+            RSyntaxTextArea textArea = (RSyntaxTextArea) ((RTextScrollPane) panel.getComponent(0)).getViewport().getView();
+            // Establecer el texto en el RSyntaxTextArea
+            textArea.setText(cadena);
+
+            // Establecer el nombre de la pestaña como el nombre del archivo
+            Pestana.setTitleAt(Pestana.getSelectedIndex(), nombreArchivo);
+
+        } catch (IOException el) {
+            el.printStackTrace();
+        }
+    }
  
     }//GEN-LAST:event_AbrirArchivoActionPerformed
 
@@ -358,64 +486,104 @@ RSyntaxTextArea textArea;
     } 
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
     // Guardar Archivo
-       if (archivoAbierto != null) {
-        try (FileWriter fw = new FileWriter(archivoAbierto)) {
-            String contenido = textArea.getText(); // Obtener contenido del JTextArea
-            fw.write(contenido);
-        } catch (IOException e) {
-            e.printStackTrace();
+    if (archivoAbierto != null) {
+        try {
+            // Obtener el texto del RSyntaxTextArea de la pestaña actual
+            JPanel panel = (JPanel) Pestana.getSelectedComponent();
+            RSyntaxTextArea textArea = (RSyntaxTextArea) ((RTextScrollPane) panel.getComponent(0)).getViewport().getView();
+            String texto = textArea.getText();
+
+            // Escribir el texto en el archivo abierto
+            FileWriter fw = new FileWriter(archivoAbierto);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(texto);
+            bw.close();
+
+            JOptionPane.showMessageDialog(this, "Se guardó el archivo correctamente");
+        } catch (IOException ex) {
+            ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al guardar el archivo.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     } else {
         JOptionPane.showMessageDialog(this, "No hay un archivo abierto para guardar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
     }
-       
     }//GEN-LAST:event_GuardarActionPerformed
-private File archivoAbierto = null;
+    private File archivoAbierto = null;
     private void GuardarComoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarComoActionPerformed
-JFileChooser guardarArchivo = new JFileChooser();
-guardarArchivo.setDialogTitle("Guardar Como");
+    JFileChooser guardarArchivo = new JFileChooser();
+    guardarArchivo.setDialogTitle("Guardar Como");
 
-// Agrega los filtros para las extensiones
-FileNameExtensionFilter filtroSP = new FileNameExtensionFilter("Archivo DF (*.df)", "df");
-guardarArchivo.addChoosableFileFilter(filtroSP);
+    // Agrega los filtros para las extensiones
+    FileNameExtensionFilter filtroSP = new FileNameExtensionFilter("Archivo DF (*.df)", "df");
+    guardarArchivo.addChoosableFileFilter(filtroSP);
 
-int opcion = guardarArchivo.showSaveDialog(this);
-File archivo;
+    int opcion = guardarArchivo.showSaveDialog(this);
+    File archivo;
 
-if (opcion == JFileChooser.APPROVE_OPTION) {
-    String nombre = guardarArchivo.getSelectedFile().getName();
-    String ruta = guardarArchivo.getSelectedFile().getAbsolutePath();
-    
-    FileNameExtensionFilter filtroSeleccionado = (FileNameExtensionFilter) guardarArchivo.getFileFilter();
-    String extension = filtroSeleccionado.getExtensions()[0];
-    
-    archivo = new File(ruta + "." + extension);
+    if (opcion == JFileChooser.APPROVE_OPTION) {
+        String nombre = guardarArchivo.getSelectedFile().getName();
+        String ruta = guardarArchivo.getSelectedFile().getAbsolutePath();
+        
+        // Obtener el filtro seleccionado
+        FileFilter filtroSeleccionado = guardarArchivo.getFileFilter();
+        
+        // Obtener la extensión del filtro seleccionado
+        String extension = "df";
+        if (filtroSeleccionado instanceof FileNameExtensionFilter) {
+            FileNameExtensionFilter filtroExtension = (FileNameExtensionFilter) filtroSeleccionado;
+            extension = filtroExtension.getExtensions()[0];
+        }
+        
+        archivo = new File(ruta + "." + extension);
 
-    try {
-        if (!archivo.exists()) {
-            archivo.createNewFile();
+        try {
+            if (!archivo.exists()) {
+                archivo.createNewFile();
+            }
+
+            // Obtener el panel de la pestaña seleccionada
+            JPanel panel = (JPanel) Pestana.getSelectedComponent();
+            // Obtener el RSyntaxTextArea del panel
+            RSyntaxTextArea textArea = (RSyntaxTextArea) ((RTextScrollPane) panel.getComponent(0)).getViewport().getView();
+            
+            // Obtener el nombre de la pestaña actual
+            String nombrePestana = Pestana.getTitleAt(Pestana.getSelectedIndex());
+
             FileWriter fw = new FileWriter(archivo);
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write(textArea.getText());
             bw.close();
+            
+            // Cambiar el nombre de la pestaña actual al nombre del archivo
+            Pestana.setTitleAt(Pestana.getSelectedIndex(), nombre);
+            
+            JOptionPane.showMessageDialog(this, "Se guardó el archivo correctamente");
+        } catch (IOException ex) {
+            // Manejo de excepciones
         }
-        JOptionPane.showMessageDialog(this, "Se guardó el archivo correctamente");
-    } catch (IOException ex) {
-        // Manejo de excepciones
+    
+
     }
-}
-
-        
     }//GEN-LAST:event_GuardarComoActionPerformed
-
+private String obtenerTextoPestanaSeleccionada() {
+    // Obtener el panel de la pestaña seleccionada
+    JPanel panel = (JPanel) Pestana.getSelectedComponent();
+    // Obtener el RSyntaxTextArea del panel
+    RSyntaxTextArea textArea = (RSyntaxTextArea) ((RTextScrollPane) panel.getComponent(0)).getViewport().getView();
+    // Obtener el texto del RSyntaxTextArea
+    return textArea.getText();
+}
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your hansdling code here:
-        System.out.println("Analizando");
-        analizar(textArea.getText());
-        funciones.reportes.tokens_DF();
-        funciones.reportes.errores_DF();
-        funciones.reportes.tabla_simbolos();
+    // Obtener el texto del área de texto de la pestaña seleccionada
+    String textoPestanaSeleccionada = obtenerTextoPestanaSeleccionada();
+    
+    // Llamar a la función analizar con el texto de la pestaña seleccionada
+    System.out.println("Analizando...");
+    analizar(textoPestanaSeleccionada);
+    funciones.reportes.tokens_DF();
+    funciones.reportes.errores_DF();
+    funciones.reportes.tabla_simbolos();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void EliminarPestanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarPestanaActionPerformed
@@ -457,6 +625,21 @@ if (opcion == JFileChooser.APPROVE_OPTION) {
         System.out.println("Pestaña Eliminada");
     }//GEN-LAST:event_NuevaPestanaaActionPerformed
 
+    private void NuevoArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoArchivoActionPerformed
+        // TODO add your handling code here:
+        Nuevo();
+        System.out.println("Nuevo Archivo");
+        
+    }//GEN-LAST:event_NuevoArchivoActionPerformed
+public void mostrarSiguienteGrafica() {
+
+}
+    private void SiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SiguienteActionPerformed
+        // TODO add your handling code here:
+        System.out.println("Siguiente");
+        mostrarSiguienteGrafica();
+    }//GEN-LAST:event_SiguienteActionPerformed
+
 
 
 private void ContadorPestana(){
@@ -472,11 +655,45 @@ private void ContadorPestana(){
             @Override
             public void actionPerformed(ActionEvent e) {
                 addNewTab();
+                //Nuevo();
             }
         });
         add(addButton, BorderLayout.SOUTH);
     }
+private void ContadorNuevo(){
 
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(400, 300);
+
+        Pestana = new JTabbedPane();
+        add(Pestana, BorderLayout.CENTER);
+
+        JButton addButton = new JButton("Agregar Pestaña");
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //addNewTab();
+                Nuevo();
+            }
+        });
+        add(addButton, BorderLayout.SOUTH);
+    }
+private void Nuevo() {
+    JPanel panel = new JPanel(new BorderLayout()); // Creamos un panel con un layout BorderLayout
+    panel.setBackground(Color.WHITE);
+
+    RSyntaxTextArea textArea = new RSyntaxTextArea(); // Creamos el RSyntaxTextArea
+    RTextScrollPane sp = new RTextScrollPane(textArea); // Envolvemos el RSyntaxTextArea en un RTextScrollPane
+
+    textArea.setFont(new Font("Monospaced", Font.PLAIN, 18));
+    textArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_PYTHON); // Establecemos el estilo de sintaxis
+
+    panel.add(sp, BorderLayout.CENTER); // Agregamos el RTextScrollPane al centro del panel
+
+    Pestana.addTab("Sin título " + tabCounter, panel); // Agregamos el panel a la pestaña
+    Pestana.setSelectedIndex(tabCounter - 1); // Establecemos la nueva pestaña como la pestaña actual
+    tabCounter++;
+}
 private void addNewTab() {
     JPanel panel = new JPanel(new BorderLayout()); // Creamos un panel con un layout BorderLayout
     panel.setBackground(Color.WHITE);
@@ -538,17 +755,18 @@ private void EliminarPestana() {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AbrirArchivo;
+    private javax.swing.JButton Anterior;
     private javax.swing.JMenu EliminarPestana;
     private javax.swing.JMenuItem Guardar;
     private javax.swing.JMenuItem GuardarComo;
     private javax.swing.JMenuItem NuevaPestana;
     private javax.swing.JMenuItem NuevaPestanaa;
+    private javax.swing.JMenuItem NuevoArchivo;
     private javax.swing.JTabbedPane Pestana;
     private javax.swing.JMenuItem ReporteLexicos;
     private javax.swing.JMenuItem ReporteSimbolos;
     private javax.swing.JMenuItem ReportedeTokens;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton Siguiente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -557,7 +775,8 @@ private void EliminarPestana() {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JPanel jPanel1;
+    public static javax.swing.JPanel jPanel1;
+    public static javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea2;

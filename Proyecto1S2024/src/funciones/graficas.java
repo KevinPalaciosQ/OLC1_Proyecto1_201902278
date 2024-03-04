@@ -128,8 +128,8 @@ public static void histograma(
                         false);
 
         // Mostrar histograma
-        ChartFrame frame = new ChartFrame("Análisis de Arreglo", grafica);
-        frame.pack();
-        frame.setVisible(true);
+        //ChartFrame frame = new ChartFrame("Análisis de Arreglo", grafica);
+        //frame.pack();
+        //frame.setVisible(true);
     }     
 }
