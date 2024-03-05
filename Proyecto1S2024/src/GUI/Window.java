@@ -20,6 +20,7 @@ import org.fife.ui.rtextarea.RTextScrollPane;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import javax.imageio.ImageIO;
 import javax.swing.border.Border;
 import javax.swing.filechooser.FileFilter;
 import org.jfree.chart.ChartFactory;
@@ -72,6 +73,7 @@ public class Window extends javax.swing.JFrame {
         Pestana = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         NuevoArchivo = new javax.swing.JMenuItem();
@@ -145,6 +147,8 @@ public class Window extends javax.swing.JFrame {
             .addGap(0, 291, Short.MAX_VALUE)
         );
 
+        jLabel4.setText("jLabel4");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -159,7 +163,9 @@ public class Window extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(354, 354, 354))
+                        .addGap(38, 38, 38)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(275, 275, 275))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -189,7 +195,9 @@ public class Window extends javax.swing.JFrame {
                         .addComponent(jLabel2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel3)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(9, 9, 9)
@@ -354,53 +362,9 @@ public class Window extends javax.swing.JFrame {
 
     }
     
-public static void histograma(String titulo, double valores[]) {
-    // Verificar si los valores son nulos o vacíos
-    if (valores == null || valores.length == 0) {
-        System.out.println("Error: El array de valores es nulo o está vacío.");
-        return; // Salir del método si los valores no son válidos
-    }
-    
-    // Crear conjunto de datos para el histograma
-    HistogramDataset dataset = new HistogramDataset();
-    dataset.addSeries("Histograma", valores, 15); // 15 es el número de bins (intervalos)
 
-    // Crear histograma
-    JFreeChart grafica = ChartFactory.createHistogram(
-        titulo,
-        null,
-        null,
-        dataset,
-        PlotOrientation.VERTICAL,
-        true,
-        true,
-        false
-    );
-
-    // Crear el panel de la gráfica
-    ChartPanel chartPanel = new ChartPanel(grafica);
-
-    // Limpiar cualquier componente anterior del JPanel
-    jPanel2.removeAll();
-
-    // Agregar el panel de la gráfica al JPanel
-    jPanel2.add(chartPanel);
-
-    // Ajustar el tamaño del panel de la gráfica para que se ajuste al JPanel
-    chartPanel.setPreferredSize(jPanel2.getSize());
-
-    // Revalidar el JPanel para mostrar la nueva gráfica
-    jPanel2.revalidate();
-    jPanel1.repaint();
-}
 
     private void AnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnteriorActionPerformed
-        
-        double[] valores = { 2,1 };
-        String titulo = "Histograma";
-
-    // Llamar al método histograma() para mostrar el histograma en jPanel2
-        histograma(titulo, valores);
 
         System.out.println("Anterior");
     }//GEN-LAST:event_AnteriorActionPerformed
@@ -429,7 +393,7 @@ public static void histograma(String titulo, double valores[]) {
             int opcion = JOptionPane.showConfirmDialog(this, "¿Desea guardar el archivo actual antes de abrir uno nuevo?", "Guardar archivo", JOptionPane.YES_NO_CANCEL_OPTION);
             if (opcion == JOptionPane.YES_OPTION) {
                 // Llamar a la función para guardar el archivo actual
-                // (puedes utilizar la función GuardarActionPerformed que ya tienes implementada)
+                
                 GuardarActionPerformed(null);
             } else if (opcion == JOptionPane.CANCEL_OPTION) {
                 // Si el usuario elige cancelar, salir de la función sin abrir un nuevo archivo
@@ -770,6 +734,7 @@ private void EliminarPestana() {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
