@@ -35,7 +35,7 @@ action code
 //------> Declaración de terminales
 terminal String PARENTESIS_A, PARENTESIS_C, PUNTOYCOMA,COMA;
 terminal String SUM, RES,MUL,DIV, MOD;
-terminal String POR, MAS,MENOS;
+terminal String POR, MAS;
 terminal String R_MOSTRAR;
 terminal String ENTERO;
 terminal String DECIMAL,CADENA;
@@ -129,7 +129,6 @@ non terminal ciclo;
 non terminal datosgraficas;
 //------> PRECEDENCIA
 precedence left MAS;
-precedence left MENOS;
 precedence left POR;
 
 
@@ -150,7 +149,7 @@ recorrido ::= instrucciones         {::}
 
 instrucciones ::= declaracion:dec  {:RESULT=dec;:}
     | arreglos:arreglo             {:RESULT=arreglo;:}
-    | funcionesgrafica:fg          {::}
+    | funcionesgrafica:fg          {:RESULT=fg;:}
     | printarreglos:pa             {:RESULT=pa;:}
     | printexpresiones:pe          {:RESULT=pe;:}
     | error PUNTOYCOMA             
@@ -165,6 +164,7 @@ funcionesgrafica ::= declaracionhistograma  {::}
 
 declaracion ::= VAR:var DOSPUNTOS tipodedato:td DOSPUNTOS DOSPUNTOS IDENTIFICADOR:id MENORQUE GUION  tipodato:tdd END PUNTOYCOMA {:funciones.reportes.TablaDatos(td.toString(),id.toString(),tdd,varright,varleft);:}
             |VAR:var DOSPUNTOS tipodedato:tp DOSPUNTOS DOSPUNTOS IDENTIFICADOR:id MENORQUE GUION  expresion:ex END PUNTOYCOMA    {:funciones.reportes.TablaDatos(tp.toString(),id.toString(),ex,varright,varleft);:}
+ //           |VAR:var DOSPUNTOS tipodedato:tp DOSPUNTOS DOSPUNTOS IDENTIFICADOR:identificador MENORQUE GUION  IDENTIFICADOR:id END PUNTOYCOMA   {:Object variable=funciones.reportes.busqueda(arroba.toString()+id.toString());funciones.reportes.TablaDatos(td.toString(),identificador.toString(),variable,varright,varleft);:}
 ;
 tipodedato ::= R_DOUBLE:d {:RESULT=d;:}
         |R_CHAR:c CORCHETE_ABRE CORCHETE_CIERRA {:RESULT=c;:}
@@ -185,10 +185,7 @@ printarreglos ::= CONSOLE DOSPUNTOS DOSPUNTOS COLUMN IGUAL IDENTIFICADOR:identi 
 nt ::= ARROBA IDENTIFICADOR 
         |CORCHETE_ABRE elementos CORCHETE_CIERRA
 ;
-printexpresiones ::= CONSOLE DOSPUNTOS DOSPUNTOS PRINT IGUAL ciclo END PUNTOYCOMA
- {:LinkedList<String>listaconexion = new LinkedList<>();
-listaconexion.add("! Salida: ");
-:} 
+printexpresiones ::= CONSOLE DOSPUNTOS DOSPUNTOS PRINT IGUAL ciclo:cc END PUNTOYCOMA {:String dec=funciones.saltos.recepcion((LinkedList<Object>)cc);funciones.saltos.lista_general.add(dec);:} 
 ;
 
 ntexp ::= IDENTIFICADOR:ni {:RESULT=funciones.reportes.busqueda(ni);:}
@@ -199,8 +196,13 @@ ntexp ::= IDENTIFICADOR:ni {:RESULT=funciones.reportes.busqueda(ni);:}
         
 ;
 
-ciclo ::= ntexp             {::}
-        |ntexp COMA ciclo   {::}
+ciclo ::= ntexp:nt             
+{:LinkedList<Object> listaciclo = new LinkedList<Object>();
+listaciclo.add(nt); RESULT = (LinkedList<Object>)listaciclo;:}
+        |ntexp:ne COMA ciclo:clo  
+{:LinkedList<Object> listaexpresion = new LinkedList<Object>();
+listaexpresion.add(ne); listaexpresion.addAll((LinkedList)clo);
+RESULT = (LinkedList<Object>)listaexpresion;:}
 ;
 
 
@@ -328,13 +330,17 @@ datoslabel ::= CADENA {::}
 
 //-------------------------------------ARREGLOS----------------------------------------------------------------
 
-arreglos ::= ARR DOSPUNTOS tipodedato DOSPUNTOS DOSPUNTOS ARROBA IDENTIFICADOR MENORQUE GUION CORCHETE_ABRE elementos CORCHETE_CIERRA END PUNTOYCOMA{::}
+arreglos ::= ARR:arr DOSPUNTOS tipodedato:td DOSPUNTOS DOSPUNTOS ARROBA IDENTIFICADOR:identi MENORQUE GUION CORCHETE_ABRE elementos:tdd CORCHETE_CIERRA END PUNTOYCOMA{:Object[] variableo=funciones.reportes.arreglos((LinkedList<Object>)tdd);funciones.reportes.TablaDatosObject(td.toString(),identi.toString(),(Object[])  variableo,arrright,arrleft);:}
+        |ARR:arr DOSPUNTOS tipodedato:td DOSPUNTOS DOSPUNTOS ARROBA IDENTIFICADOR:ident MENORQUE GUION ARROBA:arroba IDENTIFICADOR:identificador END PUNTOYCOMA{:Object[] variable=funciones.reportes.busquedaValor(arroba.toString()+identificador.toString());funciones.reportes.TablaDatosObject(td.toString(),identificador.toString(),variable,arrright,arrleft);:}
 ;
 
-elementos ::= valorexpresion {::}
-        //|elementos COMA valor {::}
-        |valorexpresion COMA elementos {::}
+elementos ::= valorexpresion:vexp1 {:LinkedList<Object> le = new LinkedList<Object>();
+        le.add(vexp1); RESULT = (LinkedList<Object>)le;:}
+        |valorexpresion:ve COMA elementos:e {:LinkedList<Object> listaexpresiones = new LinkedList<Object>();
+        listaexpresiones.add(ve); listaexpresiones.addAll((LinkedList)e);
+        RESULT = (LinkedList<Object>)listaexpresiones;:}
 ;
+
 
 valor ::= DECIMAL {::}
         |CADENA {::}
@@ -350,35 +356,35 @@ expresion ::= SUM PARENTESIS_A valorexpresion:a COMA valorexpresion:b PARENTESIS
             | MUL PARENTESIS_A valorexpresion:a COMA valorexpresion:b PARENTESIS_C {:RESULT=Double.parseDouble(a.toString())*Double.parseDouble(b.toString());:}
             | DIV PARENTESIS_A valorexpresion:a COMA valorexpresion:b PARENTESIS_C {:RESULT=Double.parseDouble(a.toString())/Double.parseDouble(b.toString());:}
             | MOD PARENTESIS_A valorexpresion:a COMA valorexpresion:b PARENTESIS_C {:RESULT=Double.parseDouble(a.toString())%Double.parseDouble(b.toString());:}  
-            | operacionesnest  {::}
+            | operacionesnest:nest  {:RESULT=nest;:}
 ;
 
 valorexpresion ::=  expresion:e {:RESULT=e;:}
         | DECIMAL:d {:RESULT=d;:}
-        | IDENTIFICADOR {::}
-        | ENTERO:entero {:RESULT=entero;:}
+        | IDENTIFICADOR:id {:RESULT=funciones.reportes.busqueda(id.toString());:}
+        | ENTERO:entero  {:RESULT=entero;:}
         | CADENA:charm   {:RESULT=charm;:}
         
         
 ;
 
-operacionesnest ::= MEDIA PARENTESIS_A arregloexpresiones:arregloexp PARENTESIS_C {:RESULT=arregloexp;:}
-        |MEDIANA  PARENTESIS_A arregloexpresiones:arregloexp PARENTESIS_C                    {:RESULT=arregloexp;:}
-        |MODA     PARENTESIS_A  arregloexpresiones:arregloexp PARENTESIS_C                   {:RESULT=arregloexp;:}
-        |VARIANZA PARENTESIS_A arregloexpresiones:arregloexp PARENTESIS_C                    {:RESULT=arregloexp;:}
-        |MAX      PARENTESIS_A arregloexpresiones:arregloexp PARENTESIS_C                    {:RESULT=arregloexp;:}
-        |MIN      PARENTESIS_A arregloexpresiones:arregloexp PARENTESIS_C                    {:RESULT=arregloexp;:}
+operacionesnest ::= MEDIA PARENTESIS_A arregloexpresiones:arregloexp PARENTESIS_C            {:RESULT=funciones.estadisticas.media((double[]) arregloexp);:}
+        |MEDIANA  PARENTESIS_A arregloexpresiones:arregloexp PARENTESIS_C                    {:RESULT=funciones.estadisticas.Mediana((double[]) arregloexp);:}
+        |MODA     PARENTESIS_A  arregloexpresiones:arregloexp PARENTESIS_C                   {:RESULT=funciones.estadisticas.Moda((double[]) arregloexp);:}
+        |VARIANZA PARENTESIS_A arregloexpresiones:arregloexp PARENTESIS_C                    {:RESULT=funciones.estadisticas.Varianza((double[]) arregloexp);:}
+        |MAX      PARENTESIS_A arregloexpresiones:arregloexp PARENTESIS_C                    {:RESULT=funciones.estadisticas.Maximo((double[]) arregloexp);:}
+        |MIN      PARENTESIS_A arregloexpresiones:arregloexp PARENTESIS_C                    {:RESULT=funciones.estadisticas.Minimo((double[]) arregloexp);:}
 ;
 
-arregloexpresiones ::= ARROBA:arroba IDENTIFICADOR:id{:RESULT=funciones.reportes.busqueda(arroba.toString()+id.toString());:}
+arregloexpresiones ::= ARROBA IDENTIFICADOR:id {:RESULT=funciones.reportes.busquedaValor(id.toString());:}
         | CORCHETE_ABRE elementos:el CORCHETE_CIERRA {:RESULT=el;:}
 ;
 
 
-datosgraficas ::= ENTERO:entero  {::}
-        |DECIMAL:decimal         {::}
-        |CADENA:cadena           {::}
-        |arregloexpresiones:arregloexpresiones  {::}
+datosgraficas ::= ENTERO:ent  {:RESULT=ent;:}
+        |DECIMAL:dec          {:RESULT=dec;:}
+        |CADENA:cad           {:RESULT=cad;:}
+        |arregloexpresiones:arregloex  {:RESULT=arregloex;:}
         |IDENTIFICADOR:id            {:RESULT=funciones.reportes.busqueda(id.toString());:}
         
 ;

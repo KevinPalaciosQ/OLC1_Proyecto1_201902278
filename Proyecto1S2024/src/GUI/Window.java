@@ -66,7 +66,7 @@ public class Window extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        Salida = new javax.swing.JTextArea();
         Pestana = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -98,12 +98,14 @@ public class Window extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(153, 102, 255));
         jLabel2.setText("Salida");
 
-        jTextArea2.setEditable(false);
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane1.setViewportView(jTextArea2);
+        Salida.setEditable(false);
+        Salida.setBackground(new java.awt.Color(204, 204, 204));
+        Salida.setColumns(20);
+        Salida.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        Salida.setRows(5);
+        jScrollPane1.setViewportView(Salida);
 
-        jPanel3.setBackground(new java.awt.Color(153, 255, 255));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new java.awt.CardLayout());
         Pestana.addTab("Pestaña", jPanel3);
 
@@ -460,6 +462,7 @@ private String obtenerTextoPestanaSeleccionada() {
     RSyntaxTextArea textArea = (RSyntaxTextArea) ((RTextScrollPane) panel.getComponent(0)).getViewport().getView();
     // Obtener el texto del RSyntaxTextArea
     return textArea.getText();
+    
 }
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your hansdling code here:
@@ -472,6 +475,10 @@ private String obtenerTextoPestanaSeleccionada() {
     funciones.reportes.tokens_DF();
     funciones.reportes.errores_DF();
     funciones.reportes.tabla_simbolos();
+        String jump="";
+        for (int i = 0; i < funciones.saltos.lista_general.size(); i++) {
+            jump+=funciones.saltos.lista_general.get(i);
+        }Salida.setText(jump);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void EliminarPestanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarPestanaActionPerformed
@@ -648,6 +655,7 @@ private void EliminarPestana() {
     private javax.swing.JMenuItem ReporteSimbolos;
     private javax.swing.JMenuItem ReportedeTokens;
     private javax.swing.JMenuItem Reportegraficas;
+    private javax.swing.JTextArea Salida;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
@@ -658,6 +666,5 @@ private void EliminarPestana() {
     public static javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea2;
     // End of variables declaration//GEN-END:variables
 }

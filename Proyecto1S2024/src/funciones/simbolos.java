@@ -51,6 +51,9 @@ public class simbolos {
     public void setValor(Object valor) {
         this.valor = valor;
     }
+    public void setValores(Object[] valores) {
+        this.valores = valores;
+    }
 
     /**
      * @return the linea
@@ -58,7 +61,9 @@ public class simbolos {
     public int getLinea() {
         return linea;
     }
-
+    public Object[]  getValores() {
+        return valores;
+    }
     /**
      * @param linea the linea to set
      */
@@ -86,8 +91,19 @@ public class simbolos {
     private int linea = 0;
     private int columna = 0;
     public  void recibir_datos(String dato, String id, Object valor,int linea, int columna){
-
+        this.setDato(dato);
+        this.setId(id);
+        this.setValor(valor);
+        this.setLinea(linea);
+        this.setColumna(columna);
     }
-    
+    private Object[] valores;
+    public  void recibir_datos(String dato, String id, Object[] valores,int linea, int columna){
+        this.setDato(dato);
+        this.setId(id);
+        this.setValores(valores);
+        this.setLinea(linea);
+        this.setColumna(columna);
+    }  
     
 }

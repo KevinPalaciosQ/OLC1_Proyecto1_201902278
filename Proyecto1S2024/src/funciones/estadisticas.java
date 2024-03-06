@@ -33,10 +33,7 @@ public class estadisticas {
     }
         
     public static double media(double[] arreglo) {
-        if (arreglo == null || arreglo.length == 0) {
-            // Manejar el caso en que el arreglo esté vacío o sea nulo
-            throw new IllegalArgumentException("El arreglo no puede ser nulo o vacío");
-        }
+
 
         double suma = 0;
 
@@ -51,9 +48,7 @@ public class estadisticas {
         return media;
     }        
     public static double Mediana(double[] arreglo) {
-        if (arreglo == null || arreglo.length == 0) {
-            throw new IllegalArgumentException("El arreglo no puede ser nulo o vacío");
-        }
+
 
         // Ordenar el arreglo
         Arrays.sort(arreglo);
@@ -68,10 +63,7 @@ public class estadisticas {
         }
     }    
     public static double Moda(double[] arreglo) {
-        if (arreglo == null || arreglo.length == 0) {
-            // Manejar el caso en que el arreglo esté vacío o sea nulo
-            throw new IllegalArgumentException("El arreglo no puede ser nulo o vacío");
-        }
+ 
 
         // Ordenar el arreglo para facilitar la búsqueda de la moda
         Arrays.sort(arreglo);
@@ -104,9 +96,7 @@ public class estadisticas {
     }
 
     public static double Varianza(double[] arreglo) {
-        if (arreglo == null || arreglo.length == 0) {
-            throw new IllegalArgumentException("El arreglo no puede ser nulo o vacío");
-        }
+
 
         double media = media(arreglo);
         double sumaCuadradosDiferencias = 0;
@@ -122,10 +112,7 @@ public class estadisticas {
         return varianza;
     }    
     public static double Maximo(double[] arreglo) {
-        if (arreglo == null || arreglo.length == 0) {
-            // Manejar el caso en que el arreglo esté vacío o sea nulo
-            throw new IllegalArgumentException("El arreglo no puede ser nulo o vacío");
-        }
+
 
         double maximo = arreglo[0]; // Suponemos que el primer elemento es el máximo inicialmente
 
@@ -139,10 +126,7 @@ public class estadisticas {
         return maximo;
     }
     public static double Minimo(double[] arreglo) {
-        if (arreglo == null || arreglo.length == 0) {
-            // Manejar el caso en que el arreglo esté vacío o sea nulo
-            throw new IllegalArgumentException("El arreglo no puede ser nulo o vacío");
-        }
+
 
         double minimo = arreglo[0]; // Suponemos que el primer elemento es el máximo inicialmente
 

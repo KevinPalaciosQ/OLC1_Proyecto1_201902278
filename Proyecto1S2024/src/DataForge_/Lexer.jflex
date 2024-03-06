@@ -104,7 +104,6 @@ multilinea = [<][!][^!]*[!]+([^>*][^!]*[*]+)*[>]
 //---------------------------------------------------------------------------------------------------------------
 "*"         {funciones.reportes.TablaTokensDF(yytext(), "POR", yyline, yycolumn); return new Symbol(sym.POR, yycolumn, yyline, yytext());}
 "+"         {funciones.reportes.TablaTokensDF(yytext(), "MAS", yyline, yycolumn); return new Symbol(sym.MAS, yycolumn, yyline, yytext());}
-"-"         {funciones.reportes.TablaTokensDF(yytext(), "MENOS", yyline, yycolumn); return new Symbol(sym.MENOS, yycolumn, yyline, yytext());}
 
 "<"         {funciones.reportes.TablaTokensDF(yytext(), "MENORQUE", yyline, yycolumn); return new Symbol(sym.MENORQUE, yycolumn, yyline, yytext());}
 ">"         {funciones.reportes.TablaTokensDF(yytext(), "MAYORQUE", yyline, yycolumn); return new Symbol(sym.MAYORQUE, yycolumn, yyline, yytext());}

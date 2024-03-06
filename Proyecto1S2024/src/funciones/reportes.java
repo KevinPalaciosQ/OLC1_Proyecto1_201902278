@@ -17,6 +17,13 @@ public class reportes {
     public static LinkedList<Object> ListaErroresDF = new LinkedList<Object>();
     public static LinkedList<Object> ListaSimbolos = new LinkedList<Object>();
     
+    public static Object[] arreglos(LinkedList listita){
+        Object[] tipoarr =new Object[listita.size()];
+        for (int i = 0; i < listita.size(); i++) {
+            tipoarr[i]=listita.get(i);
+        }
+        return tipoarr;
+    }
     public static Object busqueda(String id){
         //funciones.simbolos ob =objeto
         funciones.simbolos objeto = new funciones.simbolos();
@@ -24,16 +31,44 @@ public class reportes {
         for (int i =0;i<ListaSimbolos.size();i++ ){
         objeto =(simbolos) ListaSimbolos.get(i);
         if(objeto.getId().equals(id)){
+            System.out.println(objeto.getValor());
             return objeto.getValor();
+            
         }
         }return null;
         
     }
     
+    public static Object[] busquedaValor(String id){
+        //funciones.simbolos ob =objeto
+        funciones.simbolos objeto = new funciones.simbolos();
+        
+        for (int i =0;i<ListaSimbolos.size();i++ ){
+        objeto =(simbolos) ListaSimbolos.get(i);
+        if(objeto.getId().equals(id)){
+            return objeto.getValores();
+        }
+        }return null;
+        
+    }    
+    
+    public static void TablaDatosObject(String dato, String id, Object[] valores,int linea, int columna){
+        funciones.simbolos sim = new funciones.simbolos();
+        sim.recibir_datos(dato, id, valores, linea, columna);
+        ListaSimbolos.add(sim);    
+        for (int i = 0; i < valores.length; i++) {
+            System.out.println(valores[i]);
+        }
+    }
     public static void TablaDatos(String dato, String id, Object valor,int linea, int columna){
         funciones.simbolos sim = new funciones.simbolos();
         sim.recibir_datos(dato, id, valor, linea, columna);
         ListaSimbolos.add(sim);
+        //System.out.println(sim.getDato());
+        //System.out.println(sim.getId());
+        //System.out.println(sim.getValor());
+        //System.out.println(sim.getLinea());
+        //System.out.println(sim.getColumna());
         
     }
     public static void TablaTokensDF(String lexema, String token, int linea, int columna) {
@@ -105,64 +140,87 @@ public class reportes {
 
     }
 
-
-
-    public static void tabla_simbolos() {
+   public static void tabla_simbolos() {
         // Generar el código HTML
-        StringBuilder constructors = new StringBuilder();
-        constructors.append("<html lang=\"en\">");
-        constructors.append("<head>");
-        constructors.append("<meta charset=\"utf-8\">");
-        constructors.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
-        constructors.append("<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3\" crossorigin=\"anonymous\">");
-        constructors.append("<link rel=\"shortcut icon\" href=\"Icono.ico\">");
-        constructors.append("<title>Reporte de Tokens DataForge</title>");
-        constructors.append("</head>");
-        constructors.append("<body>");
-        constructors.append("<div class=\"p-3 mb-2 text-white\" style=\"background-color:#63e526\">");
-        constructors.append("<h1><center>Reporte de Simbolos DataForge</center></h1>");
-        constructors.append("</div>");
-        constructors.append("<table class=\"table table-dark table-hover table-bordered\">");
-        constructors.append("<thead>");
-        constructors.append("<tr>");
-        constructors.append("<th scope=\"col\">#</th>");
-        constructors.append("<th scope=\"col\">Dato</th>");
-        constructors.append("<th scope=\"col\">Id</th>");
-        constructors.append("<th scope=\"col\">Valor</th>");
-        constructors.append("<th scope=\"col\">Línea</th>");
-        constructors.append("<th scope=\"col\">Columna</th>");
-        constructors.append("</tr>");
-        constructors.append("</thead>");
-        constructors.append("<tbody>");
-        int contadors = 1;
+        StringBuilder constructort = new StringBuilder();
+        constructort.append("<html lang=\"en\">");
+        constructort.append("<head>");
+        constructort.append("<meta charset=\"utf-8\">");
+        constructort.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
+        constructort.append("<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3\" crossorigin=\"anonymous\">");
+        constructort.append("<link rel=\"shortcut icon\" href=\"Icono.ico\">");
+        constructort.append("<title>Reporte de Simbolos DataForge</title>");
+        constructort.append("</head>");
+        constructort.append("<body>");
+        constructort.append("<div class=\"p-3 mb-2 text-white\" style=\"background-color:#63e526\">");
+        constructort.append("<h1><center>Reporte de Simbolos DataForge</center></h1>");
+        constructort.append("</div>");
+        constructort.append("<table class=\"table table-dark table-hover table-bordered\">");
+        constructort.append("<thead>");
+        constructort.append("<tr>");
+        constructort.append("<th scope=\"col\">#</th>");
+        constructort.append("<th scope=\"col\">Nombre</th>");
+        constructort.append("<th scope=\"col\">Tipo</th>");
+        constructort.append("<th scope=\"col\">Valor</th>");
+        constructort.append("<th scope=\"col\">Línea</th>");
+        constructort.append("<th scope=\"col\">Columna</th>");
+        constructort.append("</tr>");
+        constructort.append("</thead>");
+        constructort.append("<tbody>");
+        int contadort = 1;
         for (Object tokensS : ListaSimbolos) {
-            funciones.simbolos datot = (funciones.simbolos) tokensS;
-            constructors.append("<tr class=\"table-primary\">");
-            constructors.append("<td>").append(contadors).append("</td>");
-            constructors.append("<td>").append(datot.getDato()).append("</td>");
-            constructors.append("<td>").append(datot.getId()).append("</td>");
-            constructors.append("<td>").append(datot.getValor()).append("</td>");
-            constructors.append("<td>").append(datot.getLinea()).append("</td>");
-            constructors.append("<td>").append(datot.getColumna()).append("</td>");
-            constructors.append("</tr>");
-            contadors++;
+            
+            funciones.simbolos dato = (funciones.simbolos) tokensS;
+            String data = dato.getDato();
+            String Id = dato.getId();
+            String valor = ""; // 
+            if (dato.getValor() instanceof Object) {
+                valor = dato.getValor().toString();
+            }
+            if (dato.getValores() instanceof Object[]) {
+                Object[] valores = (Object[]) dato.getValores();
+                valor="[";
+                for (Object val : valores) {
+                    valor += val.toString() + ", ";
+                }
+                // Eliminar la última coma y espacio
+                if (!valor.isEmpty()) {
+                    valor = valor.substring(0, valor.length() - 2);
+                }
+                valor+="]";
+            }      
+            
+            String linea = Integer.toString(dato.getLinea());
+            String columna = Integer.toString(dato.getColumna());
+            constructort.append("<tr class=\"table-success\">");
+            constructort.append("<td>").append(contadort).append("</td>");
+            constructort.append("<td>").append(data).append("</td>");
+            constructort.append("<td>").append(Id).append("</td>");
+            constructort.append("<td>").append(valor).append("</td>");
+            constructort.append("<td>").append(linea).append("</td>");
+            constructort.append("<td>").append(columna).append("</td>");
+            constructort.append("</tr>");
+            contadort++;
         }
-        constructors.append("</tbody>");
-        constructors.append("</table>");
-        constructors.append("</body>");
-        constructors.append("</html>");
+
+        constructort.append("</tbody>");
+        constructort.append("</table>");
+        constructort.append("</body>");
+        constructort.append("</html>");
 
         // Escribir el código HTML en un archivo
         try {
-            FileWriter sim = new FileWriter("ReporteSimbolos_DataForge.html");
-            sim.write(constructors.toString());
-            sim.close();        } catch (IOException e) {
+            FileWriter tokensS = new FileWriter("ReporteSimbolos_DataForge.html");
+            tokensS.write(constructort.toString());
+            tokensS.close();
+        } catch (IOException e) {
             e.printStackTrace();
 
         }
-        ListaTokensDF.clear();
+        ListaSimbolos.clear();
 
     }
+
 
     public static void errores_DF() {
         // Generar el código HTML
