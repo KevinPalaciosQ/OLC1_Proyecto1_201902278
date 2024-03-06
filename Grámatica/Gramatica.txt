@@ -6,13 +6,178 @@ G = (N,T,P,S)
         P = { PRODUCCIONES }
         S = { inicio }
 ---------------------------NO TERMINALES--------------------------------------------------------------------------------------------------
-NO TERMINALES = {
-
-}
+NO TERMINALES = { inicio, expresion, tipodedato, declaracion, tipodegrafica, declaracionhistograma, declaracionbarras, declaracionpie, contenidopie,
+declaracionlinea, tipodato, recorrido, instrucciones, arreglos, operaciones, operacion, elementos, elementospie, valor, valorpie, datoslabel, elementoslabel,
+instrucciongrafica, buclegrafica, funcionesgrafica, instruccionhistograma, contenidohistograma, elementoshistograma, valorhistograma, instruccionbarras, 
+contenidobarras, elementosejey, valory, elementosejex, datox, instruccionlinea, contenidolinea, elementoslinea, valorlinea, elementoslineac, datoslineac,
+valorexpresion, operacionesnest, arregloexpresiones, printarreglos, printexpresiones, nt, ntexp, ciclo, datosgraficas}
 ---------------------------TERMINALES-----------------------------------------------------------------------------------------------------
-TERMINALES = {
-
-}
+TERMINALES = {PARENTESIS_A, PARENTESIS_C, PUNTOYCOMA, COMA, SUM, RES, MUL, DIV, MOD, POR, MAS, MENOS, R_MOSTRAR, ENTERO, DECIMAL,CADENA, PROGRAM, END, DOSPUNTOS,
+VAR, MENORQUE,MAYORQUE, ARROBA, CORCHETE_ABRE, CORCHETE_CIERRA, R_DOUBLE, R_CHAR, ARR, MEDIA, MEDIANA, MODA, VARIANZA, MAX, MIN, PRINT, COLUMN, EXEC, TITULO,
+VALUES, LABEL, EJEX, EJEY, GRAPHPIE, GRAPHBAR, GRAPHLINE, HISTOGRAM, CONSOLE, TITULOX,TITULOY, IDENTIFICADOR, GUION, IGUAL }
 ---------------------------PRODUCCIONES---------------------------------------------------------------------------------------------------
-<INICIO> ::= 
-;
+<INICIO> ::= PROGRAM <recorrido> END PROGRAM
+
+<recorrido> ::= <instrucciones> 
+        | <recorrido> <instrucciones>
+
+<instrucciones> ::= <declaracion> 
+        |<arreglos> 
+        | <funcionesgrafica> 
+        | <printarreglos>
+        | <printexpresiones> 
+        | error ;
+
+<funcionesgrafica> ::= <declaracionhistograma> 
+        | <declaracionbarras>
+        | <declaracionpie>
+        | <declaracionlinea>
+
+<declaracion> ::= VAR : <tipodedato> :: IDENTIFICADOR <-  <tipodato> END ;
+        | VAR : <tipodedato> :: IDENTIFICADOR <- <expresion> END ;
+
+<tipodedato> ::= R_DOUBLE 
+        |R_CHAR []
+
+<tipodato> ::= DECIMAL 
+        | CADENA 
+        | ENTERO 
+        | IDENTIFICADOR
+
+<printarreglos> ::= CONSOLE :: COLUMN = IDENTIFICADOR 
+        | CONSOLE :: COLUMN = CADENA
+<nt> ::= ARROBA IDENTIFICADOR
+        |[ elementos ]
+
+<printexpresiones> ::= CONSOLE :: PRINT = <ciclo> END ;
+
+<ciclo> ::= <ntexp> 
+        | <ntexp> , <ciclo>
+
+<declaracionlinea> ::= GRAPHLINE ( <instruccionlinea> ) END ;
+
+<declaracionbarras> ::= GRAPHBAR ( <instruccionbarras> )  END ;
+
+<instruccionbarras> ::= <instruccionbarras> <contenidobarras> 
+        | <contenidobarras>
+
+<contenidobarras> ::= TITULOX :: R_CHAR [] = CADENA END ; 
+        | TITULOY :: R_CHAR [] = <tipodato> END ; 
+        | TITULO :: R_CHAR [] = CADENA END ; 
+        | EJEX :: R_CHAR [] = [ <elementosejex> ] END ; 
+        | EJEY :: R_DOUBLE = [ <elementosejey> ] END ; 
+        | EXEC GRAPHBAR END ;
+
+<elementosejey> ::= <valory> 
+        | <elementosejey> , <valory>
+
+<valory> ::= ENTERO 
+        | DECIMAL 
+        | IDENTIFICADOR
+
+<elementosejex> ::= <datox> 
+        | <elementosejex> , <datox>
+
+<datox> ::= CADENA
+
+<declaracionhistograma> ::= HISTOGRAM ( <instruccionhistograma> ) END ;
+
+<instruccionhistograma> ::= <instruccionhistograma> <contenidohistograma> 
+        | <contenidohistograma>
+
+<contenidohistograma> ::= TITULO :: R_CHAR [] = <datosgraficas> END ; 
+        | VALUES ::  [] = <datosgraficas> END ; 
+        | EXEC HISTOGRAM END ;
+
+
+<elementoshistograma> ::= valorhistograma 
+        | <elementoshistograma> , valorhistograma 
+
+<valorhistograma> ::= ENTERO 
+        | DECIMAL 
+
+<declaracionlinea> ::= GRAPHLINE () END ;
+
+<instruccionlinea> ::= <instruccionlinea> <contenidolinea> 
+        | <contenidolinea>
+
+<contenidolinea> ::= TITULO :: []= <datosgraficas> END ; 
+        | EJEX :: R_CHAR []=  <datosgraficas> END ; 
+        | EJEY :: R_DOUBLE = <datosgraficas> END ; 
+        | TITULOX :: R_CHAR [] = <datosgraficas> END ; 
+        | TITULOY :: R_CHAR [] = <datosgraficas> END ; 
+        | EXEC GRAPHLINE END ;
+
+<elementoslinea> ::= <valorlinea> 
+        | <elementoslinea> , <valorlinea>
+
+<valorlinea> ::= ENTERO 
+        | DECIMAL
+
+<elementoslineac> ::= <datoslineac> 
+        | <elementoslineac> , <datoslineac> 
+        | <datosgraficas>
+
+<datoslineac> ::= CADENA
+
+<declaracionpie> ::= GRAPHPIE ( <instrucciongrafica> ) END ;
+
+<instrucciongrafica> ::= <instrucciongrafica> <contenidopie> 
+        | <contenidopie>
+
+<contenidopie> ::= TITULO :: R_CHAR [] IGUAL CADENA END ; 
+        | VALUES :: R_DOUBLE IGUAL [ <elementospie> ] END ; 
+        | LABEL :: R_CHAR [ <elementoslabel> ] END ; 
+        | EXEC GRAPHPIE END ;
+
+<elementospie> ::= <valorpie> 
+        | <elementospie> , <valorpie>
+
+<valorpie> ::= ENTERO 
+        | DECIMAL
+
+<elementoslabel> ::= <datoslabel> 
+        | <elementoslabel> , <datoslabel>
+
+<datoslabel> ::= CADENA
+
+<arreglos> ::= ARR : <tipodedato> :: @ IDENTIFICADOR <- [ <elementos> ] END ;
+
+<elementos> ::= <valorexpresion> 
+        | <valorexpresion> , <elementos>
+
+<valor> ::= DECIMAL 
+        | CADENA    
+        | IDENTIFICADOR
+        | ENTERO
+        
+<expresion> ::= SUM ( <valorexpresion> , <valorexpresion> ) 
+        | RES ( <valorexpresion> , <valorexpresion> )  
+        | MUL ( <valorexpresion> , <valorexpresion> )  
+        | DIV ( <valorexpresion> , <valorexpresion> )  
+        | MOD ( <valorexpresion> , <valorexpresion> )  
+        | <operacionesnest>
+
+<valorexpresion> ::= <expresion> 
+        | DECIMAL 
+        | IDENTIFICADOR 
+        | ENTERO 
+        | CADENA
+
+
+<operacionesnest> ::= MEDIA ( <arregloexpresiones> )
+        | MEDIANA ( <arregloexpresiones> )
+        | MODA ( <arregloexpresiones> )
+        | VARIANZA ( <arregloexpresiones> ) 
+        | MAX ( <arregloexpresiones> ) 
+        | MIN ( <arregloexpresiones> )
+
+<arregloexpresiones> ::= @ IDENTIFICADOR 
+        | [ <elementos> ]
+
+<datosgraficas> ::= ENTERO
+        |DECIMAL
+        |CADENA
+        |arregloexpresiones
+        |IDENTIFICADOR
+        

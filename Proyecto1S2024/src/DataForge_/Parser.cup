@@ -139,26 +139,28 @@ start with inicio;
 
 // ------------>  Producciones  <------------
 
-inicio ::= PROGRAM recorrido END PROGRAM {::}
+inicio ::= PROGRAM recorrido END PROGRAM 
+{:
+:}
 ;
 
-recorrido ::= instrucciones
-        |recorrido instrucciones
+recorrido ::= instrucciones         {::}
+        |recorrido instrucciones    {::}
 ;
 
-instrucciones ::= declaracion
-    | arreglos
-    | funcionesgrafica
-    | printarreglos
-    | printexpresiones
-    | error PUNTOYCOMA
+instrucciones ::= declaracion:dec  {:RESULT=dec;:}
+    | arreglos:arreglo             {:RESULT=arreglo;:}
+    | funcionesgrafica:fg          {::}
+    | printarreglos:pa             {:RESULT=pa;:}
+    | printexpresiones:pe          {:RESULT=pe;:}
+    | error PUNTOYCOMA             
 
 ;
 
-funcionesgrafica ::= declaracionhistograma
-    |declaracionbarras
-    |declaracionpie
-    |declaracionlinea
+funcionesgrafica ::= declaracionhistograma  {::}
+    |declaracionbarras                      {::}
+    |declaracionpie                         {::}
+    |declaracionlinea                       {::}
 ;
 
 declaracion ::= VAR:var DOSPUNTOS tipodedato:td DOSPUNTOS DOSPUNTOS IDENTIFICADOR:id MENORQUE GUION  tipodato:tdd END PUNTOYCOMA {:funciones.reportes.TablaDatos(td.toString(),id.toString(),tdd,varright,varleft);:}
@@ -176,14 +178,17 @@ tipodato ::= DECIMAL:dec {:RESULT=dec;:}
 ;
 //----------------------------------------IMPRESIONES
 
-printarreglos ::= CONSOLE DOSPUNTOS DOSPUNTOS COLUMN IGUAL IDENTIFICADOR GUION MAYORQUE nt END PUNTOYCOMA{::}
-        |CONSOLE DOSPUNTOS DOSPUNTOS COLUMN IGUAL CADENA GUION MAYORQUE nt END PUNTOYCOMA{::}
+printarreglos ::= CONSOLE DOSPUNTOS DOSPUNTOS COLUMN IGUAL IDENTIFICADOR:identi GUION MAYORQUE nt END PUNTOYCOMA{:funciones.saltos.mostrar();RESULT=identi;:} 
+        |CONSOLE DOSPUNTOS DOSPUNTOS COLUMN IGUAL CADENA:cadena GUION MAYORQUE nt END PUNTOYCOMA                       {:funciones.saltos.mostrar();RESULT=cadena;:}
          
 ;
 nt ::= ARROBA IDENTIFICADOR 
         |CORCHETE_ABRE elementos CORCHETE_CIERRA
 ;
-printexpresiones ::= CONSOLE DOSPUNTOS DOSPUNTOS PRINT IGUAL ciclo END PUNTOYCOMA {::} 
+printexpresiones ::= CONSOLE DOSPUNTOS DOSPUNTOS PRINT IGUAL ciclo END PUNTOYCOMA
+ {:LinkedList<String>listaconexion = new LinkedList<>();
+listaconexion.add("! Salida: ");
+:} 
 ;
 
 ntexp ::= IDENTIFICADOR:ni {:RESULT=funciones.reportes.busqueda(ni);:}
@@ -194,8 +199,8 @@ ntexp ::= IDENTIFICADOR:ni {:RESULT=funciones.reportes.busqueda(ni);:}
         
 ;
 
-ciclo ::= ntexp
-        |ntexp COMA ciclo
+ciclo ::= ntexp             {::}
+        |ntexp COMA ciclo   {::}
 ;
 
 
@@ -223,15 +228,15 @@ elementosejey::= valory {::}
         |elementosejey COMA valory {::}
 ;
 
-valory ::= ENTERO
-        |DECIMAL
-        |IDENTIFICADOR
+valory ::= ENTERO            {::}
+        |DECIMAL             {::}
+        |IDENTIFICADOR       {::}
 ;
-elementosejex::= datox {::}
-        |elementosejex COMA datox {::}
+elementosejex::= datox              {::}
+        |elementosejex COMA datox   {::}
 ;
 
-datox ::= CADENA
+datox ::= CADENA {::}
         
 ;
 
@@ -252,8 +257,8 @@ elementoshistograma::= valorhistograma {::}
         |elementoshistograma COMA valorhistograma {::}
 ;
 
-valorhistograma ::= ENTERO
-        |DECIMAL
+valorhistograma ::= ENTERO {::}
+        |DECIMAL           {::}
 ;
 
 
@@ -277,16 +282,16 @@ elementoslinea::= valorlinea {::}
         |elementoslinea COMA valorlinea {::}
 ;
 
-valorlinea ::= ENTERO
-        |DECIMAL
+valorlinea ::= ENTERO {::}
+        |DECIMAL      {::}
 ;
 
 elementoslineac::= datoslineac {::}
         |elementoslineac COMA datoslineac {::}
-        |datosgraficas
+        |datosgraficas      {::}
 ;
 
-datoslineac ::= CADENA
+datoslineac ::= CADENA   {::}
         
 ;
 
@@ -311,12 +316,12 @@ elementospie::= valorpie {::}
         |elementospie COMA valorpie {::}
 ;
 
-valorpie ::= ENTERO
-        |DECIMAL
+valorpie ::= ENTERO {::}
+        |DECIMAL    {::}
 ;
 
 elementoslabel::= datoslabel{::}
-        |elementoslabel COMA datoslabel
+        |elementoslabel COMA datoslabel {::}
 ;
 datoslabel ::= CADENA {::}
 ;
@@ -328,7 +333,7 @@ arreglos ::= ARR DOSPUNTOS tipodedato DOSPUNTOS DOSPUNTOS ARROBA IDENTIFICADOR M
 
 elementos ::= valorexpresion {::}
         //|elementos COMA valor {::}
-        |valorexpresion COMA elementos
+        |valorexpresion COMA elementos {::}
 ;
 
 valor ::= DECIMAL {::}
@@ -345,7 +350,7 @@ expresion ::= SUM PARENTESIS_A valorexpresion:a COMA valorexpresion:b PARENTESIS
             | MUL PARENTESIS_A valorexpresion:a COMA valorexpresion:b PARENTESIS_C {:RESULT=Double.parseDouble(a.toString())*Double.parseDouble(b.toString());:}
             | DIV PARENTESIS_A valorexpresion:a COMA valorexpresion:b PARENTESIS_C {:RESULT=Double.parseDouble(a.toString())/Double.parseDouble(b.toString());:}
             | MOD PARENTESIS_A valorexpresion:a COMA valorexpresion:b PARENTESIS_C {:RESULT=Double.parseDouble(a.toString())%Double.parseDouble(b.toString());:}  
-            | operacionesnest
+            | operacionesnest  {::}
 ;
 
 valorexpresion ::=  expresion:e {:RESULT=e;:}
@@ -370,10 +375,10 @@ arregloexpresiones ::= ARROBA:arroba IDENTIFICADOR:id{:RESULT=funciones.reportes
 ;
 
 
-datosgraficas ::= ENTERO:entero
-        |DECIMAL:decimal
-        |CADENA:cadena
-        |arregloexpresiones:arregloexpresiones
-        |IDENTIFICADOR:identificador
+datosgraficas ::= ENTERO:entero  {::}
+        |DECIMAL:decimal         {::}
+        |CADENA:cadena           {::}
+        |arregloexpresiones:arregloexpresiones  {::}
+        |IDENTIFICADOR:id            {:RESULT=funciones.reportes.busqueda(id.toString());:}
         
 ;

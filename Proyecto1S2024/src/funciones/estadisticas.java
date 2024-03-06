@@ -14,7 +14,7 @@ public class estadisticas {
         public static void main(String[] args) {
         // Prueba de las funciones
         double[] VALORES = {9,3,8,8,9,8,9,18};
-        double media = Media(VALORES);
+        double media = media(VALORES);
         double mediana = Mediana(VALORES);
         double moda = Moda(VALORES);
         double varianza = Varianza(VALORES);
@@ -32,7 +32,7 @@ public class estadisticas {
         
     }
         
-    public static double Media(double[] arreglo) {
+    public static double media(double[] arreglo) {
         if (arreglo == null || arreglo.length == 0) {
             // Manejar el caso en que el arreglo esté vacío o sea nulo
             throw new IllegalArgumentException("El arreglo no puede ser nulo o vacío");
@@ -108,7 +108,7 @@ public class estadisticas {
             throw new IllegalArgumentException("El arreglo no puede ser nulo o vacío");
         }
 
-        double media = Media(arreglo);
+        double media = media(arreglo);
         double sumaCuadradosDiferencias = 0;
 
         // Calcular la suma de los cuadrados de las diferencias entre cada valor y la media
