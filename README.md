@@ -2,6 +2,6 @@
 ---
  ## Proyecto 1 - Organización de Lenguajes y Compiladores
 ---
-- [`Manual Técnico`](./Documentacion/ManualTécnico.md)
+- [`Manual Técnico`](./Documentacion/ManualTécnico.md) 🛠️
 
-- [`Manual de Usuario`](./Documentacion/ManualUsuario.md)
+- [`Manual de Usuario`](./Documentacion/ManualUsuario.md)🧑🏻‍💻
