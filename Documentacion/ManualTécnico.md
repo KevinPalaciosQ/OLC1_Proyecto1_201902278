@@ -3,6 +3,7 @@
 
 ![](../Imagenes/ManualTecnico.jfif)
 # Kevin Estuardo Palacios Quiñonez 
+# 201902278
 ---
 # Indice 
 1. Introducción 
@@ -220,9 +221,32 @@ Esta función se encarga de realizar el análisis mediante el uso de las herrami
  
     } 
 ```
-### Funicón Guardar
+### Función Guardar
 Este manejador de eventos guarda el contenido de un RSyntaxTextArea en un archivo si hay un archivo abierto, y muestra mensajes de diálogo apropiados dependiendo del resultado de la operación de guardado.
 ```java
+    // Guardar Archivo
+    if (archivoAbierto != null) {
+        try {
+            // Obtener el texto del RSyntaxTextArea de la pestaña actual
+            JPanel panel = (JPanel) Pestana.getSelectedComponent();
+            RSyntaxTextArea textArea = (RSyntaxTextArea) ((RTextScrollPane) panel.getComponent(0)).getViewport().getView();
+            String texto = textArea.getText();
+
+            // Escribir el texto en el archivo abierto
+            FileWriter fw = new FileWriter(archivoAbierto);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(texto);
+            bw.close();
+
+            JOptionPane.showMessageDialog(this, "Se guardó el archivo correctamente");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al guardar el archivo.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "No hay un archivo abierto para guardar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+    }
+    }      
 
 ```
 ### Función Recepción

@@ -2,6 +2,7 @@
 # Organización de Lenguajes y Compiladores 1
 ![](../Imagenes/Portadacompiladores.jfif)
 # Kevin Estuardo Palacios Quiñonez 
+# 201902278
 ---
 # Indice 
 
@@ -80,6 +81,7 @@ Otorgar al usuario un apoyo documentado del uso de la interfaz gráfica al igual
 Al elegir esta opción el archivo abierto se sobreescribirá.
 ![](../Imagenes/guardar.png)
 ![](../Imagenes/guardar1.png)
+---
 * Guardar Como
 ![](../Imagenes/gc.png)
 ![](../Imagenes/guardar1.png)
