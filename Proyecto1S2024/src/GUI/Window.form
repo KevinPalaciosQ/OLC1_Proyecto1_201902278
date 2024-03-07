@@ -181,6 +181,9 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+G"/>
                 </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Iconos/trend.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Reporte de Gr&#xe1;ficas"/>
               </Properties>
             </MenuItem>

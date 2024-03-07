@@ -26,15 +26,19 @@ public class saltos {
         return recibir.toString();
     }
     
-    public static LinkedList<String> lista_salto_de_linea(LinkedList<String> lista){
+    public static String lista_salto_de_linea(Object[] lista, String nombretitulo){
+        StringBuilder t = new StringBuilder("------------\n");
+        t.append(nombretitulo);
+        t.append("\n------------\n");
         contador++; // Incrementar contador
-        for (int i = 0; i < lista.size(); i++) {
-            lista.set(i, "\n" + lista.get(i));
+        for (int i = 0; i < lista.length; i++) {
+            t.append(lista[i].toString()+"\n");
         }
-        return lista;
+        return t.toString();
     }
 
     public static void mostrar(){
+        
         lista_general.forEach(System.out::print);
     }
 }

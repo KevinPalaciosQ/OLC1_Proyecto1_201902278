@@ -3,7 +3,7 @@ package DataForge_;
 
 import java_cup.runtime.*;
 import java.util.LinkedList;
-
+import java.util.Arrays;
 
 //------> Codigo para el parser
 //------> Declaracion de variables, funciones y funciones de error
@@ -138,9 +138,7 @@ start with inicio;
 
 // ------------>  Producciones  <------------
 
-inicio ::= PROGRAM recorrido END PROGRAM 
-{:
-:}
+inicio ::= PROGRAM recorrido END PROGRAM  {:funciones.graficas.generarGraficas();:}
 ;
 
 recorrido ::= instrucciones         {::}
@@ -178,12 +176,12 @@ tipodato ::= DECIMAL:dec {:RESULT=dec;:}
 ;
 //----------------------------------------IMPRESIONES
 
-printarreglos ::= CONSOLE DOSPUNTOS DOSPUNTOS COLUMN IGUAL IDENTIFICADOR:identi GUION MAYORQUE nt END PUNTOYCOMA{:funciones.saltos.mostrar();RESULT=identi;:} 
-        |CONSOLE DOSPUNTOS DOSPUNTOS COLUMN IGUAL CADENA:cadena GUION MAYORQUE nt END PUNTOYCOMA                       {:funciones.saltos.mostrar();RESULT=cadena;:}
+printarreglos ::= CONSOLE DOSPUNTOS DOSPUNTOS COLUMN IGUAL IDENTIFICADOR:identi GUION MAYORQUE nt:ntl END PUNTOYCOMA  {:String impresiones = (String) funciones.reportes.busqueda(identi);funciones.saltos.lista_general.add(funciones.saltos.lista_salto_de_linea((Object[])ntl,impresiones));:} 
+        |CONSOLE DOSPUNTOS DOSPUNTOS COLUMN IGUAL CADENA:cad GUION MAYORQUE nt:noterminallistas END PUNTOYCOMA        {:String impresiones = cad.toString();funciones.saltos.lista_general.add(funciones.saltos.lista_salto_de_linea((Object[])noterminallistas,impresiones)); :}
          
 ;
-nt ::= ARROBA IDENTIFICADOR 
-        |CORCHETE_ABRE elementos CORCHETE_CIERRA
+nt ::= ARROBA:arroba IDENTIFICADOR:id               {:RESULT=funciones.reportes.busquedaValor(arroba.toString()+id.toString());:} 
+        |CORCHETE_ABRE elementos:el CORCHETE_CIERRA {:RESULT=funciones.reportes.arreglos((LinkedList)el);:}
 ;
 printexpresiones ::= CONSOLE DOSPUNTOS DOSPUNTOS PRINT IGUAL ciclo:cc END PUNTOYCOMA {:String dec=funciones.saltos.recepcion((LinkedList<Object>)cc);funciones.saltos.lista_general.add(dec);:} 
 ;
@@ -250,9 +248,13 @@ instruccionhistograma ::= instruccionhistograma contenidohistograma {::}
         |contenidohistograma {::}
 ;
 
-contenidohistograma ::= TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas END PUNTOYCOMA {::}
-        |VALUES DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas END PUNTOYCOMA {::}
-        |EXEC HISTOGRAM END PUNTOYCOMA {::}
+contenidohistograma ::= TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas:dg END PUNTOYCOMA {:funciones.graficas.titulo=dg.toString();:}
+        |VALUES DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas:dt END PUNTOYCOMA {:Object[] hist = funciones.reportes.arreglos((LinkedList)dt);
+double[] doubles = Arrays.stream(hist)
+                                 .mapToDouble(obj -> Double.parseDouble(obj.toString()))
+                                 .toArray();
+funciones.estadisticas.calcularFrecuenciass((double[])doubles); funciones.graficas.values=(double[])doubles;:}
+        |EXEC HISTOGRAM END PUNTOYCOMA {:funciones.graficas.histograma();funciones.graficas.imageFiles.add(funciones.graficas.histograma());:}
 ;
 
 elementoshistograma::= valorhistograma {::}
@@ -277,7 +279,6 @@ contenidolinea ::= TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIER
         |EJEY DOSPUNTOS DOSPUNTOS  R_DOUBLE IGUAL   datosgraficas  END PUNTOYCOMA {::}
         |TITULOX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas END PUNTOYCOMA{::}
         |TITULOY DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE  CORCHETE_CIERRA IGUAL datosgraficas END PUNTOYCOMA{::}
-
         |EXEC GRAPHLINE END PUNTOYCOMA {::}
 ;
 elementoslinea::= valorlinea {::}
@@ -296,10 +297,6 @@ elementoslineac::= datoslineac {::}
 datoslineac ::= CADENA   {::}
         
 ;
-
-
-
-
 
 declaracionpie::= GRAPHPIE PARENTESIS_A instrucciongrafica PARENTESIS_C END PUNTOYCOMA   {::}
 ;
@@ -330,8 +327,8 @@ datoslabel ::= CADENA {::}
 
 //-------------------------------------ARREGLOS----------------------------------------------------------------
 
-arreglos ::= ARR:arr DOSPUNTOS tipodedato:td DOSPUNTOS DOSPUNTOS ARROBA IDENTIFICADOR:identi MENORQUE GUION CORCHETE_ABRE elementos:tdd CORCHETE_CIERRA END PUNTOYCOMA{:Object[] variableo=funciones.reportes.arreglos((LinkedList<Object>)tdd);funciones.reportes.TablaDatosObject(td.toString(),identi.toString(),(Object[])  variableo,arrright,arrleft);:}
-        |ARR:arr DOSPUNTOS tipodedato:td DOSPUNTOS DOSPUNTOS ARROBA IDENTIFICADOR:ident MENORQUE GUION ARROBA:arroba IDENTIFICADOR:identificador END PUNTOYCOMA{:Object[] variable=funciones.reportes.busquedaValor(arroba.toString()+identificador.toString());funciones.reportes.TablaDatosObject(td.toString(),identificador.toString(),variable,arrright,arrleft);:}
+arreglos ::= ARR:arr DOSPUNTOS tipodedato:td DOSPUNTOS DOSPUNTOS ARROBA IDENTIFICADOR:identi MENORQUE GUION CORCHETE_ABRE elementos:tdd CORCHETE_CIERRA END PUNTOYCOMA{:Object[] variableo=funciones.reportes.arreglos((LinkedList<Object>)tdd);funciones.reportes.TablaDatosObject(td.toString(),"@"+identi.toString(),(Object[])  variableo,arrright,arrleft);:}
+        |ARR:arr DOSPUNTOS tipodedato:td DOSPUNTOS DOSPUNTOS ARROBA IDENTIFICADOR:ident MENORQUE GUION ARROBA:arroba IDENTIFICADOR:identificador END PUNTOYCOMA{:Object[] variable=funciones.reportes.busquedaValor(arroba.toString()+identificador.toString());funciones.reportes.TablaDatosObject(td.toString(),ident.toString(),variable,arrright,arrleft);:}
 ;
 
 elementos ::= valorexpresion:vexp1 {:LinkedList<Object> le = new LinkedList<Object>();
@@ -342,10 +339,10 @@ elementos ::= valorexpresion:vexp1 {:LinkedList<Object> le = new LinkedList<Obje
 ;
 
 
-valor ::= DECIMAL {::}
-        |CADENA {::}
-        |IDENTIFICADOR {::}
-        |ENTERO {::}
+valor ::= DECIMAL           {::}
+        |CADENA             {::}
+        |IDENTIFICADOR      {::}
+        |ENTERO             {::}
 ;
 
 //--------------------------OPERACIONES--------------------------------------
@@ -359,11 +356,11 @@ expresion ::= SUM PARENTESIS_A valorexpresion:a COMA valorexpresion:b PARENTESIS
             | operacionesnest:nest  {:RESULT=nest;:}
 ;
 
-valorexpresion ::=  expresion:e {:RESULT=e;:}
-        | DECIMAL:d {:RESULT=d;:}
-        | IDENTIFICADOR:id {:RESULT=funciones.reportes.busqueda(id.toString());:}
-        | ENTERO:entero  {:RESULT=entero;:}
-        | CADENA:charm   {:RESULT=charm;:}
+valorexpresion ::=  expresion:e     {:RESULT=e;:}
+        | DECIMAL:d                 {:RESULT=d;:}
+        | IDENTIFICADOR:id          {:RESULT=funciones.reportes.busqueda(id.toString());:}
+        | ENTERO:entero             {:RESULT=entero;:}
+        | CADENA:charm              {:RESULT=charm;:}
         
         
 ;
@@ -376,15 +373,17 @@ operacionesnest ::= MEDIA PARENTESIS_A arregloexpresiones:arregloexp PARENTESIS_
         |MIN      PARENTESIS_A arregloexpresiones:arregloexp PARENTESIS_C                    {:RESULT=funciones.estadisticas.Minimo((double[]) arregloexp);:}
 ;
 
-arregloexpresiones ::= ARROBA IDENTIFICADOR:id {:RESULT=funciones.reportes.busquedaValor(id.toString());:}
+arregloexpresiones ::= ARROBA:arroba IDENTIFICADOR:id {:double[] doubles = Arrays.stream(funciones.reportes.busquedaValor(arroba.toString()+id.toString()))
+                                 .mapToDouble(obj -> Double.parseDouble(obj.toString()))
+                                 .toArray();RESULT=doubles;:}
         | CORCHETE_ABRE elementos:el CORCHETE_CIERRA {:RESULT=el;:}
 ;
 
 
-datosgraficas ::= ENTERO:ent  {:RESULT=ent;:}
-        |DECIMAL:dec          {:RESULT=dec;:}
-        |CADENA:cad           {:RESULT=cad;:}
-        |arregloexpresiones:arregloex  {:RESULT=arregloex;:}
-        |IDENTIFICADOR:id            {:RESULT=funciones.reportes.busqueda(id.toString());:}
-        
+datosgraficas ::= ENTERO:ent            {:RESULT=ent;:}
+        |DECIMAL:dec                    {:RESULT=dec;:}
+        |CADENA:cad                     {:RESULT=cad;:}
+        |ARROBA:arr IDENTIFICADOR:id    {:RESULT=funciones.reportes.busquedaValor(arr.toString()+id.toString());:}
+        |IDENTIFICADOR:id               {:RESULT=funciones.reportes.busqueda(id.toString());:}
+        | CORCHETE_ABRE elementos:el CORCHETE_CIERRA {:RESULT=el;:}
 ;

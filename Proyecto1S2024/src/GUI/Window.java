@@ -261,6 +261,7 @@ public class Window extends javax.swing.JFrame {
         jMenu3.add(ReporteSimbolos);
 
         Reportegraficas.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        Reportegraficas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/trend.png"))); // NOI18N
         Reportegraficas.setText("Reporte de Gráficas");
         jMenu3.add(Reportegraficas);
 
