@@ -34,6 +34,8 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
+import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
@@ -54,10 +56,18 @@ public class graficas {
     
     double[] valores = {10.0, 20.0, 30.0, 40.0, 50.0, 10.0, 20.0};
 public static List<String> imageFiles = new ArrayList<>();
-
+public static void limpiarParametros() {
+    titulo = "";
+    titulox = "";
+    tituloy = "";
+    label = new String[]{};
+    values = new double[]{};
+    ejex = new String[]{};
+    ejey = new double[]{};
+}
 public static void generarGraficas() {
     try {
-        String rutaHTML = "C:\\Users\\kevin\\OneDrive\\Escritorio\\Graficas\\Graficas\\ReportesGraficas.html";
+        String rutaHTML = "C:\\Users\\kevin\\OneDrive\\Documentos\\OLC1_Proyecto1_201902278\\Proyecto1S2024\\\\ReportesGraficas.html";
         HtmlImagen(imageFiles, rutaHTML);
         abrirArchivoHTML(rutaHTML);
     } catch (IOException e) {
@@ -116,22 +126,19 @@ public static void generarGraficas() {
         return filename;
     }
 
-    public String pie(
-            String titulo,
-            String Titulo,
-            String TituloX,
-            String TituloY,
-            double valores[],
-            String ejex[]
+    public static String pie(
+            
     ) throws IOException {
         DefaultPieDataset dataset = new DefaultPieDataset();
 
-        for (int i = 0; i < valores.length; i++) {
-            dataset.setValue(ejex[i], valores[i]);
+        for (int i = 0; i < values.length; i++) {
+            dataset.setValue( label[i], values[i]);
+            
         }
 
         JFreeChart grafica = ChartFactory.createPieChart(titulo, dataset);
-
+            PiePlot plot = (PiePlot) grafica.getPlot();
+            plot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0}: {1}"));
         String filename = "grafico_pastel.jpg";
         ChartUtilities.saveChartAsJPEG(new File(filename), grafica, 500, 300);
         return filename;

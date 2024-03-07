@@ -216,11 +216,11 @@ declaracionbarras ::= GRAPHBAR PARENTESIS_A  instruccionbarras PARENTESIS_C END 
 instruccionbarras ::= instruccionbarras contenidobarras {::}
         |contenidobarras {::}
 ;
-contenidobarras ::= TITULOX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL CADENA END PUNTOYCOMA {::}
-        |TITULOY DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL tipodato END PUNTOYCOMA 
-        |TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL CADENA END PUNTOYCOMA 
-        |EJEX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL  CORCHETE_ABRE elementosejex CORCHETE_CIERRA END PUNTOYCOMA 
-        |EJEY DOSPUNTOS DOSPUNTOS R_DOUBLE IGUAL CORCHETE_ABRE elementosejey CORCHETE_CIERRA END PUNTOYCOMA 
+contenidobarras ::= TITULOX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas END PUNTOYCOMA {::}
+        |TITULOY DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas END PUNTOYCOMA 
+        |TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas END PUNTOYCOMA 
+        |EJEX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL   datosgraficas  END PUNTOYCOMA 
+        |EJEY DOSPUNTOS DOSPUNTOS R_DOUBLE IGUAL  datosgraficas  END PUNTOYCOMA 
         |EXEC GRAPHBAR END PUNTOYCOMA
 ;
 
@@ -254,7 +254,7 @@ double[] doubles = Arrays.stream(hist)
                                  .mapToDouble(obj -> Double.parseDouble(obj.toString()))
                                  .toArray();
 funciones.estadisticas.calcularFrecuenciass((double[])doubles); funciones.graficas.values=(double[])doubles;:}
-        |EXEC HISTOGRAM END PUNTOYCOMA {:funciones.graficas.histograma();funciones.graficas.imageFiles.add(funciones.graficas.histograma());:}
+        |EXEC HISTOGRAM END PUNTOYCOMA {:funciones.graficas.histograma();funciones.graficas.imageFiles.add(funciones.graficas.histograma());funciones.graficas.limpiarParametros();:}
 ;
 
 elementoshistograma::= valorhistograma {::}
@@ -306,10 +306,15 @@ instrucciongrafica ::= instrucciongrafica contenidopie {::}
         |contenidopie {::}
 ;
 
-contenidopie ::= TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL CADENA  END PUNTOYCOMA {::} 
-        |VALUES DOSPUNTOS DOSPUNTOS R_DOUBLE IGUAL CORCHETE_ABRE elementospie CORCHETE_CIERRA  END PUNTOYCOMA{::} 
-        |LABEL DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL CORCHETE_ABRE elementoslabel CORCHETE_CIERRA END PUNTOYCOMA{::}
-        |EXEC GRAPHPIE END PUNTOYCOMA{::}
+contenidopie ::= TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas:t  END PUNTOYCOMA {:funciones.graficas.titulo=t.toString();:}
+        |VALUES DOSPUNTOS DOSPUNTOS R_DOUBLE IGUAL datosgraficas:dt  END PUNTOYCOMA{:Object[] gp = funciones.reportes.arreglos((LinkedList)dt);
+double[] doubles = Arrays.stream(gp)
+                                 .mapToDouble(obj -> Double.parseDouble(obj.toString()))
+                                 .toArray(); funciones.graficas.values=(double[])doubles;:}
+        |LABEL DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas:l END PUNTOYCOMA{:Object[] gp = funciones.reportes.arreglos((LinkedList)l);String[] strings = Arrays.stream(gp)
+                                 .map(Object::toString)
+                                 .toArray(String[]::new);funciones.graficas.label=strings ;:}
+        |EXEC GRAPHPIE END PUNTOYCOMA{:funciones.graficas.pie();funciones.graficas.imageFiles.add(funciones.graficas.pie());funciones.graficas.limpiarParametros();:}
 ;
 elementospie::= valorpie {::}
         |elementospie COMA valorpie {::}
