@@ -1046,7 +1046,10 @@ RESULT = (LinkedList<Object>)listaexpresion;
           case 38: // contenidobarras ::= TITULOX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas END PUNTOYCOMA 
             {
               Object RESULT =null;
-		
+		int txleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int txright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Object tx = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		funciones.graficas.titulox=tx.toString();
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("contenidobarras",30, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1055,7 +1058,10 @@ RESULT = (LinkedList<Object>)listaexpresion;
           case 39: // contenidobarras ::= TITULOY DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas END PUNTOYCOMA 
             {
               Object RESULT =null;
-
+		int tyleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int tyright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Object ty = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		funciones.graficas.tituloy=ty.toString();
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("contenidobarras",30, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1064,7 +1070,10 @@ RESULT = (LinkedList<Object>)listaexpresion;
           case 40: // contenidobarras ::= TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas END PUNTOYCOMA 
             {
               Object RESULT =null;
-
+		int tleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int tright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Object t = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		funciones.graficas.titulo=t.toString();
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("contenidobarras",30, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1073,7 +1082,12 @@ RESULT = (LinkedList<Object>)listaexpresion;
           case 41: // contenidobarras ::= EJEX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas END PUNTOYCOMA 
             {
               Object RESULT =null;
-
+		int dxleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int dxright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Object dx = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		Object[] gb = funciones.reportes.arreglos((LinkedList)dx);String[] strings = Arrays.stream(gb)
+                                 .map(Object::toString)
+                                 .toArray(String[]::new);funciones.graficas.ejex=strings ;
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("contenidobarras",30, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1082,7 +1096,13 @@ RESULT = (LinkedList<Object>)listaexpresion;
           case 42: // contenidobarras ::= EJEY DOSPUNTOS DOSPUNTOS R_DOUBLE IGUAL datosgraficas END PUNTOYCOMA 
             {
               Object RESULT =null;
-
+		int dyleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int dyright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Object dy = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		Object[] gl = funciones.reportes.arreglos((LinkedList)dy);
+double[] doubles = Arrays.stream(gl)
+                                 .mapToDouble(obj -> Double.parseDouble(obj.toString()))
+                                 .toArray(); funciones.graficas.ejey=(double[])doubles;
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("contenidobarras",30, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-7)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1091,7 +1111,7 @@ RESULT = (LinkedList<Object>)listaexpresion;
           case 43: // contenidobarras ::= EXEC GRAPHBAR END PUNTOYCOMA 
             {
               Object RESULT =null;
-
+		funciones.graficas.barras();funciones.graficas.imageFiles.add(funciones.graficas.barras());funciones.graficas.limpiarParametros();
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("contenidobarras",30, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1299,7 +1319,10 @@ funciones.estadisticas.calcularFrecuenciass((double[])doubles); funciones.grafic
           case 65: // contenidolinea ::= TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas END PUNTOYCOMA 
             {
               Object RESULT =null;
-		
+		int tileft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int tiright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Object ti = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		funciones.graficas.titulo=ti.toString();
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("contenidolinea",36, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1308,7 +1331,12 @@ funciones.estadisticas.calcularFrecuenciass((double[])doubles); funciones.grafic
           case 66: // contenidolinea ::= EJEX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas END PUNTOYCOMA 
             {
               Object RESULT =null;
-		
+		int ejexxleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int ejexxright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Object ejexx = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		Object[] ej = funciones.reportes.arreglos((LinkedList)ejexx);String[] strings = Arrays.stream(ej)
+                                 .map(Object::toString)
+                                 .toArray(String[]::new);funciones.graficas.ejex=strings ;
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("contenidolinea",36, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1317,7 +1345,13 @@ funciones.estadisticas.calcularFrecuenciass((double[])doubles); funciones.grafic
           case 67: // contenidolinea ::= EJEY DOSPUNTOS DOSPUNTOS R_DOUBLE IGUAL datosgraficas END PUNTOYCOMA 
             {
               Object RESULT =null;
-		
+		int ejjyleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int ejjyright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Object ejjy = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		Object[] ej = funciones.reportes.arreglos((LinkedList)ejjy);
+double[] doubles = Arrays.stream(ej)
+                                 .mapToDouble(obj -> Double.parseDouble(obj.toString()))
+                                 .toArray(); funciones.graficas.ejey=(double[])doubles;
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("contenidolinea",36, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-7)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1326,7 +1360,10 @@ funciones.estadisticas.calcularFrecuenciass((double[])doubles); funciones.grafic
           case 68: // contenidolinea ::= TITULOX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas END PUNTOYCOMA 
             {
               Object RESULT =null;
-		
+		int txleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int txright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Object tx = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		funciones.graficas.titulox=tx.toString();
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("contenidolinea",36, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1335,7 +1372,10 @@ funciones.estadisticas.calcularFrecuenciass((double[])doubles); funciones.grafic
           case 69: // contenidolinea ::= TITULOY DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas END PUNTOYCOMA 
             {
               Object RESULT =null;
-		
+		int tyleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int tyright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Object ty = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		funciones.graficas.tituloy=ty.toString();
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("contenidolinea",36, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1344,7 +1384,7 @@ funciones.estadisticas.calcularFrecuenciass((double[])doubles); funciones.grafic
           case 70: // contenidolinea ::= EXEC GRAPHLINE END PUNTOYCOMA 
             {
               Object RESULT =null;
-		
+		funciones.graficas.linea();funciones.graficas.imageFiles.add(funciones.graficas.linea());funciones.graficas.limpiarParametros();
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("contenidolinea",36, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

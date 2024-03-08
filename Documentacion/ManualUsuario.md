@@ -83,6 +83,7 @@ Al elegir esta opción el archivo abierto se sobreescribirá.
 ![](../Imagenes/guardar1.png)
 ---
 * Guardar Como
+---
 ![](../Imagenes/gc.png)
 ![](../Imagenes/guardar1.png)
 # 5. Recomendaciones 👀

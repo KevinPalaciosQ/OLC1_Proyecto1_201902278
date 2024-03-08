@@ -216,12 +216,18 @@ declaracionbarras ::= GRAPHBAR PARENTESIS_A  instruccionbarras PARENTESIS_C END 
 instruccionbarras ::= instruccionbarras contenidobarras {::}
         |contenidobarras {::}
 ;
-contenidobarras ::= TITULOX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas END PUNTOYCOMA {::}
-        |TITULOY DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas END PUNTOYCOMA 
-        |TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas END PUNTOYCOMA 
-        |EJEX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL   datosgraficas  END PUNTOYCOMA 
-        |EJEY DOSPUNTOS DOSPUNTOS R_DOUBLE IGUAL  datosgraficas  END PUNTOYCOMA 
-        |EXEC GRAPHBAR END PUNTOYCOMA
+contenidobarras ::= TITULOX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas:tx END PUNTOYCOMA {:funciones.graficas.titulox=tx.toString();:}
+        |TITULOY DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas:ty END PUNTOYCOMA {:funciones.graficas.tituloy=ty.toString();:}
+        |TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas:t END PUNTOYCOMA {:funciones.graficas.titulo=t.toString();:}
+        |EJEX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL   datosgraficas:dx  END PUNTOYCOMA {:Object[] gb = funciones.reportes.arreglos((LinkedList)dx);String[] strings = Arrays.stream(gb)
+                                 .map(Object::toString)
+                                 .toArray(String[]::new);funciones.graficas.ejex=strings ;:}
+
+        |EJEY DOSPUNTOS DOSPUNTOS R_DOUBLE IGUAL  datosgraficas:dy  END PUNTOYCOMA {:Object[] gl = funciones.reportes.arreglos((LinkedList)dy);
+double[] doubles = Arrays.stream(gl)
+                                 .mapToDouble(obj -> Double.parseDouble(obj.toString()))
+                                 .toArray(); funciones.graficas.ejey=(double[])doubles;:} 
+        |EXEC GRAPHBAR END PUNTOYCOMA  {:funciones.graficas.barras();funciones.graficas.imageFiles.add(funciones.graficas.barras());funciones.graficas.limpiarParametros();:}
 ;
 
 elementosejey::= valory {::}
@@ -274,12 +280,17 @@ declaracionlinea ::= GRAPHLINE PARENTESIS_A PARENTESIS_C END PUNTOYCOMA   {::}
 instruccionlinea ::= instruccionlinea contenidolinea {::}
         |contenidolinea {::}
 ;
-contenidolinea ::= TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas  END PUNTOYCOMA {::} 
-        |EJEX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL   datosgraficas  END PUNTOYCOMA {::}
-        |EJEY DOSPUNTOS DOSPUNTOS  R_DOUBLE IGUAL   datosgraficas  END PUNTOYCOMA {::}
-        |TITULOX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas END PUNTOYCOMA{::}
-        |TITULOY DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE  CORCHETE_CIERRA IGUAL datosgraficas END PUNTOYCOMA{::}
-        |EXEC GRAPHLINE END PUNTOYCOMA {::}
+contenidolinea ::= TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas:ti  END PUNTOYCOMA {:funciones.graficas.titulo=ti.toString();:}
+        |EJEX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL   datosgraficas:ejexx  END PUNTOYCOMA {:Object[] ej = funciones.reportes.arreglos((LinkedList)ejexx);String[] strings = Arrays.stream(ej)
+                                 .map(Object::toString)
+                                 .toArray(String[]::new);funciones.graficas.ejex=strings ;:}
+        |EJEY DOSPUNTOS DOSPUNTOS  R_DOUBLE IGUAL   datosgraficas:ejjy  END PUNTOYCOMA {:Object[] ej = funciones.reportes.arreglos((LinkedList)ejjy);
+double[] doubles = Arrays.stream(ej)
+                                 .mapToDouble(obj -> Double.parseDouble(obj.toString()))
+                                 .toArray(); funciones.graficas.ejey=(double[])doubles;:}
+        |TITULOX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas:tx END PUNTOYCOMA     {:funciones.graficas.titulox=tx.toString();:}
+        |TITULOY DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE  CORCHETE_CIERRA IGUAL datosgraficas:ty END PUNTOYCOMA    {:funciones.graficas.tituloy=ty.toString();:}
+        |EXEC GRAPHLINE END PUNTOYCOMA                                                                              {:funciones.graficas.linea();funciones.graficas.imageFiles.add(funciones.graficas.linea());funciones.graficas.limpiarParametros();:}
 ;
 elementoslinea::= valorlinea {::}
         |elementoslinea COMA valorlinea {::}

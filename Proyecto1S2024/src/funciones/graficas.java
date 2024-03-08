@@ -75,23 +75,24 @@ public static void generarGraficas() {
     }
 }
 
-    public String barras(
-            String titulo,
-            String Titulo,
-            String TituloX,
-            String TituloY,
-            double valores[],
-            String ejex[]
+    public static String barras(
+            //String titulo,
+            //String Titulo,
+            //String TituloX,
+            //String TituloY,
+            //double valores[],
+            //String ejex[]
     ) throws IOException {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-        for (int i = 0; i < valores.length; i++) {
-            dataset.addValue(valores[i], "Valor", ejex[i]);
-        }
+    for (int i = 0; i < ejey.length; i++) {
+        dataset.addValue(ejey[i], titulox, ejex[i]);
+    }
+
 
         JFreeChart grafica = ChartFactory.createBarChart(
                 titulo,
-                TituloX, TituloY,
+                titulox, tituloy,
                 dataset,
                 org.jfree.chart.plot.PlotOrientation.VERTICAL,
                 true, true, true);
@@ -101,24 +102,24 @@ public static void generarGraficas() {
         return filename;
     }
 
-    public String linea(
-            String titulo,
-            String Titulo,
-            String TituloX,
-            String TituloY,
-            double valores[],
-            String ejex[]
+    public static String linea(
+            //String titulo,
+            //String Titulo,
+            //String TituloX,
+            //String TituloY,
+            //double valores[],
+            //String ejex[]
     ) throws IOException {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-
-        for (int i = 0; i < valores.length; i++) {
-            dataset.addValue(valores[i], "Valor", ejex[i]);
+       
+        for (int i = 0; i < values.length; i++) {
+            dataset.addValue(values[i], "Valor", ejex[i]);
         }
 
         JFreeChart grafica = ChartFactory.createLineChart(
                 titulo,
-                TituloX,
-                TituloY,
+                titulox,
+                tituloy,
                 dataset);
 
         String filename = "grafico_linea.jpg";
