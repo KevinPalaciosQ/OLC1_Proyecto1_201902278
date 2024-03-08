@@ -280,14 +280,16 @@ declaracionlinea ::= GRAPHLINE PARENTESIS_A PARENTESIS_C END PUNTOYCOMA   {::}
 instruccionlinea ::= instruccionlinea contenidolinea {::}
         |contenidolinea {::}
 ;
-contenidolinea ::= TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas:ti  END PUNTOYCOMA {:funciones.graficas.titulo=ti.toString();:}
-        |EJEX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL   datosgraficas:ejexx  END PUNTOYCOMA {:Object[] ej = funciones.reportes.arreglos((LinkedList)ejexx);String[] strings = Arrays.stream(ej)
+contenidolinea ::= TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas:t  END PUNTOYCOMA {:funciones.graficas.titulo=t.toString();:}
+        |EJEX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL   datosgraficas:dxx END PUNTOYCOMA {:Object[] gll = funciones.reportes.arreglos((LinkedList)dxx);String[] strings = Arrays.stream(gll)
                                  .map(Object::toString)
                                  .toArray(String[]::new);funciones.graficas.ejex=strings ;:}
-        |EJEY DOSPUNTOS DOSPUNTOS  R_DOUBLE IGUAL   datosgraficas:ejjy  END PUNTOYCOMA {:Object[] ej = funciones.reportes.arreglos((LinkedList)ejjy);
-double[] doubles = Arrays.stream(ej)
+
+        |EJEY DOSPUNTOS DOSPUNTOS  R_DOUBLE IGUAL   datosgraficas:dyy  END PUNTOYCOMA {:Object[] gll = funciones.reportes.arreglos((LinkedList)dyy);
+double[] doubles = Arrays.stream(gll)
                                  .mapToDouble(obj -> Double.parseDouble(obj.toString()))
-                                 .toArray(); funciones.graficas.ejey=(double[])doubles;:}
+                                 .toArray(); funciones.graficas.ejey=(double[])doubles;:} 
+
         |TITULOX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas:tx END PUNTOYCOMA     {:funciones.graficas.titulox=tx.toString();:}
         |TITULOY DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE  CORCHETE_CIERRA IGUAL datosgraficas:ty END PUNTOYCOMA    {:funciones.graficas.tituloy=ty.toString();:}
         |EXEC GRAPHLINE END PUNTOYCOMA                                                                              {:funciones.graficas.linea();funciones.graficas.imageFiles.add(funciones.graficas.linea());funciones.graficas.limpiarParametros();:}

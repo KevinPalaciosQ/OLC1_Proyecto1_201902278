@@ -1319,10 +1319,10 @@ funciones.estadisticas.calcularFrecuenciass((double[])doubles); funciones.grafic
           case 65: // contenidolinea ::= TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas END PUNTOYCOMA 
             {
               Object RESULT =null;
-		int tileft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
-		int tiright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
-		Object ti = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
-		funciones.graficas.titulo=ti.toString();
+		int tleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int tright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Object t = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		funciones.graficas.titulo=t.toString();
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("contenidolinea",36, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1331,10 +1331,10 @@ funciones.estadisticas.calcularFrecuenciass((double[])doubles); funciones.grafic
           case 66: // contenidolinea ::= EJEX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas END PUNTOYCOMA 
             {
               Object RESULT =null;
-		int ejexxleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
-		int ejexxright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
-		Object ejexx = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
-		Object[] ej = funciones.reportes.arreglos((LinkedList)ejexx);String[] strings = Arrays.stream(ej)
+		int dxxleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int dxxright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Object dxx = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		Object[] gll = funciones.reportes.arreglos((LinkedList)dxx);String[] strings = Arrays.stream(gll)
                                  .map(Object::toString)
                                  .toArray(String[]::new);funciones.graficas.ejex=strings ;
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("contenidolinea",36, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
@@ -1345,11 +1345,11 @@ funciones.estadisticas.calcularFrecuenciass((double[])doubles); funciones.grafic
           case 67: // contenidolinea ::= EJEY DOSPUNTOS DOSPUNTOS R_DOUBLE IGUAL datosgraficas END PUNTOYCOMA 
             {
               Object RESULT =null;
-		int ejjyleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
-		int ejjyright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
-		Object ejjy = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
-		Object[] ej = funciones.reportes.arreglos((LinkedList)ejjy);
-double[] doubles = Arrays.stream(ej)
+		int dyyleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int dyyright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Object dyy = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		Object[] gll = funciones.reportes.arreglos((LinkedList)dyy);
+double[] doubles = Arrays.stream(gll)
                                  .mapToDouble(obj -> Double.parseDouble(obj.toString()))
                                  .toArray(); funciones.graficas.ejey=(double[])doubles;
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("contenidolinea",36, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-7)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
