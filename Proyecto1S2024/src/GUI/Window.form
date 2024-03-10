@@ -182,13 +182,16 @@
             <MenuItem class="javax.swing.JMenuItem" name="Reportegraficas">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Ctrl+G"/>
+                  <KeyStroke key="Ctrl+D"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Iconos/limpiar.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Limpiar Gr&#xe1;ficas"/>
+                <Property name="text" type="java.lang.String" value="Limpiar Documentos"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ReportegraficasActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="LimpiarConsola">
               <Properties>

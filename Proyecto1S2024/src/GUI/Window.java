@@ -266,9 +266,14 @@ public class Window extends javax.swing.JFrame {
         });
         jMenu3.add(ReporteSimbolos);
 
-        Reportegraficas.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        Reportegraficas.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         Reportegraficas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/limpiar.png"))); // NOI18N
-        Reportegraficas.setText("Limpiar Gráficas");
+        Reportegraficas.setText("Limpiar Documentos");
+        Reportegraficas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReportegraficasActionPerformed(evt);
+            }
+        });
         jMenu3.add(Reportegraficas);
 
         LimpiarConsola.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -552,6 +557,40 @@ private String obtenerTextoPestanaSeleccionada() {
         Salida.setText("");
 
     }//GEN-LAST:event_LimpiarConsolaActionPerformed
+
+public static void EliminarDocumentos() {
+    String folderPath = "C:\\Users\\kevin\\OneDrive\\Documentos\\OLC1_Proyecto1_201902278\\Proyecto1S2024";
+
+    File folder = new File(folderPath);
+    File[] files = folder.listFiles();
+
+    if (files != null) {
+        for (File file : files) {
+            if (file.isFile()) {
+                if (esImagen(file.getName()) || esHTML(file.getName())) {
+                    if (file.delete()) {
+                        System.out.println("Archivo eliminado: " + file.getName());
+                    } else {
+                        System.out.println("No se pudo eliminar el archivo: " + file.getName());
+                    }
+                }
+            }
+        }
+    }
+}
+
+private static boolean esImagen(String fileName) {
+    return fileName.toLowerCase().endsWith(".jpg") ||
+           fileName.toLowerCase().endsWith(".png") ||
+           fileName.toLowerCase().endsWith(".gif");
+}
+
+private static boolean esHTML(String fileName) {
+    return fileName.toLowerCase().endsWith(".html");
+}
+    private void ReportegraficasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportegraficasActionPerformed
+        EliminarDocumentos();
+    }//GEN-LAST:event_ReportegraficasActionPerformed
 public void mostrarSiguienteGrafica() {
 
 }
