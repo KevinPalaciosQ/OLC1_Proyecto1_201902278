@@ -14,7 +14,7 @@ public class Contenido {
   
         public static void main(String[] args) {  
             
-        analizadores("src/DataForge_/", "Lexer.jflex", "Parser.cup"); 
+        //analizadores("src/DataForge_/", "Lexer.jflex", "Parser.cup"); 
         Window pantallita = new Window ();
         pantallita.setVisible(true);
     }
