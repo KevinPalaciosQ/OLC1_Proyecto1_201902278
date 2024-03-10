@@ -91,11 +91,9 @@ multilinea = [<][!][^!]*[!]+([^>*][^!]*[*]+)*[>]
 //titulo-values-label-exec
 //---------------------------GRAPHBAR-------------------------------------
 "graphbar"       {funciones.reportes.TablaTokensDF(yytext(), "GRAPHBAR", yyline, yycolumn); return new Symbol(sym.GRAPHBAR, yycolumn, yyline, yytext());}
-"grapbar"        {funciones.reportes.TablaTokensDF(yytext(), "GRAPBAR", yyline, yycolumn); return new Symbol(sym.GRAPBAR, yycolumn, yyline, yytext());}
 //titulo-ejex-eyey-titulox-tituloy-exec
 //---------------------------GRAPHLINE---------------------------------------
 "graphline"      {funciones.reportes.TablaTokensDF(yytext(), "GRAPHLINE", yyline, yycolumn); return new Symbol(sym.GRAPHLINE, yycolumn, yyline, yytext());}
-"grapline"       {funciones.reportes.TablaTokensDF(yytext(), "GRAPLINE", yyline, yycolumn); return new Symbol(sym.GRAPLINE, yycolumn, yyline, yytext());}
 //titulo-ejex-eyey-titulox-tituloy-exec
 //----------------------------HISTOGRAMA-------------------------------------
 "histogram"       {funciones.reportes.TablaTokensDF(yytext(), "HISTOGRAM", yyline, yycolumn); return new Symbol(sym.HISTOGRAM, yycolumn, yyline, yytext());}

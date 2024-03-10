@@ -31,7 +31,7 @@ public class reportes {
         for (int i =0;i<ListaSimbolos.size();i++ ){
         objeto =(simbolos) ListaSimbolos.get(i);
         if(objeto.getId().equals(id)){
-            System.out.println(objeto.getValor());
+            //System.out.println(objeto.getValor());
             return objeto.getValor();
             
         }
@@ -57,7 +57,7 @@ public class reportes {
         sim.recibir_datos(dato, id, valores, linea, columna);
         ListaSimbolos.add(sim);    
         for (int i = 0; i < valores.length; i++) {
-            System.out.println(valores[i]);
+            //System.out.println(valores[i]);
         }
     }
     public static void TablaDatos(String dato, String id, Object valor,int linea, int columna){

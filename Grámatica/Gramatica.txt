@@ -6,178 +6,163 @@ G = (N,T,P,S)
         P = { PRODUCCIONES }
         S = { inicio }
 ---------------------------NO TERMINALES--------------------------------------------------------------------------------------------------
-NO TERMINALES = { inicio, expresion, tipodedato, declaracion, tipodegrafica, declaracionhistograma, declaracionbarras, declaracionpie, contenidopie,
-declaracionlinea, tipodato, recorrido, instrucciones, arreglos, operaciones, operacion, elementos, elementospie, valor, valorpie, datoslabel, elementoslabel,
-instrucciongrafica, buclegrafica, funcionesgrafica, instruccionhistograma, contenidohistograma, elementoshistograma, valorhistograma, instruccionbarras, 
-contenidobarras, elementosejey, valory, elementosejex, datox, instruccionlinea, contenidolinea, elementoslinea, valorlinea, elementoslineac, datoslineac,
-valorexpresion, operacionesnest, arregloexpresiones, printarreglos, printexpresiones, nt, ntexp, ciclo, datosgraficas}
+NO TERMINALES = {inicio,expresion,tipodedato,declaracion, tipodegrafica, declaracionhistograma, declaracionbarras, declaracionpie, contenidopie, declaracionlinea,
+tipodato, recorrido, instrucciones, arreglos, operaciones, operacion, elementos, valorpie, datoslabel, instrucciongrafica, buclegrafica,funcionesgrafica,
+instruccionhistograma, contenidohistograma, instruccionbarras, contenidobarras, instruccionlinea, contenidolinea, valorexpresion, operacionesnest, arregloexpresiones,
+printarreglos, printexpresiones, nt, ntexp, ciclo, datosgraficas}        
 ---------------------------TERMINALES-----------------------------------------------------------------------------------------------------
-TERMINALES = {PARENTESIS_A, PARENTESIS_C, PUNTOYCOMA, COMA, SUM, RES, MUL, DIV, MOD, POR, MAS, MENOS, R_MOSTRAR, ENTERO, DECIMAL,CADENA, PROGRAM, END, DOSPUNTOS,
-VAR, MENORQUE,MAYORQUE, ARROBA, CORCHETE_ABRE, CORCHETE_CIERRA, R_DOUBLE, R_CHAR, ARR, MEDIA, MEDIANA, MODA, VARIANZA, MAX, MIN, PRINT, COLUMN, EXEC, TITULO,
-VALUES, LABEL, EJEX, EJEY, GRAPHPIE, GRAPHBAR, GRAPHLINE, HISTOGRAM, CONSOLE, TITULOX,TITULOY, IDENTIFICADOR, GUION, IGUAL }
+TERMINALES = {PARENTESIS_A, PARENTESIS_C, PUNTOYCOMA, COMA, SUM, RES, MUL, DIV, MOD, POR, MAS, ENTERO, DECIMAL, CADENA, PROGRAM, END, DOSPUNTOS,
+VAR, MENORQUE, MAYORQUE, ARROBA, CORCHETE_ABRE, CORCHETE_CIERRA, R_DOUBLE, R_CHAR, ARR, MEDIA, MEDIANA, MODA, VARIANZA, MAX, MIN, PRINT, COLUMN,
+EXEC, TITULO, VALUES, LABEL, EJEX, EJEY, GRAPHPIE, GRAPHBAR, GRAPHLINE, HISTOGRAM, CONSOLE, TITULOX, TITULOY, IDENTIFICADOR, GUION, IGUAL}        
 ---------------------------PRODUCCIONES---------------------------------------------------------------------------------------------------
-<INICIO> ::= PROGRAM <recorrido> END PROGRAM
+<inicio> ::= PROGRAM <recorrido> END PROGRAM
+;
 
 <recorrido> ::= <instrucciones> 
         | <recorrido> <instrucciones>
+;
 
 <instrucciones> ::= <declaracion> 
-        |<arreglos> 
+        | <arreglos> 
         | <funcionesgrafica> 
         | <printarreglos>
         | <printexpresiones> 
-        | error ;
+        | error PUNTOYCOMA
+;
 
 <funcionesgrafica> ::= <declaracionhistograma> 
         | <declaracionbarras>
         | <declaracionpie>
         | <declaracionlinea>
+;
 
-<declaracion> ::= VAR : <tipodedato> :: IDENTIFICADOR <-  <tipodato> END ;
-        | VAR : <tipodedato> :: IDENTIFICADOR <- <expresion> END ;
+<declaracion> ::= VAR DOSPUNTOS <tipodedato> DOSPUNTOS DOSPUNTOS IDENTIFICADOR MENOR GUION  <tipodato> END PUNTOYCOMA
+        | VAR DOSPUNTOS <tipodedato> DOSPUNTOS DOSPUNTOS IDENTIFICADOR MENOR GUION <expresion> END PUNTOYCOMA
+;
 
 <tipodedato> ::= R_DOUBLE 
-        |R_CHAR []
-
+        |R_CHAR CORCHETE_ABRE CORCHETE_CIERRA
+;
 <tipodato> ::= DECIMAL 
         | CADENA 
         | ENTERO 
         | IDENTIFICADOR
-
-<printarreglos> ::= CONSOLE :: COLUMN = IDENTIFICADOR 
-        | CONSOLE :: COLUMN = CADENA
+;
+<printarreglos> ::= CONSOLE DOSPUNTOS DOSPUNTOS COLUMN IGUAL IDENTIFICADOR  GUION MAYORQUE END PUNTOYCOMA
+        | CONSOLE DOSPUNTOS DOSPUNTOS COLUMN IGUAL CADENA GUION MAYORQUE <nt> END PUNTOYCOMA
+;        
 <nt> ::= ARROBA IDENTIFICADOR
-        |[ elementos ]
-
-<printexpresiones> ::= CONSOLE :: PRINT = <ciclo> END ;
+        |CORCHETE_ABRE <elementos> CORCHETE_CIERRA
+;
+<printexpresiones> ::= CONSOLE DOSPUNTOS DOSPUNTOS PRINT IGUAL <ciclo> END PUNTOYCOMA
+;
+<ntexp>::= IDENTIFICADOR
+        | CADENA
+        | ENTERO
+        | DECIMAL
+        | <expresion>       
+;
 
 <ciclo> ::= <ntexp> 
-        | <ntexp> , <ciclo>
+        | <ntexp> COMA <ciclo>
+;
 
-<declaracionlinea> ::= GRAPHLINE ( <instruccionlinea> ) END ;
+<declaracionlinea> ::= GRAPHLINE PARENTESIS_A <instruccionlinea> PARENTESIS_C END PUNTOYCOMA
+;
 
-<declaracionbarras> ::= GRAPHBAR ( <instruccionbarras> )  END ;
+<declaracionbarras> ::= GRAPHBAR PARENTESIS_A <instruccionbarras> PARENTESIS_C  END PUNTOYCOMA
+;
 
 <instruccionbarras> ::= <instruccionbarras> <contenidobarras> 
         | <contenidobarras>
+;
 
-<contenidobarras> ::= TITULOX :: R_CHAR [] = CADENA END ; 
-        | TITULOY :: R_CHAR [] = <tipodato> END ; 
-        | TITULO :: R_CHAR [] = CADENA END ; 
-        | EJEX :: R_CHAR [] = [ <elementosejex> ] END ; 
-        | EJEY :: R_DOUBLE = [ <elementosejey> ] END ; 
-        | EXEC GRAPHBAR END ;
+<contenidobarras> ::= TITULOX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA <datosgraficas> END PUNTOYCOMA
+        | TITULOY DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL <datosgraficas> END PUNTOYCOMA
+        | TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL <datosgraficas> END PUNTOYCOMA 
+        | EJEX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL <datosgraficas> END PUNTOYCOMA
+        | EJEY DOSPUNTOS DOSPUNTOS R_DOUBLE IGUAL <datosgraficas> END PUNTOYCOMA
+        | EXEC GRAPHBAR END PUNTOYCOMA
+;
 
-<elementosejey> ::= <valory> 
-        | <elementosejey> , <valory>
-
-<valory> ::= ENTERO 
-        | DECIMAL 
-        | IDENTIFICADOR
-
-<elementosejex> ::= <datox> 
-        | <elementosejex> , <datox>
-
-<datox> ::= CADENA
-
-<declaracionhistograma> ::= HISTOGRAM ( <instruccionhistograma> ) END ;
+<declaracionhistograma> ::= HISTOGRAM PARENTESIS_A <instruccionhistograma> PARENTESIS_C END PUNTOYCOMA
+;
 
 <instruccionhistograma> ::= <instruccionhistograma> <contenidohistograma> 
         | <contenidohistograma>
+;
 
-<contenidohistograma> ::= TITULO :: R_CHAR [] = <datosgraficas> END ; 
-        | VALUES ::  [] = <datosgraficas> END ; 
-        | EXEC HISTOGRAM END ;
+<contenidohistograma> ::= TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL <datosgraficas> END PUNTOYCOMA 
+        | VALUES DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL <datosgraficas> END PUNTOYCOMA
+        | EXEC HISTOGRAM END PUNTOYCOMA
+;
 
 
-<elementoshistograma> ::= valorhistograma 
-        | <elementoshistograma> , valorhistograma 
-
-<valorhistograma> ::= ENTERO 
-        | DECIMAL 
-
-<declaracionlinea> ::= GRAPHLINE () END ;
+<declaracionlinea> ::= GRAPHLINE PARENTESIS_A PARENTESIS_C END PUNTOYCOMA
+;
 
 <instruccionlinea> ::= <instruccionlinea> <contenidolinea> 
         | <contenidolinea>
+;
 
-<contenidolinea> ::= TITULO :: []= <datosgraficas> END ; 
-        | EJEX :: R_CHAR []=  <datosgraficas> END ; 
-        | EJEY :: R_DOUBLE = <datosgraficas> END ; 
-        | TITULOX :: R_CHAR [] = <datosgraficas> END ; 
-        | TITULOY :: R_CHAR [] = <datosgraficas> END ; 
-        | EXEC GRAPHLINE END ;
+<contenidolinea> ::= TITULO DOSPUNTOS DOSPUNTOS CORCHETE_ABRE CORCHETE_CIERRA IGUAL <datosgraficas> END PUNTOYCOMA 
+        | EJEX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL  <datosgraficas> END PUNTOYCOMA 
+        | EJEY DOSPUNTOS DOSPUNTOS R_DOUBLE IGUAL <datosgraficas> END PUNTOYCOMA 
+        | TITULOX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL <datosgraficas> END PUNTOYCOMA
+        | TITULOY DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL <datosgraficas> END PUNTOYCOMA 
+        | EXEC GRAPHLINE END PUNTOYCOMA
+;
 
-<elementoslinea> ::= <valorlinea> 
-        | <elementoslinea> , <valorlinea>
-
-<valorlinea> ::= ENTERO 
-        | DECIMAL
-
-<elementoslineac> ::= <datoslineac> 
-        | <elementoslineac> , <datoslineac> 
-        | <datosgraficas>
-
-<datoslineac> ::= CADENA
-
-<declaracionpie> ::= GRAPHPIE ( <instrucciongrafica> ) END ;
+<declaracionpie> ::= GRAPHPIE PARENTESIS_A <instrucciongrafica> PARENTESIS_C END PUNTOYCOMA
+;
 
 <instrucciongrafica> ::= <instrucciongrafica> <contenidopie> 
         | <contenidopie>
+;
 
-<contenidopie> ::= TITULO :: R_CHAR [] IGUAL CADENA END ; 
-        | VALUES :: R_DOUBLE IGUAL [ <elementospie> ] END ; 
-        | LABEL :: R_CHAR [ <elementoslabel> ] END ; 
-        | EXEC GRAPHPIE END ;
+<contenidopie> ::= TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL <datosgraficas> END PUNTOYCOMA 
+        | VALUES DOSPUNTOS DOSPUNTOS R_DOUBLE IGUAL <datosgraficas> END PUNTOYCOMA
+        | LABEL DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA igual  <datosgraficas> END PUNTOYCOMA 
+        | EXEC GRAPHPIE END PUNTOYCOMA
+;
 
-<elementospie> ::= <valorpie> 
-        | <elementospie> , <valorpie>
-
-<valorpie> ::= ENTERO 
-        | DECIMAL
-
-<elementoslabel> ::= <datoslabel> 
-        | <elementoslabel> , <datoslabel>
-
-<datoslabel> ::= CADENA
-
-<arreglos> ::= ARR : <tipodedato> :: @ IDENTIFICADOR <- [ <elementos> ] END ;
+<arreglos> ::= ARR DOSPUNTOS <tipodedato> DOSPUNTOS DOSPUNTOS  ARROBA IDENTIFICADOR MENORQUE GUION CORCHETE_ABRE <elementos> CORCHETE_CIERRA END PUNTOYCOMA
+;
 
 <elementos> ::= <valorexpresion> 
-        | <valorexpresion> , <elementos>
-
-<valor> ::= DECIMAL 
-        | CADENA    
-        | IDENTIFICADOR
-        | ENTERO
-        
-<expresion> ::= SUM ( <valorexpresion> , <valorexpresion> ) 
-        | RES ( <valorexpresion> , <valorexpresion> )  
-        | MUL ( <valorexpresion> , <valorexpresion> )  
-        | DIV ( <valorexpresion> , <valorexpresion> )  
-        | MOD ( <valorexpresion> , <valorexpresion> )  
+        | <valorexpresion> COMA <elementos>
+;
+    
+<expresion> ::= SUM PARENTESIS_A <valorexpresion> COMA <valorexpresion> PARENTESIS_C 
+        | RES PARENTESIS_A <valorexpresion> COMA <valorexpresion> PARENTESIS_C
+        | MUL PARENTESIS_A <valorexpresion> COMA <valorexpresion> PARENTESIS_C  
+        | DIV PARENTESIS_A <valorexpresion> COMA <valorexpresion> PARENTESIS_C  
+        | MOD PARENTESIS_A <valorexpresion> COMA <valorexpresion> PARENTESIS_C  
         | <operacionesnest>
+;
 
 <valorexpresion> ::= <expresion> 
         | DECIMAL 
         | IDENTIFICADOR 
         | ENTERO 
         | CADENA
+;
 
+<operacionesnest> ::= MEDIA PARENTESIS_A <arregloexpresiones> PARENTESIS_C
+        | MEDIANA PARENTESIS_A <arregloexpresiones> PARENTESIS_C
+        | MODA PARENTESIS_A <arregloexpresiones> PARENTESIS_C
+        | VARIANZA PARENTESIS_A <arregloexpresiones> PARENTESIS_C 
+        | MAX PARENTESIS_A <arregloexpresiones> PARENTESIS_C
+        | MIN PARENTESIS_A <arregloexpresiones> PARENTESIS_C
+;
 
-<operacionesnest> ::= MEDIA ( <arregloexpresiones> )
-        | MEDIANA ( <arregloexpresiones> )
-        | MODA ( <arregloexpresiones> )
-        | VARIANZA ( <arregloexpresiones> ) 
-        | MAX ( <arregloexpresiones> ) 
-        | MIN ( <arregloexpresiones> )
-
-<arregloexpresiones> ::= @ IDENTIFICADOR 
-        | [ <elementos> ]
+<arregloexpresiones> ::= ARROBA IDENTIFICADOR 
+        | CORCHETE_ABRE <elementos> CORCHETE_CIERRA
+;
 
 <datosgraficas> ::= ENTERO
-        |DECIMAL
-        |CADENA
-        |arregloexpresiones
-        |IDENTIFICADOR
-        
+        | DECIMAL
+        | CADENA
+        | arregloexpresiones
+        | IDENTIFICADOR
+ ;       

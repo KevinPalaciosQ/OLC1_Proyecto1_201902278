@@ -182,9 +182,9 @@
                   <KeyStroke key="Ctrl+G"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Iconos/trend.png"/>
+                  <Image iconType="3" name="/Iconos/limpiar.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Reporte de Gr&#xe1;ficas"/>
+                <Property name="text" type="java.lang.String" value="Limpiar Gr&#xe1;ficas"/>
               </Properties>
             </MenuItem>
           </SubComponents>

@@ -6,6 +6,8 @@ package funciones;
 
 
 
+import static funciones.reportes.abrirArchivoHTML;
+import java.awt.Color;
 import java.awt.Desktop;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -15,12 +17,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringReader;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.UndoableEditListener;
 import javax.swing.text.AttributeSet;
@@ -35,8 +41,10 @@ import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.statistics.HistogramDataset;
@@ -46,6 +54,8 @@ import org.jfree.data.statistics.HistogramDataset;
  * @author kevin
  */
 public class graficas {
+    public static int contador = 0; // Contador para nombres correlativos
+    
     public static String titulo = "";
     public static String titulox ="";
     public static String tituloy ="";
@@ -85,22 +95,38 @@ public static void generarGraficas() {
     ) throws IOException {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-    for (int i = 0; i < ejey.length; i++) {
-        dataset.addValue(ejey[i], titulox, ejex[i]);
-    }
-
+        for (int i = 0; i < ejey.length; i++) {
+            dataset.addValue(ejey[i], titulox, ejex[i]);
+        }
 
         JFreeChart grafica = ChartFactory.createBarChart(
                 titulo,
-                titulox, tituloy,
+                titulox,
+                tituloy,
                 dataset,
-                org.jfree.chart.plot.PlotOrientation.VERTICAL,
-                true, true, true);
+                PlotOrientation.VERTICAL,
+                true,
+                true,
+                false);
 
-        String filename = "grafico_barras.jpg";
+        // Personaliza los colores de las barras con valores aleatorios
+        CategoryPlot plot = grafica.getCategoryPlot();
+        BarRenderer renderer = (BarRenderer) plot.getRenderer();
+        Random random = new Random();
+        for (int i = 0; i < ejey.length; i++) {
+            Color randomColor = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
+            renderer.setSeriesPaint(i, randomColor);
+        }
+
+
+        // Guarda la gráfica como archivo JPEG
+        String filename = "barras_" + contador + ".jpg";
+        contador++; // Incrementar el contador
         ChartUtilities.saveChartAsJPEG(new File(filename), grafica, 500, 300);
+
         return filename;
     }
+
 
     public static String linea(
 
@@ -117,7 +143,8 @@ public static void generarGraficas() {
                 tituloy,
                 dataset);
 
-        String filename = "grafico_linea.jpg";
+        String filename = "linea_" + contador + ".jpg";
+        contador++; // Incrementar el contador
         ChartUtilities.saveChartAsJPEG(new File(filename), grafica, 500, 300);
         return filename;
     }
@@ -135,15 +162,17 @@ public static void generarGraficas() {
         JFreeChart grafica = ChartFactory.createPieChart(titulo, dataset);
             PiePlot plot = (PiePlot) grafica.getPlot();
             plot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0}: {1}"));
-        String filename = "grafico_pastel.jpg";
+        String filename = "pie_" + contador + ".jpg";
+        contador++; // Incrementar el contador
         ChartUtilities.saveChartAsJPEG(new File(filename), grafica, 500, 300);
         return filename;
     }
 
-    public static String histograma(
-
-    ) throws IOException {
+    public static String histograma() throws IOException {
+        
         HistogramDataset dataset = new HistogramDataset();
+
+
 
         dataset.addSeries(titulo, values,15);
 
@@ -157,7 +186,8 @@ public static void generarGraficas() {
                 true,
                 false);
 
-        String filename = "histograma.jpg";
+        String filename = "histograma_" + contador + ".jpg";
+        contador++; // Incrementar el contador
         ChartUtilities.saveChartAsJPEG(new File(filename), grafica, 500, 300);
         return filename;
     }

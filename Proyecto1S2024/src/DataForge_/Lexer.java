@@ -131,17 +131,17 @@ public class Lexer implements java_cup.runtime.Scanner {
     "\2\0\1\3\1\40\2\21\1\0\1\21\1\41\1\42"+
     "\1\43\2\21\1\0\2\21\1\0\1\44\1\21\1\0"+
     "\2\21\1\0\1\21\1\0\2\21\2\0\1\3\2\21"+
-    "\1\0\6\21\1\0\1\45\2\46\1\21\1\0\1\47"+
+    "\1\0\4\21\1\0\1\45\2\46\1\21\1\0\1\47"+
     "\1\21\1\47\1\21\1\0\2\21\1\0\1\50\1\21"+
-    "\1\0\1\51\5\21\1\0\1\21\1\0\1\21\1\0"+
-    "\1\21\1\0\1\21\1\0\1\21\2\52\2\53\1\21"+
-    "\1\0\2\54\1\55\2\21\1\0\1\21\1\0\1\21"+
-    "\1\0\2\56\1\21\1\0\2\57\2\60\1\61\1\62"+
-    "\1\63\1\62\1\63\1\21\1\0\1\64\1\21\1\0"+
-    "\2\65\2\66\1\21\1\0\2\67\2\70\2\71";
+    "\1\0\1\51\4\21\1\0\1\21\1\0\1\21\1\0"+
+    "\1\21\1\0\1\21\2\52\2\53\1\21\1\0\2\54"+
+    "\2\21\1\0\1\21\1\0\2\55\1\21\1\0\2\56"+
+    "\2\57\1\60\1\61\1\62\1\61\1\62\1\21\1\0"+
+    "\1\63\1\21\1\0\2\64\1\21\1\0\2\65\2\66"+
+    "\2\67";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[220];
+    int [] result = new int[210];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -183,20 +183,19 @@ public class Lexer implements java_cup.runtime.Scanner {
     "\0\u0157\0\u0eee\0\u0f1f\0\u0f50\0\u0f81\0\u0fb2\0\u0fe3\0\u0157"+
     "\0\u1014\0\u1045\0\u1076\0\u10a7\0\u10d8\0\u1109\0\u113a\0\u116b"+
     "\0\u119c\0\u11cd\0\u11fe\0\u0dc8\0\u122f\0\u1260\0\u1291\0\u12c2"+
-    "\0\u12f3\0\u1324\0\u1355\0\u1386\0\u13b7\0\u13e8\0\u0157\0\u1419"+
-    "\0\u144a\0\u147b\0\u14ac\0\u0157\0\u14dd\0\61\0\u150e\0\u153f"+
-    "\0\u1570\0\u15a1\0\u15d2\0\u0157\0\u1603\0\u1634\0\u0157\0\u1665"+
+    "\0\u12f3\0\u1324\0\u1355\0\u1386\0\u0157\0\u13b7\0\u13e8\0\u1419"+
+    "\0\u144a\0\u0157\0\u147b\0\61\0\u14ac\0\u14dd\0\u150e\0\u153f"+
+    "\0\u1570\0\u0157\0\u15a1\0\u15d2\0\u0157\0\u1603\0\u1634\0\u1665"+
     "\0\u1696\0\u16c7\0\u16f8\0\u1729\0\u175a\0\u178b\0\u17bc\0\u17ed"+
-    "\0\u181e\0\u184f\0\u1880\0\u18b1\0\u18e2\0\u1913\0\u1944\0\u1975"+
-    "\0\u0157\0\61\0\u19a6\0\u19d7\0\u0157\0\61\0\u0157\0\u1a08"+
-    "\0\u1a39\0\u1a6a\0\u1a9b\0\u1acc\0\u1afd\0\u1b2e\0\u0157\0\61"+
-    "\0\u1b5f\0\u1b90\0\u0157\0\61\0\u0157\0\61\0\u0157\0\u0157"+
-    "\0\u0157\0\61\0\61\0\u1bc1\0\u1bf2\0\u0157\0\u1c23\0\u1c54"+
-    "\0\u0157\0\61\0\u0157\0\61\0\u1c85\0\u1cb6\0\u0157\0\61"+
-    "\0\u0157\0\61\0\u0157\0\61";
+    "\0\u181e\0\u184f\0\u1880\0\u0157\0\61\0\u18b1\0\u18e2\0\u0157"+
+    "\0\61\0\u1913\0\u1944\0\u1975\0\u19a6\0\u19d7\0\u0157\0\61"+
+    "\0\u1a08\0\u1a39\0\u0157\0\61\0\u0157\0\61\0\u0157\0\u0157"+
+    "\0\u0157\0\61\0\61\0\u1a6a\0\u1a9b\0\u0157\0\u1acc\0\u1afd"+
+    "\0\u0157\0\61\0\u1b2e\0\u1b5f\0\u0157\0\61\0\u0157\0\61"+
+    "\0\u0157\0\61";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[220];
+    int [] result = new int[210];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -292,63 +291,57 @@ public class Lexer implements java_cup.runtime.Scanner {
     "\36\147\15\0\1\24\6\0\13\24\1\205\13\24\2\0"+
     "\1\24\20\0\1\24\6\0\15\24\1\206\11\24\2\0"+
     "\1\24\44\0\1\207\34\0\1\24\6\0\12\24\1\210"+
-    "\14\24\2\0\1\24\20\0\1\24\6\0\1\24\1\211"+
-    "\5\24\1\212\2\24\1\213\3\24\1\214\10\24\2\0"+
-    "\1\24\20\0\1\24\6\0\15\24\1\215\11\24\2\0"+
-    "\1\24\44\0\1\216\34\0\1\24\6\0\12\24\1\217"+
-    "\14\24\2\0\1\24\20\0\1\24\6\0\1\220\26\24"+
-    "\2\0\1\24\27\0\1\221\51\0\1\24\6\0\17\24"+
-    "\1\222\7\24\2\0\1\24\46\0\1\223\32\0\1\24"+
-    "\6\0\21\24\1\224\5\24\2\0\1\24\20\0\1\24"+
-    "\6\0\17\24\1\225\7\24\2\0\1\24\50\0\1\226"+
-    "\30\0\1\24\6\0\12\24\1\227\14\24\2\0\1\24"+
-    "\41\0\1\230\37\0\1\24\6\0\4\24\1\231\22\24"+
-    "\2\0\1\24\20\0\1\24\6\0\1\232\26\24\2\0"+
-    "\1\24\27\0\1\233\34\0\10\147\1\203\11\147\1\204"+
-    "\36\147\15\0\1\24\6\0\14\24\1\234\12\24\2\0"+
-    "\1\24\20\0\1\24\6\0\12\24\1\235\14\24\2\0"+
-    "\1\24\41\0\1\236\37\0\1\24\6\0\4\24\1\237"+
-    "\22\24\2\0\1\24\20\0\1\24\6\0\1\240\26\24"+
-    "\2\0\1\24\20\0\1\24\6\0\1\24\1\241\10\24"+
-    "\1\242\3\24\1\243\10\24\2\0\1\24\20\0\1\24"+
-    "\6\0\10\24\1\244\16\24\2\0\1\24\1\245\17\0"+
-    "\1\24\6\0\10\24\1\246\16\24\2\0\1\24\1\247"+
-    "\17\0\1\24\6\0\6\24\1\250\20\24\2\0\1\24"+
-    "\35\0\1\251\43\0\1\24\6\0\14\24\1\252\12\24"+
-    "\2\0\1\24\43\0\1\253\35\0\1\24\6\0\1\254"+
-    "\26\24\2\0\1\24\27\0\1\255\51\0\1\24\6\0"+
-    "\1\256\26\24\2\0\1\24\20\0\1\24\6\0\15\24"+
-    "\1\257\11\24\2\0\1\24\44\0\1\260\34\0\1\24"+
-    "\6\0\20\24\1\261\6\24\2\0\1\24\1\0\1\262"+
-    "\16\0\1\24\6\0\14\24\1\263\12\24\2\0\1\24"+
-    "\43\0\1\264\35\0\1\24\6\0\4\24\1\265\22\24"+
-    "\2\0\1\24\33\0\1\266\45\0\1\24\6\0\17\24"+
-    "\1\267\7\24\2\0\1\24\20\0\1\24\6\0\1\270"+
-    "\26\24\2\0\1\24\20\0\1\24\6\0\10\24\1\271"+
-    "\16\24\2\0\1\24\1\272\17\0\1\24\6\0\10\24"+
-    "\1\273\16\24\2\0\1\24\1\274\17\0\1\24\6\0"+
-    "\14\24\1\275\12\24\2\0\1\24\43\0\1\276\35\0"+
-    "\1\24\6\0\4\24\1\277\22\24\2\0\1\24\33\0"+
-    "\1\300\45\0\1\24\6\0\17\24\1\301\7\24\2\0"+
-    "\1\24\46\0\1\302\32\0\1\24\6\0\1\303\26\24"+
-    "\2\0\1\24\27\0\1\304\51\0\1\24\6\0\17\24"+
-    "\1\305\7\24\2\0\1\24\46\0\1\306\32\0\1\24"+
-    "\6\0\13\24\1\307\13\24\2\0\1\24\20\0\1\24"+
-    "\6\0\24\24\1\310\1\311\1\24\2\0\1\24\53\0"+
-    "\1\312\1\313\24\0\1\24\6\0\26\24\1\314\2\0"+
-    "\1\24\55\0\1\315\23\0\1\24\6\0\17\24\1\316"+
-    "\7\24\2\0\1\24\20\0\1\24\6\0\14\24\1\317"+
-    "\12\24\2\0\1\24\43\0\1\320\35\0\1\24\6\0"+
-    "\4\24\1\321\22\24\2\0\1\24\33\0\1\322\45\0"+
-    "\1\24\6\0\4\24\1\323\22\24\2\0\1\24\33\0"+
-    "\1\324\45\0\1\24\6\0\1\325\26\24\2\0\1\24"+
-    "\27\0\1\326\51\0\1\24\6\0\1\327\26\24\2\0"+
-    "\1\24\27\0\1\330\51\0\1\24\6\0\4\24\1\331"+
-    "\22\24\2\0\1\24\33\0\1\332\45\0\1\24\6\0"+
-    "\13\24\1\333\13\24\2\0\1\24\42\0\1\334\21\0";
+    "\14\24\2\0\1\24\20\0\1\24\6\0\7\24\1\211"+
+    "\6\24\1\212\10\24\2\0\1\24\20\0\1\24\6\0"+
+    "\15\24\1\213\11\24\2\0\1\24\44\0\1\214\34\0"+
+    "\1\24\6\0\12\24\1\215\14\24\2\0\1\24\20\0"+
+    "\1\24\6\0\1\216\26\24\2\0\1\24\27\0\1\217"+
+    "\51\0\1\24\6\0\17\24\1\220\7\24\2\0\1\24"+
+    "\46\0\1\221\32\0\1\24\6\0\21\24\1\222\5\24"+
+    "\2\0\1\24\20\0\1\24\6\0\17\24\1\223\7\24"+
+    "\2\0\1\24\50\0\1\224\30\0\1\24\6\0\12\24"+
+    "\1\225\14\24\2\0\1\24\41\0\1\226\37\0\1\24"+
+    "\6\0\4\24\1\227\22\24\2\0\1\24\20\0\1\24"+
+    "\6\0\1\230\26\24\2\0\1\24\27\0\1\231\34\0"+
+    "\10\147\1\203\11\147\1\204\36\147\15\0\1\24\6\0"+
+    "\14\24\1\232\12\24\2\0\1\24\20\0\1\24\6\0"+
+    "\12\24\1\233\14\24\2\0\1\24\41\0\1\234\37\0"+
+    "\1\24\6\0\4\24\1\235\22\24\2\0\1\24\20\0"+
+    "\1\24\6\0\1\24\1\236\10\24\1\237\3\24\1\240"+
+    "\10\24\2\0\1\24\20\0\1\24\6\0\10\24\1\241"+
+    "\16\24\2\0\1\24\1\242\17\0\1\24\6\0\6\24"+
+    "\1\243\20\24\2\0\1\24\35\0\1\244\43\0\1\24"+
+    "\6\0\14\24\1\245\12\24\2\0\1\24\43\0\1\246"+
+    "\35\0\1\24\6\0\1\247\26\24\2\0\1\24\27\0"+
+    "\1\250\51\0\1\24\6\0\1\251\26\24\2\0\1\24"+
+    "\20\0\1\24\6\0\15\24\1\252\11\24\2\0\1\24"+
+    "\44\0\1\253\34\0\1\24\6\0\20\24\1\254\6\24"+
+    "\2\0\1\24\1\0\1\255\16\0\1\24\6\0\14\24"+
+    "\1\256\12\24\2\0\1\24\43\0\1\257\35\0\1\24"+
+    "\6\0\4\24\1\260\22\24\2\0\1\24\33\0\1\261"+
+    "\45\0\1\24\6\0\1\262\26\24\2\0\1\24\20\0"+
+    "\1\24\6\0\10\24\1\263\16\24\2\0\1\24\1\264"+
+    "\17\0\1\24\6\0\10\24\1\265\16\24\2\0\1\24"+
+    "\1\266\17\0\1\24\6\0\4\24\1\267\22\24\2\0"+
+    "\1\24\33\0\1\270\45\0\1\24\6\0\17\24\1\271"+
+    "\7\24\2\0\1\24\46\0\1\272\32\0\1\24\6\0"+
+    "\1\273\26\24\2\0\1\24\27\0\1\274\51\0\1\24"+
+    "\6\0\17\24\1\275\7\24\2\0\1\24\46\0\1\276"+
+    "\32\0\1\24\6\0\13\24\1\277\13\24\2\0\1\24"+
+    "\20\0\1\24\6\0\24\24\1\300\1\301\1\24\2\0"+
+    "\1\24\53\0\1\302\1\303\24\0\1\24\6\0\26\24"+
+    "\1\304\2\0\1\24\55\0\1\305\23\0\1\24\6\0"+
+    "\17\24\1\306\7\24\2\0\1\24\20\0\1\24\6\0"+
+    "\14\24\1\307\12\24\2\0\1\24\43\0\1\310\35\0"+
+    "\1\24\6\0\4\24\1\311\22\24\2\0\1\24\33\0"+
+    "\1\312\45\0\1\24\6\0\1\313\26\24\2\0\1\24"+
+    "\27\0\1\314\51\0\1\24\6\0\1\315\26\24\2\0"+
+    "\1\24\27\0\1\316\51\0\1\24\6\0\4\24\1\317"+
+    "\22\24\2\0\1\24\33\0\1\320\45\0\1\24\6\0"+
+    "\13\24\1\321\13\24\2\0\1\24\42\0\1\322\21\0";
 
   private static int [] zzUnpacktrans() {
-    int [] result = new int[7399];
+    int [] result = new int[7056];
     int offset = 0;
     offset = zzUnpacktrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -398,17 +391,17 @@ public class Lexer implements java_cup.runtime.Scanner {
     "\1\1\1\11\2\1\1\0\1\1\1\11\2\1\1\0"+
     "\2\1\1\11\2\0\1\11\3\1\1\0\6\1\1\0"+
     "\2\1\1\0\2\1\1\0\2\1\1\0\1\1\1\0"+
-    "\2\1\2\0\3\1\1\0\6\1\1\0\4\1\1\0"+
+    "\2\1\2\0\3\1\1\0\4\1\1\0\4\1\1\0"+
     "\2\1\1\11\1\1\1\0\2\1\1\0\2\1\1\0"+
-    "\6\1\1\0\1\1\1\0\1\1\1\0\1\1\1\0"+
-    "\1\1\1\0\4\1\1\11\1\1\1\0\1\1\1\11"+
-    "\3\1\1\0\1\1\1\0\1\1\1\0\1\1\1\11"+
-    "\1\1\1\0\1\1\1\11\1\1\1\11\3\1\2\11"+
-    "\1\1\1\0\2\1\1\0\1\1\1\11\1\1\1\11"+
-    "\1\1\1\0\1\1\1\11\1\1\1\11\1\1\1\11";
+    "\5\1\1\0\1\1\1\0\1\1\1\0\1\1\1\0"+
+    "\4\1\1\11\1\1\1\0\1\1\1\11\2\1\1\0"+
+    "\1\1\1\0\1\1\1\11\1\1\1\0\1\1\1\11"+
+    "\1\1\1\11\3\1\2\11\1\1\1\0\2\1\1\0"+
+    "\1\1\1\11\1\1\1\0\1\1\1\11\1\1\1\11"+
+    "\1\1\1\11";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[220];
+    int [] result = new int[210];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -916,287 +909,277 @@ public class Lexer implements java_cup.runtime.Scanner {
                  System.out.println("Error Lexico: " + yytext() + " | Fila:" + yyline + " | Columna: " + yycolumn);
             }
           // fall through
-          case 58: break;
+          case 56: break;
           case 2:
             { /* Espacios en blanco se ignoran */
             }
           // fall through
-          case 59: break;
+          case 57: break;
           case 3:
             { 
             }
           // fall through
-          case 60: break;
+          case 58: break;
           case 4:
             { funciones.reportes.TablaTokensDF(yytext(), "PARENTESIS_A", yyline, yycolumn); return new Symbol(sym.PARENTESIS_A, yycolumn, yyline, yytext());
             }
           // fall through
-          case 61: break;
+          case 59: break;
           case 5:
             { funciones.reportes.TablaTokensDF(yytext(), "PARENTESIS_C", yyline, yycolumn); return new Symbol(sym.PARENTESIS_C, yycolumn, yyline, yytext());
             }
           // fall through
-          case 62: break;
+          case 60: break;
           case 6:
             { funciones.reportes.TablaTokensDF(yytext(), "POR", yyline, yycolumn); return new Symbol(sym.POR, yycolumn, yyline, yytext());
             }
           // fall through
-          case 63: break;
+          case 61: break;
           case 7:
             { funciones.reportes.TablaTokensDF(yytext(), "MAS", yyline, yycolumn); return new Symbol(sym.MAS, yycolumn, yyline, yytext());
             }
           // fall through
-          case 64: break;
+          case 62: break;
           case 8:
             { funciones.reportes.TablaTokensDF(yytext(), "COMA", yyline, yycolumn); return new Symbol(sym.COMA, yycolumn, yyline, yytext());
             }
           // fall through
-          case 65: break;
+          case 63: break;
           case 9:
             { funciones.reportes.TablaTokensDF(yytext(), "GUION", yyline, yycolumn); return new Symbol(sym.GUION, yycolumn, yyline, yytext());
             }
           // fall through
-          case 66: break;
+          case 64: break;
           case 10:
             { funciones.reportes.TablaTokensDF(yytext(), "ENTERO", yyline, yycolumn); return new Symbol(sym.ENTERO, yycolumn, yyline, yytext());
             }
           // fall through
-          case 67: break;
+          case 65: break;
           case 11:
             { funciones.reportes.TablaTokensDF(yytext(), "DOSPUNTOS", yyline, yycolumn); return new Symbol(sym.DOSPUNTOS, yycolumn, yyline, yytext());
             }
           // fall through
-          case 68: break;
+          case 66: break;
           case 12:
             { funciones.reportes.TablaTokensDF(yytext(), "PUNTOYCOMA", yyline, yycolumn); return new Symbol(sym.PUNTOYCOMA, yycolumn, yyline, yytext());
             }
           // fall through
-          case 69: break;
+          case 67: break;
           case 13:
             { funciones.reportes.TablaTokensDF(yytext(), "MENORQUE", yyline, yycolumn); return new Symbol(sym.MENORQUE, yycolumn, yyline, yytext());
             }
           // fall through
-          case 70: break;
+          case 68: break;
           case 14:
             { funciones.reportes.TablaTokensDF(yytext(), "IGUAL", yyline, yycolumn); return new Symbol(sym.IGUAL, yycolumn, yyline, yytext());
             }
           // fall through
-          case 71: break;
+          case 69: break;
           case 15:
             { funciones.reportes.TablaTokensDF(yytext(), "MAYORQUE", yyline, yycolumn); return new Symbol(sym.MAYORQUE, yycolumn, yyline, yytext());
             }
           // fall through
-          case 72: break;
+          case 70: break;
           case 16:
             { funciones.reportes.TablaTokensDF(yytext(), "ARROBA", yyline, yycolumn);  return new Symbol(sym.ARROBA, yycolumn, yyline, yytext());
             }
           // fall through
-          case 73: break;
+          case 71: break;
           case 17:
             { funciones.reportes.TablaTokensDF(yytext(), "IDENTIFICADOR", yyline, yycolumn); return new Symbol(sym.IDENTIFICADOR, yycolumn, yyline, yytext());
             }
           // fall through
-          case 74: break;
+          case 72: break;
           case 18:
             { funciones.reportes.TablaTokensDF(yytext(), "CORCHETE_ABRE", yyline, yycolumn); return new Symbol(sym.CORCHETE_ABRE, yycolumn, yyline, yytext());
             }
           // fall through
-          case 75: break;
+          case 73: break;
           case 19:
             { funciones.reportes.TablaTokensDF(yytext(), "CORCHETE_CIERRA", yyline, yycolumn); return new Symbol(sym.CORCHETE_CIERRA, yycolumn, yyline, yytext());
             }
           // fall through
-          case 76: break;
+          case 74: break;
           case 20:
             { funciones.reportes.TablaTokensDF(yytext(), "CADENA", yyline, yycolumn); return new Symbol(sym.CADENA, yycolumn, yyline, yytext());
             }
           // fall through
-          case 77: break;
+          case 75: break;
           case 21:
             { funciones.reportes.TablaTokensDF(yytext(), "DECIMAL", yyline, yycolumn); return new Symbol(sym.DECIMAL, yycolumn, yyline, yytext());
             }
           // fall through
-          case 78: break;
+          case 76: break;
           case 22:
             { funciones.reportes.TablaTokensDF(yytext(), "ARR", yyline, yycolumn); return new Symbol(sym.ARR, yycolumn, yyline, yytext());
             }
           // fall through
-          case 79: break;
+          case 77: break;
           case 23:
             { funciones.reportes.TablaTokensDF(yytext(), "DIV", yyline, yycolumn); return new Symbol(sym.DIV, yycolumn, yyline, yytext());
             }
           // fall through
-          case 80: break;
+          case 78: break;
           case 24:
             { funciones.reportes.TablaTokensDF(yytext(), "END", yyline, yycolumn); return new Symbol(sym.END, yycolumn, yyline, yytext());
             }
           // fall through
-          case 81: break;
+          case 79: break;
           case 25:
             { funciones.reportes.TablaTokensDF(yytext(), "MAX", yyline, yycolumn); return new Symbol(sym.MAX, yycolumn, yyline, yytext());
             }
           // fall through
-          case 82: break;
+          case 80: break;
           case 26:
             { funciones.reportes.TablaTokensDF(yytext(), "MIN", yyline, yycolumn);  return new Symbol(sym.MIN, yycolumn, yyline, yytext());
             }
           // fall through
-          case 83: break;
+          case 81: break;
           case 27:
             { funciones.reportes.TablaTokensDF(yytext(), "MOD", yyline, yycolumn); return new Symbol(sym.MOD, yycolumn, yyline, yytext());
             }
           // fall through
-          case 84: break;
+          case 82: break;
           case 28:
             { funciones.reportes.TablaTokensDF(yytext(), "MUL", yyline, yycolumn); return new Symbol(sym.MUL, yycolumn, yyline, yytext());
             }
           // fall through
-          case 85: break;
+          case 83: break;
           case 29:
             { funciones.reportes.TablaTokensDF(yytext(), "RES", yyline, yycolumn); return new Symbol(sym.RES, yycolumn, yyline, yytext());
             }
           // fall through
-          case 86: break;
+          case 84: break;
           case 30:
             { funciones.reportes.TablaTokensDF(yytext(), "SUM", yyline, yycolumn); return new Symbol(sym.SUM, yycolumn, yyline, yytext());
             }
           // fall through
-          case 87: break;
+          case 85: break;
           case 31:
             { funciones.reportes.TablaTokensDF(yytext(), "VAR", yyline, yycolumn); return new Symbol(sym.VAR, yycolumn, yyline, yytext());
             }
           // fall through
-          case 88: break;
+          case 86: break;
           case 32:
             { funciones.reportes.TablaTokensDF(yytext(), "R_CHAR", yyline, yycolumn); return new Symbol(sym.R_CHAR, yycolumn, yyline, yytext());
             }
           // fall through
-          case 89: break;
+          case 87: break;
           case 33:
             { funciones.reportes.TablaTokensDF(yytext(), "EJEX", yyline, yycolumn); return new Symbol(sym.EJEX, yycolumn, yyline, yytext());
             }
           // fall through
-          case 90: break;
+          case 88: break;
           case 34:
             { funciones.reportes.TablaTokensDF(yytext(), "EJEY", yyline, yycolumn); return new Symbol(sym.EJEY, yycolumn, yyline, yytext());
             }
           // fall through
-          case 91: break;
+          case 89: break;
           case 35:
             { funciones.reportes.TablaTokensDF(yytext(), "EXEC", yyline, yycolumn); return new Symbol(sym.EXEC, yycolumn, yyline, yytext());
             }
           // fall through
-          case 92: break;
+          case 90: break;
           case 36:
             { funciones.reportes.TablaTokensDF(yytext(), "MODA", yyline, yycolumn); return new Symbol(sym.MODA, yycolumn, yyline, yytext());
             }
           // fall through
-          case 93: break;
+          case 91: break;
           case 37:
             { funciones.reportes.TablaTokensDF(yytext(), "LABEL", yyline, yycolumn); return new Symbol(sym.LABEL, yycolumn, yyline, yytext());
             }
           // fall through
-          case 94: break;
+          case 92: break;
           case 38:
             { funciones.reportes.TablaTokensDF(yytext(), "MEDIA", yyline, yycolumn); return new Symbol(sym.MEDIA, yycolumn, yyline, yytext());
             }
           // fall through
-          case 95: break;
+          case 93: break;
           case 39:
             { funciones.reportes.TablaTokensDF(yytext(), "PRINT", yyline, yycolumn); return new Symbol(sym.PRINT, yycolumn, yyline, yytext());
             }
           // fall through
-          case 96: break;
+          case 94: break;
           case 40:
             { funciones.reportes.TablaTokensDF(yytext(), "COLUMN", yyline, yycolumn); return new Symbol(sym.COLUMN, yycolumn, yyline, yytext());
             }
           // fall through
-          case 97: break;
+          case 95: break;
           case 41:
             { funciones.reportes.TablaTokensDF(yytext(), "R_DOUBLE", yyline, yycolumn); return new Symbol(sym.R_DOUBLE, yycolumn, yyline, yytext());
             }
           // fall through
-          case 98: break;
+          case 96: break;
           case 42:
             { funciones.reportes.TablaTokensDF(yytext(), "TITULO", yyline, yycolumn); return new Symbol(sym.TITULO, yycolumn, yyline, yytext());
             }
           // fall through
-          case 99: break;
+          case 97: break;
           case 43:
             { funciones.reportes.TablaTokensDF(yytext(), "VALUES", yyline, yycolumn); return new Symbol(sym.VALUES, yycolumn, yyline, yytext());
             }
           // fall through
-          case 100: break;
+          case 98: break;
           case 44:
             { funciones.reportes.TablaTokensDF(yytext(), "CONSOLE", yyline, yycolumn); return new Symbol(sym.CONSOLE, yycolumn, yyline, yytext());
             }
           // fall through
-          case 101: break;
+          case 99: break;
           case 45:
-            { funciones.reportes.TablaTokensDF(yytext(), "GRAPBAR", yyline, yycolumn); return new Symbol(sym.GRAPBAR, yycolumn, yyline, yytext());
-            }
-          // fall through
-          case 102: break;
-          case 46:
             { funciones.reportes.TablaTokensDF(yytext(), "GRAPPIE", yyline, yycolumn); return new Symbol(sym.GRAPPIE, yycolumn, yyline, yytext());
             }
           // fall through
-          case 103: break;
-          case 47:
+          case 100: break;
+          case 46:
             { funciones.reportes.TablaTokensDF(yytext(), "MEDIANA", yyline, yycolumn); return new Symbol(sym.MEDIANA, yycolumn, yyline, yytext());
             }
           // fall through
-          case 104: break;
-          case 48:
+          case 101: break;
+          case 47:
             { funciones.reportes.TablaTokensDF(yytext(), "R_MOSTRAR", yyline, yycolumn); return new Symbol(sym.R_MOSTRAR, yycolumn, yyline, yytext());
             }
           // fall through
-          case 105: break;
-          case 49:
+          case 102: break;
+          case 48:
             { funciones.reportes.TablaTokensDF(yytext(), "PROGRAM", yyline, yycolumn); return new Symbol(sym.PROGRAM, yycolumn, yyline, yytext());
             }
           // fall through
-          case 106: break;
-          case 50:
+          case 103: break;
+          case 49:
             { funciones.reportes.TablaTokensDF(yytext(), "TITULOX", yyline, yycolumn); return new Symbol(sym.TITULOX, yycolumn, yyline, yytext());
             }
           // fall through
-          case 107: break;
-          case 51:
+          case 104: break;
+          case 50:
             { funciones.reportes.TablaTokensDF(yytext(), "TITULOY", yyline, yycolumn); return new Symbol(sym.TITULOY, yycolumn, yyline, yytext());
             }
           // fall through
-          case 108: break;
-          case 52:
+          case 105: break;
+          case 51:
             { funciones.reportes.TablaTokensDF(yytext(), "GRAPHBAR", yyline, yycolumn); return new Symbol(sym.GRAPHBAR, yycolumn, yyline, yytext());
             }
           // fall through
-          case 109: break;
-          case 53:
+          case 106: break;
+          case 52:
             { funciones.reportes.TablaTokensDF(yytext(), "GRAPHPIE", yyline, yycolumn); return new Symbol(sym.GRAPHPIE, yycolumn, yyline, yytext());
             }
           // fall through
-          case 110: break;
-          case 54:
-            { funciones.reportes.TablaTokensDF(yytext(), "GRAPLINE", yyline, yycolumn); return new Symbol(sym.GRAPLINE, yycolumn, yyline, yytext());
-            }
-          // fall through
-          case 111: break;
-          case 55:
+          case 107: break;
+          case 53:
             { funciones.reportes.TablaTokensDF(yytext(), "VARIANZA", yyline, yycolumn); return new Symbol(sym.VARIANZA, yycolumn, yyline, yytext());
             }
           // fall through
-          case 112: break;
-          case 56:
+          case 108: break;
+          case 54:
             { funciones.reportes.TablaTokensDF(yytext(), "GRAPHLINE", yyline, yycolumn); return new Symbol(sym.GRAPHLINE, yycolumn, yyline, yytext());
             }
           // fall through
-          case 113: break;
-          case 57:
+          case 109: break;
+          case 55:
             { funciones.reportes.TablaTokensDF(yytext(), "HISTOGRAM", yyline, yycolumn); return new Symbol(sym.HISTOGRAM, yycolumn, yyline, yytext());
             }
           // fall through
-          case 114: break;
+          case 110: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

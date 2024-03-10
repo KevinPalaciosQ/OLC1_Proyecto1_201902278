@@ -74,8 +74,6 @@ terminal String TITULOX,TITULOY;
 terminal String IDENTIFICADOR;
 terminal String GUION;
 terminal String IGUAL;
-terminal String GRAPBAR;
-terminal String GRAPLINE;
 //------> Declaración de no terminales
 non terminal inicio;
 non terminal expresion;
@@ -94,30 +92,17 @@ non terminal arreglos;
 non terminal operaciones;
 non terminal operacion;
 non terminal elementos;
-non terminal elementospie;
-non terminal valor;
 non terminal valorpie;
 non terminal datoslabel;
-non terminal elementoslabel;
 non terminal instrucciongrafica;
 non terminal buclegrafica;
 non terminal funcionesgrafica;
 non terminal instruccionhistograma;
 non terminal contenidohistograma;
-non terminal elementoshistograma;
-non terminal valorhistograma;
 non terminal instruccionbarras; 
 non terminal contenidobarras;
-non terminal elementosejey;
-non terminal valory;
-non terminal elementosejex;
-non terminal datox;
 non terminal instruccionlinea;
 non terminal contenidolinea;
-non terminal elementoslinea;
-non terminal valorlinea;
-non terminal elementoslineac;
-non terminal datoslineac;
 non terminal valorexpresion;
 non terminal operacionesnest;
 non terminal arregloexpresiones;
@@ -127,6 +112,7 @@ non terminal nt;
 non terminal ntexp;
 non terminal ciclo;
 non terminal datosgraficas;
+non terminal datosgraficas1;
 //------> PRECEDENCIA
 precedence left MAS;
 precedence left POR;
@@ -134,7 +120,6 @@ precedence left POR;
 
 //------> Definir Simbolo Inicial
 start with inicio; 
-
 
 // ------------>  Producciones  <------------
 
@@ -151,7 +136,6 @@ instrucciones ::= declaracion:dec  {:RESULT=dec;:}
     | printarreglos:pa             {:RESULT=pa;:}
     | printexpresiones:pe          {:RESULT=pe;:}
     | error PUNTOYCOMA             
-
 ;
 
 funcionesgrafica ::= declaracionhistograma  {::}
@@ -162,7 +146,6 @@ funcionesgrafica ::= declaracionhistograma  {::}
 
 declaracion ::= VAR:var DOSPUNTOS tipodedato:td DOSPUNTOS DOSPUNTOS IDENTIFICADOR:id MENORQUE GUION  tipodato:tdd END PUNTOYCOMA {:funciones.reportes.TablaDatos(td.toString(),id.toString(),tdd,varright,varleft);:}
             |VAR:var DOSPUNTOS tipodedato:tp DOSPUNTOS DOSPUNTOS IDENTIFICADOR:id MENORQUE GUION  expresion:ex END PUNTOYCOMA    {:funciones.reportes.TablaDatos(tp.toString(),id.toString(),ex,varright,varleft);:}
- //           |VAR:var DOSPUNTOS tipodedato:tp DOSPUNTOS DOSPUNTOS IDENTIFICADOR:identificador MENORQUE GUION  IDENTIFICADOR:id END PUNTOYCOMA   {:Object variable=funciones.reportes.busqueda(arroba.toString()+id.toString());funciones.reportes.TablaDatos(td.toString(),identificador.toString(),variable,varright,varleft);:}
 ;
 tipodedato ::= R_DOUBLE:d {:RESULT=d;:}
         |R_CHAR:c CORCHETE_ABRE CORCHETE_CIERRA {:RESULT=c;:}
@@ -180,7 +163,7 @@ printarreglos ::= CONSOLE DOSPUNTOS DOSPUNTOS COLUMN IGUAL IDENTIFICADOR:identi 
         |CONSOLE DOSPUNTOS DOSPUNTOS COLUMN IGUAL CADENA:cad GUION MAYORQUE nt:noterminallistas END PUNTOYCOMA        {:String impresiones = cad.toString();funciones.saltos.lista_general.add(funciones.saltos.lista_salto_de_linea((Object[])noterminallistas,impresiones)); :}
          
 ;
-nt ::= ARROBA:arroba IDENTIFICADOR:id               {:RESULT=funciones.reportes.busquedaValor(arroba.toString()+id.toString());:} 
+nt ::= ARROBA:arroba IDENTIFICADOR:id               {:RESULT=funciones.reportes.busquedaValor(arroba.toString()+id.toString());System.out.println("impresion arreglos: "+arroba+id);:} 
         |CORCHETE_ABRE elementos:el CORCHETE_CIERRA {:RESULT=funciones.reportes.arreglos((LinkedList)el);:}
 ;
 printexpresiones ::= CONSOLE DOSPUNTOS DOSPUNTOS PRINT IGUAL ciclo:cc END PUNTOYCOMA {:String dec=funciones.saltos.recepcion((LinkedList<Object>)cc);funciones.saltos.lista_general.add(dec);:} 
@@ -230,23 +213,6 @@ double[] doubles = Arrays.stream(gl)
         |EXEC GRAPHBAR END PUNTOYCOMA  {:funciones.graficas.barras();funciones.graficas.imageFiles.add(funciones.graficas.barras());funciones.graficas.limpiarParametros();:}
 ;
 
-elementosejey::= valory {::}
-        |elementosejey COMA valory {::}
-;
-
-valory ::= ENTERO            {::}
-        |DECIMAL             {::}
-        |IDENTIFICADOR       {::}
-;
-elementosejex::= datox              {::}
-        |elementosejex COMA datox   {::}
-;
-
-datox ::= CADENA {::}
-        
-;
-
-
 declaracionhistograma ::= HISTOGRAM PARENTESIS_A  instruccionhistograma PARENTESIS_C END PUNTOYCOMA {::}       
 ;
 
@@ -263,17 +229,6 @@ funciones.estadisticas.calcularFrecuenciass((double[])doubles); funciones.grafic
         |EXEC HISTOGRAM END PUNTOYCOMA {:funciones.graficas.histograma();funciones.graficas.imageFiles.add(funciones.graficas.histograma());funciones.graficas.limpiarParametros();:}
 ;
 
-elementoshistograma::= valorhistograma {::}
-        |elementoshistograma COMA valorhistograma {::}
-;
-
-valorhistograma ::= ENTERO {::}
-        |DECIMAL           {::}
-;
-
-
-
-
 declaracionlinea ::= GRAPHLINE PARENTESIS_A PARENTESIS_C END PUNTOYCOMA   {::}
 ;
 
@@ -281,34 +236,18 @@ instruccionlinea ::= instruccionlinea contenidolinea {::}
         |contenidolinea {::}
 ;
 contenidolinea ::= TITULO DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas:t  END PUNTOYCOMA {:funciones.graficas.titulo=t.toString();:}
-        |EJEX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL   datosgraficas:dxx END PUNTOYCOMA {:Object[] gll = funciones.reportes.arreglos((LinkedList)dxx);String[] strings = Arrays.stream(gll)
+        |EJEX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL   datosgraficas1:dxx END PUNTOYCOMA {:String[] strings = Arrays.stream((Object[])dxx)
                                  .map(Object::toString)
-                                 .toArray(String[]::new);funciones.graficas.ejex=strings ;:}
+                                 .toArray(String[]::new);funciones.graficas.ejex=strings ;System.out.println("Ejex :"+dxx);:}
 
-        |EJEY DOSPUNTOS DOSPUNTOS  R_DOUBLE IGUAL   datosgraficas:dyy  END PUNTOYCOMA {:Object[] gll = funciones.reportes.arreglos((LinkedList)dyy);
-double[] doubles = Arrays.stream(gll)
+        |EJEY DOSPUNTOS DOSPUNTOS  R_DOUBLE IGUAL   datosgraficas1:dyy  END PUNTOYCOMA {:
+                                 double[] doubles = Arrays.stream((Object[])dyy)
                                  .mapToDouble(obj -> Double.parseDouble(obj.toString()))
-                                 .toArray(); funciones.graficas.ejey=(double[])doubles;:} 
+                                 .toArray(); funciones.graficas.ejey=(double[])doubles;System.out.println("Ejey: "+dyy);:} 
 
         |TITULOX DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE CORCHETE_CIERRA IGUAL datosgraficas:tx END PUNTOYCOMA     {:funciones.graficas.titulox=tx.toString();:}
         |TITULOY DOSPUNTOS DOSPUNTOS R_CHAR CORCHETE_ABRE  CORCHETE_CIERRA IGUAL datosgraficas:ty END PUNTOYCOMA    {:funciones.graficas.tituloy=ty.toString();:}
         |EXEC GRAPHLINE END PUNTOYCOMA                                                                              {:funciones.graficas.linea();funciones.graficas.imageFiles.add(funciones.graficas.linea());funciones.graficas.limpiarParametros();:}
-;
-elementoslinea::= valorlinea {::}
-        |elementoslinea COMA valorlinea {::}
-;
-
-valorlinea ::= ENTERO {::}
-        |DECIMAL      {::}
-;
-
-elementoslineac::= datoslineac {::}
-        |elementoslineac COMA datoslineac {::}
-        |datosgraficas      {::}
-;
-
-datoslineac ::= CADENA   {::}
-        
 ;
 
 declaracionpie::= GRAPHPIE PARENTESIS_A instrucciongrafica PARENTESIS_C END PUNTOYCOMA   {::}
@@ -329,26 +268,13 @@ double[] doubles = Arrays.stream(gp)
                                  .toArray(String[]::new);funciones.graficas.label=strings ;:}
         |EXEC GRAPHPIE END PUNTOYCOMA{:funciones.graficas.pie();funciones.graficas.imageFiles.add(funciones.graficas.pie());funciones.graficas.limpiarParametros();:}
 ;
-elementospie::= valorpie {::}
-        |elementospie COMA valorpie {::}
-;
 
-valorpie ::= ENTERO {::}
-        |DECIMAL    {::}
-;
-
-elementoslabel::= datoslabel{::}
-        |elementoslabel COMA datoslabel {::}
-;
-datoslabel ::= CADENA {::}
-;
 
 //-------------------------------------ARREGLOS----------------------------------------------------------------
 
-arreglos ::= ARR:arr DOSPUNTOS tipodedato:td DOSPUNTOS DOSPUNTOS ARROBA IDENTIFICADOR:identi MENORQUE GUION CORCHETE_ABRE elementos:tdd CORCHETE_CIERRA END PUNTOYCOMA{:Object[] variableo=funciones.reportes.arreglos((LinkedList<Object>)tdd);funciones.reportes.TablaDatosObject(td.toString(),"@"+identi.toString(),(Object[])  variableo,arrright,arrleft);:}
-        |ARR:arr DOSPUNTOS tipodedato:td DOSPUNTOS DOSPUNTOS ARROBA IDENTIFICADOR:ident MENORQUE GUION ARROBA:arroba IDENTIFICADOR:identificador END PUNTOYCOMA{:Object[] variable=funciones.reportes.busquedaValor(arroba.toString()+identificador.toString());funciones.reportes.TablaDatosObject(td.toString(),ident.toString(),variable,arrright,arrleft);:}
+arreglos ::= ARR:arr DOSPUNTOS tipodedato:td DOSPUNTOS DOSPUNTOS ARROBA:arroba IDENTIFICADOR:identi MENORQUE GUION CORCHETE_ABRE elementos:tdd CORCHETE_CIERRA END PUNTOYCOMA{:Object[] variableo=funciones.reportes.arreglos((LinkedList<Object>)tdd);funciones.reportes.TablaDatosObject(td.toString(),"@"+identi.toString(),(Object[])  variableo,arrright,arrleft);System.out.println("declaracion arreglo: "+identi);:}
+        |ARR:arr DOSPUNTOS tipodedato:td DOSPUNTOS DOSPUNTOS ARROBA IDENTIFICADOR:ident MENORQUE GUION ARROBA:arroba IDENTIFICADOR:identificador END PUNTOYCOMA{:Object[] variable=funciones.reportes.busquedaValor(arroba.toString()+identificador.toString());funciones.reportes.TablaDatosObject(td.toString(),"@"+ident.toString(),variable,arrright,arrleft);:}
 ;
-
 elementos ::= valorexpresion:vexp1 {:LinkedList<Object> le = new LinkedList<Object>();
         le.add(vexp1); RESULT = (LinkedList<Object>)le;:}
         |valorexpresion:ve COMA elementos:e {:LinkedList<Object> listaexpresiones = new LinkedList<Object>();
@@ -356,15 +282,7 @@ elementos ::= valorexpresion:vexp1 {:LinkedList<Object> le = new LinkedList<Obje
         RESULT = (LinkedList<Object>)listaexpresiones;:}
 ;
 
-
-valor ::= DECIMAL           {::}
-        |CADENA             {::}
-        |IDENTIFICADOR      {::}
-        |ENTERO             {::}
-;
-
 //--------------------------OPERACIONES--------------------------------------
-
 
 expresion ::= SUM PARENTESIS_A valorexpresion:a COMA valorexpresion:b PARENTESIS_C {:RESULT=Double.parseDouble(a.toString())+Double.parseDouble(b.toString());:}
             | RES PARENTESIS_A valorexpresion:a COMA valorexpresion:b PARENTESIS_C {:RESULT=Double.parseDouble(a.toString())-Double.parseDouble(b.toString());:}
@@ -378,9 +296,7 @@ valorexpresion ::=  expresion:e     {:RESULT=e;:}
         | DECIMAL:d                 {:RESULT=d;:}
         | IDENTIFICADOR:id          {:RESULT=funciones.reportes.busqueda(id.toString());:}
         | ENTERO:entero             {:RESULT=entero;:}
-        | CADENA:charm              {:RESULT=charm;:}
-        
-        
+        | CADENA:charm              {:RESULT=charm;:}    
 ;
 
 operacionesnest ::= MEDIA PARENTESIS_A arregloexpresiones:arregloexp PARENTESIS_C            {:RESULT=funciones.estadisticas.media((double[]) arregloexp);:}
@@ -401,7 +317,10 @@ arregloexpresiones ::= ARROBA:arroba IDENTIFICADOR:id {:double[] doubles = Array
 datosgraficas ::= ENTERO:ent            {:RESULT=ent;:}
         |DECIMAL:dec                    {:RESULT=dec;:}
         |CADENA:cad                     {:RESULT=cad;:}
-        |ARROBA:arr IDENTIFICADOR:id    {:RESULT=funciones.reportes.busquedaValor(arr.toString()+id.toString());:}
+        |ARROBA:arr IDENTIFICADOR:id    {:RESULT=funciones.reportes.busquedaValor(arr.toString()+id.toString());System.out.println("Datosgrafica:"+arr+id);:}
         |IDENTIFICADOR:id               {:RESULT=funciones.reportes.busqueda(id.toString());:}
         | CORCHETE_ABRE elementos:el CORCHETE_CIERRA {:RESULT=el;:}
+;
+datosgraficas1 ::= ARROBA:arr IDENTIFICADOR:id    {:RESULT=funciones.reportes.busquedaValor(arr.toString()+id.toString());System.out.println("Datosgrafica:"+arr+id);:}
+        | CORCHETE_ABRE elementos:el CORCHETE_CIERRA {:Object[] variable=funciones.reportes.arreglos((LinkedList)el);RESULT=variable;:}
 ;

@@ -48,7 +48,6 @@ public class sym {
   public static final int PARENTESIS_C = 3;
   public static final int PARENTESIS_A = 2;
   public static final int VARIANZA = 32;
-  public static final int GRAPBAR = 54;
   public static final int R_DOUBLE = 26;
   public static final int END = 18;
   public static final int SUM = 6;
@@ -60,7 +59,6 @@ public class sym {
   public static final int HISTOGRAM = 47;
   public static final int GRAPHLINE = 46;
   public static final int VAR = 20;
-  public static final int GRAPLINE = 55;
   public static final int CONSOLE = 48;
   public static final int PRINT = 35;
   public static final int MAS = 12;
@@ -118,9 +116,7 @@ public class sym {
   "TITULOY",
   "IDENTIFICADOR",
   "GUION",
-  "IGUAL",
-  "GRAPBAR",
-  "GRAPLINE"
+  "IGUAL"
   };
 }
 
