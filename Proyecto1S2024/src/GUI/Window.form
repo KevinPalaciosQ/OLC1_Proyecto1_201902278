@@ -133,6 +133,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Reporte"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenu3ActionPerformed"/>
+          </Events>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="ReportedeTokens">
               <Properties>
@@ -186,6 +189,20 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Limpiar Gr&#xe1;ficas"/>
               </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="LimpiarConsola">
+              <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+Alt+C"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Iconos/herramientas_limpieza.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Limpiar Consola"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="LimpiarConsolaActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

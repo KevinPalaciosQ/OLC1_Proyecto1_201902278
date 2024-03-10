@@ -85,6 +85,7 @@ public class Window extends javax.swing.JFrame {
         ReporteLexicos = new javax.swing.JMenuItem();
         ReporteSimbolos = new javax.swing.JMenuItem();
         Reportegraficas = new javax.swing.JMenuItem();
+        LimpiarConsola = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -229,6 +230,11 @@ public class Window extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Reporte");
+        jMenu3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu3ActionPerformed(evt);
+            }
+        });
 
         ReportedeTokens.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         ReportedeTokens.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/reporte.png"))); // NOI18N
@@ -264,6 +270,16 @@ public class Window extends javax.swing.JFrame {
         Reportegraficas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/limpiar.png"))); // NOI18N
         Reportegraficas.setText("Limpiar Gráficas");
         jMenu3.add(Reportegraficas);
+
+        LimpiarConsola.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        LimpiarConsola.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/herramientas_limpieza.png"))); // NOI18N
+        LimpiarConsola.setText("Limpiar Consola");
+        LimpiarConsola.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LimpiarConsolaActionPerformed(evt);
+            }
+        });
+        jMenu3.add(LimpiarConsola);
 
         jMenuBar1.add(jMenu3);
 
@@ -527,6 +543,15 @@ private String obtenerTextoPestanaSeleccionada() {
         System.out.println("Nuevo Archivo");
         
     }//GEN-LAST:event_NuevoArchivoActionPerformed
+
+    private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu3ActionPerformed
+
+    private void LimpiarConsolaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimpiarConsolaActionPerformed
+        Salida.setText("");
+
+    }//GEN-LAST:event_LimpiarConsolaActionPerformed
 public void mostrarSiguienteGrafica() {
 
 }
@@ -648,6 +673,7 @@ private void EliminarPestana() {
     private javax.swing.JMenu EliminarPestana;
     private javax.swing.JMenuItem Guardar;
     private javax.swing.JMenuItem GuardarComo;
+    private javax.swing.JMenuItem LimpiarConsola;
     private javax.swing.JMenuItem NuevaPestana;
     private javax.swing.JMenuItem NuevaPestanaa;
     private javax.swing.JMenuItem NuevoArchivo;
